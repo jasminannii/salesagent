@@ -1,6 +1,6 @@
-# brayyn – KI-Sales-Agent · Landingpage
+# Griaßdi – KI-Sales-Agent · Landingpage
 
-Interaktive Landingpage für den **brayyn Sales-Agent**: Anrufliste, Dialer, Lead-Recherche, Pitch und Live-Coaching in einem Agenten – gebaut für Vertriebsteams im DACH-Raum.
+Interaktive Landingpage für den **Griaßdi Sales-Agent**: Anrufliste, Dialer, Lead-Recherche, Pitch und Live-Coaching in einem Agenten – gebaut für Vertriebsteams im DACH-Raum.
 
 ## Inhalt
 
@@ -27,9 +27,9 @@ Im Repo unter **Settings → Pages** als Quelle den Branch `main` und den Ordner
 
 ## Was auf der Seite interaktiv ist
 
-- **Live-Demo im Hero:** Lead anklicken, grünen Knopf drücken – Live-Transkript, Coaching-Tipps von brayyn, Redeanteil, Pitch-Score und automatische Nachbereitung.
+- **Live-Demo im Hero:** Lead anklicken, grünen Knopf drücken – Live-Transkript, Coaching-Tipps von Griaßdi, Redeanteil, Pitch-Score und automatische Nachbereitung.
 - **Funktions-Tabs** mit sechs Produkt-Szenen und Pfeilen.
-- **Integrations-Kreis:** Tools anklicken und sehen, was brayyn damit macht.
+- **Integrations-Kreis:** Tools anklicken und sehen, was Griaßdi damit macht.
 - **Rollen-Tabs, Preis-Umschalter (monatlich/jährlich), FAQ.**
 - **Testversion-Formular** (E-Mail, Website, Zielgruppe) mit Prüfung der Eingaben.
 
