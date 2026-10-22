@@ -183,7 +183,9 @@
     comp.__schedule = function () {
       if (pending) return;
       pending = true;
-      (window.requestAnimationFrame || setTimeout)(render);
+      // A microtask batches several setState calls into one render and, unlike
+      // requestAnimationFrame, keeps working in background tabs.
+      Promise.resolve().then(render);
     };
 
     rootEl.addEventListener('click', function (e) {
