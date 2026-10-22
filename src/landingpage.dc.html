@@ -578,7 +578,7 @@ this.LEADS = [
 ];
 }
 componentDidMount() {
-this.timer = setInterval(() => { if (this.state.call === 'calling') this.setState({ t: this.state.t + 1 }); }, 100);
+this.timer = setInterval(() => { if (this.state.call === 'calling') this.setState({ t: Math.floor((Date.now() - this.callStart) / 100) }); }, 100);
 }
 componentWillUnmount() { clearInterval(this.timer); }
 renderVals() {
@@ -688,7 +688,7 @@ callTime: callTime,
 feed: feed,
 talkMe: talkMe, talkHint: talkMe > 65 ? 'Stell eine Frage!' : 'Gute Balance', talkColor: talkMe > 65 ? '#F5B73C' : '#12B26A',
 score: 8,
-startCall: () => this.setState({ call: 'calling', t: 0 }),
+startCall: () => { this.callStart = Date.now(); this.setState({ call: 'calling', t: 0 }); },
 endCall: () => { const d = st.done.slice(); if (d.indexOf(st.lead) < 0) d.push(st.lead); this.setState({ call: 'done', done: d }); },
 nextLead: () => { const k = (st.lead + 1) % this.LEADS.length; this.setState({ lead: k, call: st.done.indexOf(k) >= 0 ? 'done' : 'ready', t: 0 }); },
 features: features, feature: { text: featDefs[st.feature].text },
