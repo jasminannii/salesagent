@@ -364,6 +364,49 @@ blockquote{margin:0;padding:10px 12px;border-left:3px solid var(--line);backgrou
 .srcs{display:grid;gap:8px;margin-top:12px}
 @media (max-width:820px){ .sigs{grid-template-columns:minmax(0,1fr)} .alert{bottom:calc(92px + env(safe-area-inset-bottom,0px))} }
 
+/* Einfach-Modus */
+.aidot{width:10px;height:10px;border-radius:50%;background:var(--warn);display:inline-block}
+.aidot.on{background:var(--good)} .aidot.pending{background:var(--muted)}
+.qitem.done{opacity:.55}
+.qitem .trig{justify-self:end}
+.lead-h .toggle{align-self:center}
+.minibar{display:flex;gap:8px;flex-wrap:wrap}
+details.fold{border-top:1px solid var(--line);padding-top:4px}
+details.fold>summary{cursor:pointer;list-style:none;padding:10px 0;font-weight:700;display:flex;gap:8px;align-items:center}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"+";margin-left:auto;font-size:18px;color:var(--muted)}
+details.fold[open]>summary::after{content:"–"}
+.foldbody{display:flex;flex-direction:column;gap:12px;padding-bottom:12px}
+.d-big{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:28px 18px 18px}
+.d-big b{font-family:var(--f-display);font-size:22px}
+.d-big span{color:var(--dial-muted)}
+.d-live{display:flex;align-items:center;gap:12px;padding:18px}
+.d-live>div{flex:1;min-width:0}
+.d-live b{font-family:var(--f-display);font-size:18px}
+.d-live .timer{padding:0;font-size:30px}
+.callbtn.sm{margin:0;width:56px;height:56px;padding:0;border-radius:50%}
+.callbtn.sm svg{transform:rotate(135deg)}
+.dots4{display:flex;gap:6px;flex-wrap:wrap}
+.dots4 .ck{font-size:12px;border-radius:99px;padding:3px 9px;background:var(--dial-2);color:var(--dial-muted)}
+.dots4 .ck.ok{background:#1FA463;color:#fff}
+.coach.big p{font-size:16px;font-weight:600;line-height:1.35}
+details.dfold{padding:10px 18px 16px;border-top:1px solid var(--dial-line)}
+details.dfold>summary{cursor:pointer;color:var(--dial-muted);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+details.dfold .transcript{margin-top:10px}
+.sheet.small{width:min(520px,100%)}
+.outs.big .out{padding:12px 14px;font-size:14px}
+.oneline{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:11px 12px;width:100%}
+.btn.wide{justify-content:center;padding:13px;font-size:15px}
+.card.collap>h3{cursor:pointer;display:flex;align-items:center;gap:8px}
+.card.collap>h3::after{content:"–";margin-left:auto;color:var(--muted);font-size:20px;font-weight:600}
+.card.collap.closed{padding-block:14px}
+.card.collap.closed>h3{margin:0}
+.card.collap.closed>h3::after{content:"+"}
+.card.collap.closed>*:not(h3){display:none!important}
+#view-admin .card > p.note,#view-admin .page-h p,#view-admin .field > .note,#view-admin .rule small,#view-admin .callcard small,.page-h p{display:none}
+.kv.note{font-size:12.5px}
+.grid2{align-items:start}
+
 /* Modal + toast */
 .modal{position:fixed;inset:0;background:rgba(20,12,8,.45);display:grid;place-items:center;padding:16px;z-index:50}
 .sheet{background:var(--surface);border-radius:22px;width:min(720px,100%);max-height:calc(100% - 32px);overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
@@ -788,27 +831,22 @@ function renderNav(){
   const lim = callLimit();
   const pl = {test:'Testversion',pro:'Pro',premium:'Premium'}[S.plan];
   $('#planbox').innerHTML = !isLead()
-    ? `<span class="label">${pl}</span>${S.plan==='test'?`<div><b class="num">${Math.max(0,lim-S.callsUsed)} von 3</b> Anrufen übrig</div><div class="meter"><i style="width:${Math.min(100,S.callsUsed/3*100)}%"></i></div>`:''}<small>Plan und Abrechnung verwaltet deine Führungskraft.</small>`
+    ? `<span class="label">${pl}</span>${S.plan==='test'?`<div><b class="num">${Math.max(0,lim-S.callsUsed)} von 3</b> Anrufen übrig</div><div class="meter"><i style="width:${Math.min(100,S.callsUsed/3*100)}%"></i></div>`:''}`
     : S.plan==='test'
     ? `<span class="label">${pl}</span>
        <div><b class="num">${Math.max(0,lim-S.callsUsed)} von 3</b> Anrufen übrig</div>
        <div class="meter"><i style="width:${Math.min(100,S.callsUsed/3*100)}%"></i></div>
-       <small>30 recherchierte Leads · einmal pro Firma</small>
        <button class="btn" data-act="plans">Pro freischalten</button>`
-    : `<span class="label">Plan</span><div><b>${pl}</b></div><small>${S.plan==='premium'?'300 Kontakte pro Monat inklusive':'Eigene Datenquellen & CRM'}</small><button class="btn ghost" data-act="plans">Plan ansehen</button>`;
+    : `<span class="label">Plan</span><div><b>${pl}</b></div><button class="btn ghost" data-act="plans">Plan ansehen</button>`;
   VIEWS.forEach(([id])=>{ $('#view-'+id).classList.toggle('on', S.view===id); });
 }
 function renderTop(){
   const open = visibleLeads().filter(l=>l.status==='offen').length;
-  const titles = {heute:`Griaß di, ${esc(me().vorname)}!`, signale:'Live-Signale', leads:'Leads', tracking:'Tracking', admin:'Admin'};
-  const subs = {heute: open?`${open} Leads sind für heute recherchiert und bereit. Fang oben an – die besten zuerst.`:'Alle Leads für heute erledigt. Stark!',
-    signale:'Wenn deine Leads posten oder in den News sind, erfährst du es hier zuerst.',
-    leads:'Alle Kontakte aus Apollo, CRM und eigenen Listen.', tracking:'Was deine Anrufe bringen – heute und diese Woche.', admin: isLead()?'Lead-Zufuhr, Buyer Personas, Produkte, Pitching, Wissensbasis, Connectoren und Team.':'Dein Profil, deine Personas und dein Pitch-Stil.'};
-  const ai = aiState==='on' ? '<span class="chip ai"><span class="dot"></span>KI aktiv</span>'
-           : aiState==='pending' ? '<span class="chip"><span class="dot"></span>KI wird verbunden…</span>'
-           : '<span class="chip off" title="Diese Ansicht hat keinen Zugriff auf Claude. Pitch und Mail kommen aus Vorlagen."><span class="dot"></span>Vorlagen-Modus</span>';
-  $('#top').innerHTML = `<div class="hello">${S.view==='heute'?mascot(44):''}<div><h1>${titles[S.view]}</h1><p>${subs[S.view]}</p></div></div>
-    <div class="right">${ai}<span class="chip">Beispieldaten</span><select class="whosel" id="who" aria-label="Angemeldet als (Demo)">${S.team.filter(m=>m.status==='aktiv').map(m=>`<option value="${m.id}" ${m.id===S.me?'selected':''}>${esc(m.vorname)} · ${m.rolle==='lead'?'Führungskraft':'Mitarbeiter:in'}</option>`).join('')}</select></div>`;
+  const titles = {heute:`Griaß di, ${esc(me().vorname)}!`, signale:'Signale', leads:'Leads', tracking:'Tracking', admin:'Admin'};
+  const subs = {heute: open?`${open} Anrufe für heute`:'Alles erledigt. Stark!', signale:'', leads:'', tracking:'', admin:''};
+  const ai = `<span class="aidot ${aiState}" title="${aiState==='on'?'KI aktiv':aiState==='pending'?'KI wird verbunden…':'Vorlagen-Modus: Diese Ansicht hat keinen Zugriff auf die KI'}"></span>`;
+  $('#top').innerHTML = `<div class="hello">${S.view==='heute'?mascot(44):''}<div><h1>${titles[S.view]}</h1>${subs[S.view]?`<p>${subs[S.view]}</p>`:''}</div></div>
+    <div class="right">${ai}<select class="whosel" id="who" aria-label="Angemeldet als (Demo)">${S.team.filter(m=>m.status==='aktiv').map(m=>`<option value="${m.id}" ${m.id===S.me?'selected':''}>${esc(m.vorname)} · ${m.rolle==='lead'?'Führungskraft':'Team'}</option>`).join('')}</select></div>`;
 }
 function render(){ renderNav(); renderTop();
   if (S.view==='heute'){ renderQueue(); renderWork(); renderDialer(); }
@@ -823,113 +861,66 @@ function renderQueue(){
   const V = visibleLeads();
   const done = V.filter(l=>l.status!=='offen').length, all=V.length||1;
   const NS = new Set(visSignals().filter(x=>x.status==='neu').map(x=>x.leadId));
-  const list = V.filter(l=> (S.gfilter==='alle'||l.g===S.gfilter) && (S.filter==='alle' ? true : S.filter==='offen' ? l.status==='offen' : l.status!=='offen'));
-  $('#queue').innerHTML = `<div class="panel-h"><h2>Anrufliste</h2><span class="note" style="margin-left:auto">${new Date().toLocaleDateString('de-AT',{weekday:'long',day:'numeric',month:'long'})}</span></div>
-   <div class="prog"><div class="bar"><i style="width:${done/all*100}%"></i></div><span class="note num">${done} von ${all} erledigt</span></div>
-   <div class="filters">${[['alle','Alle'],['offen','Offen'],['erledigt','Erledigt']].map(([k,n])=>`<button class="seg" data-act="filter" data-v="${k}" aria-pressed="${S.filter===k}">${n}</button>`).join('')}
-     <select class="gsel" id="gfilter" aria-label="Zielgruppe filtern"><option value="alle">Alle Personas</option>${S.groups.filter(g=>isLead()||(me().personas||[]).includes(g.id)).map(g=>`<option value="${g.id}" ${S.gfilter===g.id?'selected':''}>${esc(g.name)}</option>`).join('')}</select></div>
-   <div class="scroll"><ul class="qlist">${list.slice().sort((a,b)=>(b.hot||0)-(a.hot||0)).map(l=>`<li><button class="qitem" data-act="sel" data-v="${l.id}" aria-current="${l.id===S.sel}">
+  const list = V.slice().sort((a,b)=> ((a.status!=='offen')-(b.status!=='offen')) || ((b.hot||0)-(a.hot||0)));
+  $('#queue').innerHTML = `<div class="panel-h"><h2>Anrufliste</h2><span class="note num" style="margin-left:auto">${done}/${V.length}</span></div>
+   <div class="prog"><div class="bar"><i style="width:${done/all*100}%"></i></div></div>
+   <div class="scroll"><ul class="qlist">${list.map(l=>`<li><button class="qitem ${l.status!=='offen'?'done':''}" data-act="sel" data-v="${l.id}" aria-current="${l.id===S.sel}">
      <span class="av">${esc(initials(l.person))}</span>
-     <span class="n">${esc(l.person)}${NS.has(l.id)?'<span class="hotdot" title="Neues Signal"></span>':''}</span>
-     ${l.status==='offen'?`<span class="score num ${l.score<80?'mid':''}">${l.score}</span>`:`<span class="pill st-${l.status}">${OUTLABEL[l.status]}</span>`}
-     <span class="c" style="grid-column:2/4">${esc(l.firma)} · ${esc(l.ort)}</span>
-     <span class="why"><span class="trig">${esc(l.trig)}</span><span>${esc(l.anlass)}</span></span>
-   </button></li>`).join('') || '<li class="note" style="padding:12px">Nichts in dieser Ansicht.</li>'}</ul></div>`;
+     <span class="n">${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}${NS.has(l.id)?'<span class="hotdot" title="Neues Signal"></span>':''}</span>
+     ${l.status==='offen'?`<span class="trig">${esc(l.trig)}</span>`:`<span class="pill st-${l.status}">${OUTLABEL[l.status]}</span>`}
+     <span class="c" style="grid-column:2/4">${esc(l.firma)}</span>
+   </button></li>`).join('') || '<li class="note" style="padding:12px">Keine Leads.</li>'}</ul></div>`;
 }
 function renderWork(){
-  const l = cur(); const p = pitchFor(l);
+  const l = cur(); const p = pitchFor(l); const pg = ctx(l).gruppe;
   const hist = S.log.filter(x=>x.leadId===l.id);
-  let body='';
-  if (S.tab==='recherche'){
-    const pg = ctx(l).gruppe;
-    body = `<div class="why-now"><span class="label">Warum heute anrufen</span><p>${esc(l.anlass)}.</p><small>${esc(l.quelle)} · ${esc(l.wann)}</small></div>
-      ${pg?`<div class="tipbox"><span class="label">Buyer Persona: ${esc(pg.name)}</span><div><b>So ansprechen:</b> ${esc(pg.ansprache)}</div><div class="note">Was nervt: ${esc(pg.pains)}</div></div>`:''}
-      <div class="facts">
-        <div class="fact"><span class="label">Branche</span><b>${esc(l.branche)}</b></div>
-        <div class="fact"><span class="label">Mitarbeiter</span><b class="num">${l.ma}</b></div>
-        <div class="fact"><span class="label">Standort</span><b>${esc(l.ort)}</b></div>
-        <div class="fact"><span class="label">Gegründet</span><b class="num">${l.gegr||'–'}</b></div>
-        <div class="fact"><span class="label">Beste Anrufzeit</span><b>${esc(l.best)}</b></div>
-        <div class="fact"><span class="label">Persona</span><b>${esc((ctx(l).gruppe||{}).name||'–')}</b></div>
-        <div class="fact"><span class="label">Produkt</span><b>${esc(ctx(l).produkt.name)}</b></div>
-      </div>
-      ${(()=>{ const ls=S.signals.filter(x=>x.leadId===l.id).sort((a,b)=>b.ts-a.ts).slice(0,3); return ls.length?`<div class="block"><h3>Live-Signale</h3><ul class="list">${ls.map(x=>`<li><span class="bullet"></span><span><b>${esc(SIG_TYPES[x.typ][0])}:</b> ${esc(x.text)}</span><span class="src">${ago(x.ts)}</span></li>`).join('')}</ul></div>`:''; })()}
-      <div class="block"><h3>Ansprechperson</h3><ul class="list">
-        <li><span class="bullet"></span><span><b>${esc(l.person)}</b>, ${esc(l.rolle)} (${esc(l.seit)})</span></li>
-        <li><span class="bullet"></span><span>${esc(l.linkedin)}</span><span class="src">LinkedIn</span></li></ul></div>
-      <div class="block"><h3>Aktuelles zur Firma</h3><ul class="list">${l.news.map(n=>`<li><span class="bullet"></span><span>${esc(n[0])}</span><span class="src">${esc(n[1])}</span></li>`).join('')}</ul></div>
-      <div class="block"><h3>Score ${l.score} – warum</h3><ul class="list">
-        <li><span class="bullet"></span><span>Passt zur Zielgruppe (${l.ma} Mitarbeiter, ${esc(l.land)})</span></li>
-        <li><span class="bullet"></span><span>Frischer Anlass: ${esc(l.wann)}</span></li>
-        <li><span class="bullet"></span><span>${/Geschäfts|Inhaber|CEO|Direktor|Partner/.test(l.rolle)?'Entscheider:in direkt am Telefon':'Fachverantwortung für das Thema'}</span></li></ul></div>
-      <div class="sources"><span>Quelle: ${esc(l.src)}</span><span>Firmenwebsite</span><span>Presse</span><span>LinkedIn</span><span>Beispieldaten</span></div>`;
-  } else if (S.tab==='pitch'){
-    const busy = pitchBusy===l.id;
-    body = `<div class="pitchbar">
-        <div class="toggle" role="group" aria-label="Ansprache"><button data-act="tone" data-v="sie" aria-pressed="${S.tone==='sie'}">Sie</button><button data-act="tone" data-v="du" aria-pressed="${S.tone==='du'}">Du</button></div>
-        <button class="btn" data-act="genpitch" ${busy?'disabled':''}>${icon('spark')}${p.ki?'Neu schreiben':'Mit KI personalisieren'}</button>
-        <button class="btn ghost" data-act="copypitch">${icon('copy')}Kopieren</button>
-        <span class="note">${p.ki?'Von Griaßdi für diesen Lead geschrieben':'Vorlage aus deinem Angebot'}</span>
-      </div>
-      ${busy?'<div class="thinking"><span class="dots"><i></i><i></i><i></i></span>Griaßdi liest die Recherche und schreibt deinen Pitch…</div>':''}
-      ${pitchErr?`<div class="note" style="color:var(--bad)">${esc(pitchErr)}</div>`:''}
-      <div class="say big"><span class="label">1 · Einstieg</span><p>${esc(p.opener)}</p></div>
-      <div class="say"><span class="label">2 · Überleitung</span><p>${esc(p.bruecke)}</p></div>
-      <div class="block"><span class="label">3 · Fragen</span><ul class="list" style="margin-top:8px">${p.fragen.map(f=>`<li><span class="bullet"></span><span>${esc(f)}</span></li>`).join('')}</ul></div>
-      <div class="block"><span class="label">4 · Nutzen, wenn's passt</span><ul class="list" style="margin-top:8px">${p.nutzen.map(f=>`<li><span class="bullet"></span><span>${esc(f)}</span></li>`).join('')}</ul></div>
-      <div class="block"><span class="label">5 · Einwände</span><div style="display:grid;gap:8px;margin-top:8px">${p.einwaende.map(o=>`<div class="obj">${o.technik?`<span class="tech">${esc(techName(o.technik))}</span>`:''}<b>„${esc(o.einwand)}“</b><span>${esc(o.antwort)}</span></div>`).join('')}</div></div>
-      <div class="say big"><span class="label">6 · Abschluss</span><p>${esc(p.abschluss)}</p></div>`;
-  } else {
-    body = hist.length ? hist.slice().reverse().map(h=>`<div class="card" style="box-shadow:none;padding:14px">
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill st-${h.outcome}">${OUTLABEL[h.outcome]}</span><span class="note num">${new Date(h.ts).toLocaleString('de-AT',{dateStyle:'short',timeStyle:'short'})} · ${fmtTime(h.dur)} · Score ${h.score||'–'}/10</span></div>
-        ${h.summary?`<p style="margin:8px 0 0">${esc(h.summary)}</p>`:''}${h.next?`<p class="note" style="margin:6px 0 0">Nächster Schritt: ${esc(h.next)}</p>`:''}${h.notes?`<p class="note" style="margin:6px 0 0">Notiz: ${esc(h.notes)}</p>`:''}
-      </div>`).join('') : `<p class="note">Noch kein Anruf bei ${esc(l.person)}. Nach dem ersten Gespräch stehen hier Zusammenfassung, Ergebnis und nächster Schritt.</p>`;
-  }
+  const busy = pitchBusy===l.id;
+  const sigs = S.signals.filter(x=>x.leadId===l.id).sort((a,b)=>b.ts-a.ts).slice(0,3);
   $('#work').innerHTML = `<div class="lead-h"><span class="av">${esc(initials(l.person))}</span>
-      <div style="min-width:0;flex:1"><h2>${esc(l.firma)}</h2><div class="meta">${esc(l.person)} · ${esc(l.rolle)} · ${esc(l.ort)}</div>
-        <div class="contact"><button class="copy" data-act="copy" data-v="${esc(l.tel)}">${icon('phone')}<span class="num">${esc(l.tel)}</span></button><button class="copy" data-act="copy" data-v="${esc(l.mail)}">${icon('mail')}${esc(l.mail)}</button><button class="copy" data-act="copy" data-v="${esc(l.web)}">${icon('link')}${esc(l.web)}</button></div></div>
-      <div class="ring"><b class="num">${l.score}</b><small>Lead-Score</small></div></div>
-    <div class="tabs" role="tablist">${[['recherche','Recherche'],['pitch','Pitch'],['verlauf','Verlauf'+(hist.length?' ('+hist.length+')':'')]].map(([k,n])=>`<button class="tab" role="tab" data-act="tab" data-v="${k}" aria-selected="${S.tab===k}">${n}</button>`).join('')}</div>
-    <div class="scroll"><div class="tabbody">${body}</div></div>`;
+      <div style="min-width:0;flex:1"><h2>${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}</h2><div class="meta">${esc(l.rolle)} · ${esc(l.firma)}</div></div>
+      <div class="toggle" role="group" aria-label="Ansprache"><button data-act="tone" data-v="sie" aria-pressed="${S.tone==='sie'}">Sie</button><button data-act="tone" data-v="du" aria-pressed="${S.tone==='du'}">Du</button></div></div>
+    <div class="scroll"><div class="tabbody">
+      <div class="why-now"><span class="label">Warum jetzt</span><p>${esc(l.anlass)}</p></div>
+      ${busy?'<div class="thinking"><span class="dots"><i></i><i></i><i></i></span>Griaßdi schreibt deinen Pitch…</div>':''}
+      ${pitchErr?`<div class="note" style="color:var(--bad)">${esc(pitchErr)}</div>`:''}
+      <div class="say big"><span class="label">Sag zuerst</span><p>${esc(p.opener)}</p></div>
+      <div class="say"><span class="label">Dann frag</span><p>${esc(p.fragen[0])}</p></div>
+      <div class="say"><span class="label">Ziel</span><p>${esc(p.abschluss)}</p></div>
+      <div class="minibar"><button class="btn ghost sm" data-act="genpitch" ${busy?'disabled':''}>${icon('spark')}${p.ki?'Neu schreiben':'Mit KI anpassen'}</button><button class="btn ghost sm" data-act="copypitch">${icon('copy')}Kopieren</button></div>
+      <details class="fold"><summary>Einwände <span class="note">${p.einwaende.length}</span></summary><div class="foldbody">${p.einwaende.map(o=>`<div class="obj">${o.technik?`<span class="tech">${esc(techName(o.technik))}</span>`:''}<b>„${esc(o.einwand)}“</b><span>${esc(o.antwort)}</span></div>`).join('')}</div></details>
+      <details class="fold"><summary>Mehr zum Lead</summary><div class="foldbody">
+        ${pg?`<div class="tipbox"><span class="label">So ansprechen</span><div>${esc(pg.ansprache)}</div></div>`:''}
+        <div class="facts"><div class="fact"><span class="label">Mitarbeiter</span><b class="num">${l.ma||'–'}</b></div><div class="fact"><span class="label">Ort</span><b>${esc(l.ort)}</b></div><div class="fact"><span class="label">Beste Zeit</span><b>${esc(l.best)}</b></div><div class="fact"><span class="label">Score</span><b class="num">${l.score}</b></div></div>
+        ${sigs.length?`<ul class="list">${sigs.map(x=>`<li><span class="bullet"></span><span>${esc(x.text)}</span><span class="src">${ago(x.ts)}</span></li>`).join('')}</ul>`:''}
+        <ul class="list">${l.news.map(n=>`<li><span class="bullet"></span><span>${esc(n[0])}</span></li>`).join('')}</ul>
+        <div class="contact"><button class="copy" data-act="copy" data-v="${esc(l.mail)}">${icon('mail')}${esc(l.mail)}</button><button class="copy" data-act="copy" data-v="${esc(l.web)}">${icon('link')}${esc(l.web)}</button></div>
+        <div class="say"><span class="label">Nutzen</span><p>${p.nutzen.map(esc).join(' · ')}</p></div>
+      </div></details>
+      ${hist.length?`<details class="fold"><summary>Verlauf <span class="note">${hist.length}</span></summary><div class="foldbody">${hist.slice().reverse().map(h=>`<div><span class="pill st-${h.outcome}">${OUTLABEL[h.outcome]}</span> <span class="note">${new Date(h.ts).toLocaleString('de-AT',{dateStyle:'short',timeStyle:'short'})}</span>${h.summary?`<p style="margin:6px 0 0">${esc(h.summary)}</p>`:''}</div>`).join('')}</div></details>`:''}
+    </div></div>`;
 }
-const CHECKS=[['anlass','Anlass genannt'],['frage','Offene Frage'],['einwand','Einwand behandelt'],['termin','Termin vorgeschlagen']];
+const CHECKS=[['anlass','Anlass'],['frage','Frage'],['einwand','Einwand'],['termin','Termin']];
 function renderDialer(){
   const l = C.status==='idle' ? cur() : lead(C.leadId);
   const left = callLimit()-S.callsUsed;
-  const checks = `<div class="checks">${CHECKS.map(([k,n])=>`<div class="check ${C.covered[k]&&C.status!=='idle'?'ok':''}" id="ck-${k}"><i></i>${n}</div>`).join('')}</div>`;
   let h='';
   if (C.status==='idle'){
-    const blocked = left<=0;
-    h = `<div class="d-status">${mascot(38)}<div><b>Griaßdi ist bereit</b><small>Hört mit und coacht live</small></div></div>
-      <div class="d-who"><b>${esc(l.person)}</b><span class="num">${esc(l.tel)}</span></div>
-      ${blocked?`<div class="upsell"><b>Deine 3 Testanrufe sind aufgebraucht.</b><span style="color:var(--dial-muted)">Mit Pro telefonierst du unbegrenzt – mit Recherche, Pitch und Live-Coaching für jeden Lead.</span><button class="btn" data-act="plans">Pro freischalten</button></div>`
-       :`<button class="callbtn" data-act="call">${icon('phone')}Anrufen</button>`}
-      <div class="d-sec"><span class="label">Darauf achtet Griaßdi</span>${checks}</div>
-      <div class="d-sec"><span class="label">Dein Einstieg</span><div style="font-size:13.5px">${esc(pitchFor(l).opener)}</div></div>
-      <div class="d-sec"><span class="label">Beste Anrufzeit</span><div>${esc(l.best)}</div></div>
-      <p class="d-note">${S.plan==='test'?`<b class="num">${Math.max(0,left)} von 3</b> Testanrufen übrig. `:''}Anruf über ${S.telefonie==='browser'?'Browser-Dialer':esc(CALLING.find(t=>t.id===S.telefonie).n)+' · '+esc(isLead()?S.calling[S.telefonie].nummer:me().nummer)}. Demo: Es wird niemand angerufen, das Gespräch ist simuliert.</p>`;
+    h = `<div class="d-big">${mascot(64)}<b>${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}</b><span class="num">${esc(l.tel)}</span></div>
+      ${left<=0?`<div class="upsell"><b>Testanrufe aufgebraucht</b><button class="btn" data-act="plans">Pro freischalten</button></div>`:`<button class="callbtn" data-act="call">${icon('phone')}Anrufen</button>`}
+      <p class="d-note">${S.plan==='test'?`Noch ${Math.max(0,left)} Testanrufe · `:''}Demo, es wird niemand angerufen</p>`;
   } else if (C.status==='ringing'){
-    h = `<div class="d-status">${mascot(38,true)}<div><b>Verbinde…</b><small>${esc(l.firma)}</small></div></div>
-      <div class="d-who"><b>${esc(l.person)}</b><span class="num">${esc(l.tel)}</span></div>
-      <div class="timer num">Es läutet…</div>
-      <button class="callbtn end" data-act="hangup">${icon('phone')}Auflegen</button>
-      <div class="d-sec"><span class="label">Gleich sagst du</span><div style="font-size:13.5px">${esc(pitchFor(l).opener)}</div></div>`;
+    h = `<div class="d-big">${mascot(64,true)}<b>${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}</b><span>Es läutet…</span></div>
+      <button class="callbtn end" data-act="hangup">${icon('phone')}Auflegen</button>`;
   } else if (C.status==='live'){
-    h = `<div class="d-status">${mascot(38,true)}<div><b>Im Gespräch</b><small>Griaßdi hört mit</small></div><span class="chip" style="margin-left:auto;background:#1FA46322;border-color:#1FA46366;color:#5FD39A"><span class="dot" style="background:#5FD39A"></span>Live</span></div>
-      <div class="d-who"><b>${esc(l.person)}</b><span>${esc(l.firma)}</span></div>
-      <div class="timer num" id="d-timer">${fmtTime(C.t)}</div>
-      <button class="callbtn end" data-act="hangup">${icon('phone')}Auflegen</button>
+    h = `<div class="d-live"><div><b>${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}</b><div class="timer num" id="d-timer">${fmtTime(C.t)}</div></div><button class="callbtn end sm" data-act="hangup" aria-label="Auflegen">${icon('phone')}</button></div>
       <div class="d-sec" id="d-coach"></div>
-      <div class="d-sec"><span class="label">Gespräch</span><div class="transcript" id="d-tr" aria-live="polite"></div></div>
-      <div class="d-sec"><div class="ratio-l"><span>Du <b id="r-du" class="num">0%</b></span><span>Gegenüber <b id="r-k" class="num">0%</b></span></div><div class="ratio"><i id="r-bar" style="width:0%"></i></div><span class="note" style="color:var(--dial-muted)" id="r-hint">Ziel: unter ${S.pitch.redeanteil} % Redeanteil</span></div>
-      <div class="d-sec"><span class="label">Einwand-Hilfe</span>
-        <form class="helper" id="helper-form"><input id="helper-in" placeholder="Was sagt dein Gegenüber? z. B. „Schicken Sie mir was“" autocomplete="off"><button type="submit">Hilf mir</button></form>
-        <div id="helper-out"></div></div>
-      <div class="d-sec"><span class="label">Checkliste</span>${checks}</div>`;
+      <div class="d-sec"><div class="dots4">${CHECKS.map(([k,n])=>`<span class="ck ${C.covered[k]?'ok':''}" id="ck-${k}">${n}</span>`).join('')}</div>
+        <div class="ratio" title="Dein Redeanteil"><i id="r-bar" style="width:0%"></i></div><span class="note" style="color:var(--dial-muted)" id="r-hint"></span></div>
+      <div class="d-sec"><form class="helper" id="helper-form"><input id="helper-in" placeholder="Einwand eintippen…" autocomplete="off"><button type="submit">Hilfe</button></form><div id="helper-out"></div></div>
+      <details class="dfold"><summary>Mitschrift</summary><div class="transcript" id="d-tr" aria-live="polite"></div></details>`;
   } else {
-    h = `<div class="d-status">${mascot(38)}<div><b>Gespräch beendet</b><small>Nachbereitung läuft</small></div></div>
-      <div class="d-who"><b>${esc(l.person)}</b><span class="num">${fmtTime(C.dur||0)}</span></div>
-      <button class="callbtn" data-act="reopenwrap">Nachbereitung öffnen</button>`;
+    h = `<div class="d-big">${mascot(64)}<b>Gespräch beendet</b><span class="num">${fmtTime(C.dur||0)}</span></div>
+      <button class="callbtn" data-act="reopenwrap">Wie lief's?</button>`;
   }
   $('#dialer').innerHTML = h;
   if (C.status==='live') updateLive(true);
@@ -939,14 +930,13 @@ function updateLive(full){
   tr.innerHTML = C.lines.map(x=>`<div class="line ${x.who}"><small>${x.who==='du'?'Du':esc(lead(C.leadId).vorname)}</small>${esc(x.text)}</div>`).join('');
   tr.scrollTop = tr.scrollHeight;
   const co = $('#d-coach');
-  co.innerHTML = C.tip ? `<span class="label">Griaßdi sagt</span><div class="coach ${C.tip.k}">${mascot(26)}<div><span class="k">${{gut:'Gut so',tipp:'Tipp',achtung:'Achtung'}[C.tip.k]}</span><p>${esc(C.tip.text)}</p></div></div>`
-                       : `<span class="label">Griaßdi sagt</span><div class="coach tipp">${mascot(26)}<div><span class="k">Tipp</span><p>Lächeln beim Sprechen – man hört es.</p></div></div>`;
+  const tip = C.tip || {k:'tipp', text:'Lächeln beim Sprechen – man hört es.'};
+  co.innerHTML = `<div class="coach big ${tip.k}">${mascot(30,true)}<div><span class="k">${{gut:'Gut so',tipp:'Tipp',achtung:'Achtung'}[tip.k]}</span><p>${esc(tip.text)}</p></div></div>`;
   const r = ratio();
-  $('#r-du').textContent = r+'%'; $('#r-k').textContent=(C.lines.length?100-r:0)+'%'; $('#r-bar').style.width=r+'%';
-  $('#r-hint').textContent = r>S.pitch.redeanteil ? 'Du redest viel – stell eine Frage und hör zu.' : `Ziel: unter ${S.pitch.redeanteil} % Redeanteil`;
+  $('#r-bar').style.width=r+'%';
+  $('#r-hint').textContent = r>S.pitch.redeanteil ? `Du redest ${r} % – hör mehr zu` : `Dein Redeanteil: ${r} %`;
   CHECKS.forEach(([k])=>{ const el=$('#ck-'+k); if(el) el.classList.toggle('ok', !!C.covered[k]); });
 }
-
 /* ---------------- objection helper ---------------- */
 function localObjection(text){
   const p = pitchFor(lead(C.leadId)); const t=text.toLowerCase();
@@ -984,18 +974,20 @@ function openWrap(reached){
 function renderWrap(){
   const l = lead(C.leadId); const m=$('#modal');
   const a = W.ai || tplWrap(l);
-  m.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="wrap-h">
-    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="wrap-h">Nachbereitung: ${esc(l.firma)}</h2><span class="note">${esc(l.person)} · ${fmtTime(C.dur||0)}</span></div><button class="x" data-act="closewrap" aria-label="Schließen">✕</button></div>
-    ${W.score?`<div class="stats"><div><span class="label">Pitch-Score</span><b class="num">${W.score}/10</b></div><div><span class="label">Dein Redeanteil</span><b class="num">${W.ratio}%</b></div><div><span class="label">Checkliste</span><b class="num">${Object.keys(C.covered).length}/4</b></div></div>`:''}
-    <div><span class="label">Ergebnis</span><div class="outs" style="margin-top:8px">${OUTCOMES.map(([k,n])=>`<button class="out" data-act="outcome" data-v="${k}" aria-pressed="${W.outcome===k}">${n}</button>`).join('')}</div></div>
-    <div class="field"><label for="wrap-notes">Deine Notiz (optional)</label><textarea id="wrap-notes" placeholder="z. B. „Will Demo mit Lohnverrechnung, Donnerstag 10 Uhr“">${esc(W.notes)}</textarea></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn ghost" data-act="aiwrap" ${W.busy?'disabled':''}>${icon('spark')}${W.ai?'Neu zusammenfassen':'Mit KI zusammenfassen'}</button>${W.busy?'<span class="thinking"><span class="dots"><i></i><i></i><i></i></span>Griaßdi fasst zusammen…</span>':''}${W.err?`<span class="note" style="color:var(--bad)">${esc(W.err)}</span>`:''}</div>
-    <div class="block"><span class="label">Zusammenfassung fürs CRM</span><p style="margin:6px 0 0">${esc(a.zusammenfassung)}</p><p class="note" style="margin:6px 0 0">Nächster Schritt: ${esc(a.naechster_schritt)}</p></div>
-    <div class="block"><div style="display:flex;align-items:center;gap:8px"><span class="label">Follow-up-Mail</span><button class="copy" style="margin-left:auto" data-act="copymail">${icon('copy')}Kopieren</button></div>
-      <div class="mail" id="mailtext" style="margin-top:8px"><b>Betreff: ${esc(a.mail_betreff)}</b>\n\n${esc(a.mail_text)}</div></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="savewrap">Speichern & nächster Lead ${icon('next')}</button><span class="note" style="align-self:center">Wird in ${S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi'} eingetragen (Demo)</span></div>
+  m.innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="wrap-h">
+    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="wrap-h">Wie lief's mit ${esc(l.vorname)}?</h2>${W.score?`<span class="note">Pitch-Score ${W.score}/10 · Redeanteil ${W.ratio} %</span>`:''}</div><button class="x" data-act="closewrap" aria-label="Schließen">✕</button></div>
+    <div class="outs big">${OUTCOMES.map(([k,n])=>`<button class="out" data-act="outcome" data-v="${k}" aria-pressed="${W.outcome===k}">${n}</button>`).join('')}</div>
+    <input id="wrap-notes" class="oneline" placeholder="Notiz (optional)" value="${esc(W.notes)}" aria-label="Notiz">
+    <button class="btn wide" data-act="savewrap">Speichern & nächster Anruf ${icon('next')}</button>
+    <details class="fold"><summary>Zusammenfassung & Follow-up-Mail</summary><div class="foldbody">
+      <button class="btn ghost sm" data-act="aiwrap" ${W.busy?'disabled':''}>${icon('spark')}${W.ai?'Neu schreiben':'Mit KI schreiben'}</button>${W.busy?'<span class="thinking"><span class="dots"><i></i><i></i><i></i></span></span>':''}${W.err?`<span class="note" style="color:var(--bad)">${esc(W.err)}</span>`:''}
+      <p style="margin:0">${esc(a.zusammenfassung)}</p><p class="note" style="margin:0">Nächster Schritt: ${esc(a.naechster_schritt)}</p>
+      <div style="display:flex;align-items:center"><span class="label">Mail</span><button class="copy" style="margin-left:auto" data-act="copymail">${icon('copy')}Kopieren</button></div>
+      <div class="mail" id="mailtext"><b>Betreff: ${esc(a.mail_betreff)}</b>\n\n${esc(a.mail_text)}</div>
+    </div></details>
   </div>`;
   m.hidden=false;
+  if (W._open) { const d=m.querySelector('details'); if(d) d.open=true; }
 }
 function tplWrap(l){
   const s=ctx(l), du=S.tone==='du', o=W.outcome;
@@ -1158,7 +1150,7 @@ function setPath(p,v){ const ks=p.split('.'), last=ks.pop(); const o=ks.reduce((
 let savedT;
 function autosave(path){
   if (/^(kb|pitch|products|groups)/.test(path)) S.pitches={};
-  save(); const el=$('#saved'); if(el){ el.textContent='Gespeichert ✓'; clearTimeout(savedT); savedT=setTimeout(()=>{ const x=$('#saved'); if(x) x.textContent='Änderungen werden automatisch gespeichert'; },1500); }
+  save(); const el=$('#saved'); if(el){ el.textContent='Gespeichert ✓'; clearTimeout(savedT); savedT=setTimeout(()=>{ const x=$('#saved'); if(x) x.textContent=''; },1500); }
 }
 let uid=0; const fid = () => 'f'+(++uid);
 function fText(label,path,o={}){ const id=fid(); const v=getPath(path);
@@ -1199,10 +1191,18 @@ function renderAdmin(){
   if (t==='team') body=adminTeam();
   if (t==='mein') body=adminMein();
   $('#view-admin').innerHTML = `<div class="page">
-    <div class="atabs" role="tablist">${tabs.map(([k,n])=>`<button class="atab" role="tab" data-act="atab" data-v="${k}" aria-selected="${t===k}">${n}</button>`).join('')}<span class="note" id="saved" style="margin-left:auto;align-self:center;white-space:nowrap">Änderungen werden automatisch gespeichert</span></div>
+    <div class="atabs" role="tablist">${tabs.map(([k,n])=>`<button class="atab" role="tab" data-act="atab" data-v="${k}" aria-selected="${t===k}">${n}</button>`).join('')}<span class="note" id="saved" style="margin-left:auto;align-self:center;white-space:nowrap"></span></div>
     ${body}</div>`;
   if (t==='pitch') updateOpenerPreview();
+  document.querySelectorAll('#view-admin .card').forEach(card=>{
+    const h=card.querySelector(':scope > h3'); if(!h || card.classList.contains('gcard')) return;
+    const title=h.textContent.trim(); card.classList.add('collap'); card.dataset.title=title;
+    const open = title in CARD_OPEN ? CARD_OPEN[title] : (OPEN_CARDS.includes(title) || /Vorschl/.test(title));
+    card.classList.toggle('closed', !open); h.tabIndex=0; h.setAttribute('role','button'); h.setAttribute('aria-expanded', open);
+  });
 }
+const OPEN_CARDS=['Neue Leads pro Tag','So sieht deine nächste Lieferung aus','Verkaufsmethodik','Ansprache & Stil','Einstieg','Firmenprofil','Was euch besonders macht','Telefonie','Team','Mein Profil','Meine Leads','Mein Stil','Einwand vorschlagen','Meine Telefonie'];
+const CARD_OPEN={};
 
 /* Lead-Zufuhr */
 function nextDelivery(){
@@ -1262,12 +1262,8 @@ function adminGruppen(){
       return `<div class="card gcard ${g.aktiv?'':'off'}">
         <div class="gtop"><span class="pav" style="background:${gColor(g)}">${icon('users')}</span><div style="min-width:0"><h3>${esc(g.name||'Ohne Namen')}</h3><span class="note">${esc(g.senioritaet)} · ${esc(g.abteilung||'–')}</span></div>${lead_?fSwitch('groups.'+i+'.aktiv','Persona aktiv'):''}</div>
         <div class="icp">${(g.titel||[]).map(x=>`<span>${esc(x)}</span>`).join('')}</div>
-        <div class="kv"><span class="label">Will erreichen</span><div>${esc(g.ziele||'–')}</div></div>
-        <div class="kv"><span class="label">Was nervt</span><div>${esc(g.pains||'–')}</div></div>
-        <div class="kv"><span class="label">Achtet auf</span><div>${esc(g.kriterien||'–')}</div></div>
         <div class="tipbox"><span class="label">So ansprechen</span><div>${esc(g.ansprache||'–')}</div></div>
-        <div class="kv"><span class="label">Arbeitet in</span><div>${esc((g.branchen||[]).join(', ')||'allen Branchen')} · ${g.groesseMin}–${g.groesseMax} MA · ${esc((g.regionen||[]).join(', ')||'DACH')}${g.bundeslaender&&g.bundeslaender.length?' ('+esc(g.bundeslaender.join(', '))+')':''}</div></div>
-        <div class="kv"><span class="label">Signale</span><div>${esc((g.signale||[]).join(' · ')||'–')}</div></div>
+        <div class="kv note"><span class="label">Arbeitet in</span><div>${esc((g.branchen||[]).join(', ')||'allen Branchen')} · ${g.groesseMin}–${g.groesseMax} MA · ${esc((g.regionen||[]).join(', ')||'DACH')}${g.bundeslaender&&g.bundeslaender.length?' ('+esc(g.bundeslaender.join(', '))+')':''}</div></div>
         <div class="gfoot"><span class="note">${esc(p.name||'–')} · <b class="num" style="color:var(--ink)">${g.proTag}</b> Leads/Tag · ${n} in der Liste</span>${lead_?`<button class="btn ghost sm" data-act="gedit" data-v="${i}">Bearbeiten</button><button class="btn ghost sm" data-act="gdel" data-v="${i}">Löschen</button>`:''}</div></div>`; }).join('')||'<p class="note">Dir ist noch keine Persona zugeteilt.</p>'}</div>`;
 }
 function openGroup(i){
@@ -1598,16 +1594,16 @@ function sigTitle(x){ const l=lead(x.leadId); if(!l) return '';
   return {post:`${l.vorname} hat auf LinkedIn gepostet`, firma:`${l.firma} hat auf LinkedIn gepostet`, news:`${l.firma} ist in den News`, job:`${l.firma} hat eine neue Stelle ausgeschrieben`, wechsel:`${l.vorname} hat eine neue Position`}[x.typ]; }
 function renderSignals(){
   const all=visSignals().slice().sort((a,b)=>b.ts-a.ts);
-  const f=S.sigFilter||'neu';
-  const list=all.filter(x=> f==='alle'?true : f==='neu'?x.status==='neu' : f==='personen'?['post','wechsel'].includes(x.typ) : f==='firmen'?['firma','news','job'].includes(x.typ) : true);
+  const f=S.sigFilter==='alle'?'alle':'neu';
+  const list=all.filter(x=> f==='alle' || x.status==='neu');
   $('#view-signale').innerHTML = `<div class="page">
-    <div class="page-h"><div class="filters" style="padding:0">${[['neu','Neu'],['personen','Personen'],['firmen','Firmen & News'],['alle','Alle']].map(([k,n])=>`<button class="seg" data-act="sigfilter" data-v="${k}" aria-pressed="${f===k}">${n}${k==='neu'?` (${all.filter(x=>x.status==='neu').length})`:''}</button>`).join('')}</div><div class="right"><button class="btn ghost" data-act="simsig">${icon('spark')}Neues Signal simulieren</button></div></div>
+    <div class="page-h"><div class="filters" style="padding:0">${[['neu','Neu ('+all.filter(x=>x.status==='neu').length+')'],['alle','Alle']].map(([k,n])=>`<button class="seg" data-act="sigfilter" data-v="${k}" aria-pressed="${f===k}">${n}</button>`).join('')}</div>
+      <div class="right"><button class="btn ghost sm" data-act="simsig">${icon('spark')}Signal simulieren</button></div></div>
     <div class="sigs">${list.map(x=>{ const l=lead(x.leadId); const fresh=Date.now()-x.ts<60*60000;
       return `<div class="card sig ${x.status!=='neu'?'done':''} ${fresh&&x.status==='neu'?'hot':''}">
-        <div class="sig-h"><span class="av">${esc(initials(l.person))}</span><div style="min-width:0;flex:1"><b>${esc(sigTitle(x))}</b><div class="note">${esc(l.person)} · ${esc(l.firma)} · ${ago(x.ts)}</div></div><span class="trig">${SIG_TYPES[x.typ][0]}</span></div>
+        <div class="sig-h"><span class="av">${esc(initials(l.person))}</span><div style="min-width:0;flex:1"><b>${esc(sigTitle(x))}</b><div class="note">${ago(x.ts)}</div></div>${x.status==='neu'?`<button class="del" data-act="sigdone" data-v="${x.id}" aria-label="Erledigt">✕</button>`:''}</div>
         <blockquote>${esc(x.text)}</blockquote>
-        <div class="tipbox"><span class="label">Warum jetzt anrufen</span><div>${esc(x.warum)}</div></div>
-        <div class="sig-f"><span class="note">Quelle: ${SIG_TYPES[x.typ][1]} (Beispiel)</span>${x.status==='neu'?`<button class="btn ghost sm" data-act="sigdone" data-v="${x.id}">Erledigt</button>`:'<span class="pill st-offen">Erledigt</span>'}<button class="btn sm" data-act="sigcall" data-v="${x.id}">${icon('phone')}Jetzt anrufen</button></div></div>`; }).join('') || `<div class="card"><p class="note" style="margin:0">Keine Signale in dieser Ansicht. Griaßdi meldet sich, sobald einer deiner Leads etwas postet oder in den News ist.</p></div>`}</div></div>`;
+        <button class="btn" data-act="sigcall" data-v="${x.id}">${icon('phone')}Jetzt anrufen</button></div>`; }).join('') || `<div class="card"><p class="note" style="margin:0">Gerade keine neuen Signale. Griaßdi meldet sich.</p></div>`}</div></div>`;
 }
 function useSignal(id){
   const x=S.signals.find(y=>y.id===id); if(!x) return;
@@ -1634,16 +1630,18 @@ function pushSignal(quiet){
 let alertT;
 function showAlert(x){
   const l=lead(x.leadId); const el=$('#alert');
-  el.innerHTML = `<div class="alert-h">${mascot(36,true)}<div><b>Hey ${esc(me().vorname)}! ${esc(sigTitle(x))}.</b><div class="note">${ago(x.ts)} · ${SIG_TYPES[x.typ][1]}</div></div><button class="x" data-act="alertclose" aria-label="Schließen">✕</button></div>
+  el.innerHTML = `<div class="alert-h">${mascot(36,true)}<div><b>Hey ${esc(me().vorname)}! ${esc(sigTitle(x))}.</b><div class="note">${ago(x.ts)} – ruf jetzt an!</div></div><button class="x" data-act="alertclose" aria-label="Schließen">✕</button></div>
     <blockquote>${esc(x.text)}</blockquote>
-    <p style="margin:0">Perfekter Moment – ruf ${esc(l.anrede==='Frau'?'sie':l.anrede==='Herr'?'ihn':l.vorname)} an, solange es frisch ist.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="sigcall" data-v="${x.id}">${icon('phone')}Jetzt anrufen</button><button class="btn ghost" data-act="alertclose">Später</button></div>`;
   el.hidden=false; clearTimeout(alertT); alertT=setTimeout(hideAlert, 30000);
 }
 function hideAlert(){ const el=$('#alert'); if(el) el.hidden=true; }
 
 /* ---------------- events ---------------- */
+function toggleCard(h){ const c=h.parentNode; const closed=!c.classList.contains('closed'); c.classList.toggle('closed',closed); h.setAttribute('aria-expanded',!closed); CARD_OPEN[c.dataset.title]=!closed; }
+document.addEventListener('keydown', e=>{ const h=e.target.closest && e.target.closest('.card.collap > h3'); if(h && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); toggleCard(h); } });
 document.addEventListener('click', e=>{
+  const h = e.target.closest('.card.collap > h3'); if (h){ toggleCard(h); return; }
   const a = e.target.closest('[data-act]'); if(!a) return;
   const v = a.dataset.v;
   switch(a.dataset.act){
@@ -1661,7 +1659,7 @@ document.addEventListener('click', e=>{
     case 'hangup': hangup(); break;
     case 'reopenwrap': if (W) renderWrap(); else openWrap(false); break;
     case 'outcome': W.notes=$('#wrap-notes').value; W.outcome=v; if(W.ai) W.ai=null; renderWrap(); break;
-    case 'aiwrap': aiWrap(); break;
+    case 'aiwrap': W._open=true; aiWrap(); break;
     case 'copymail': copyText($('#mailtext').innerText); break;
     case 'savewrap': saveWrap(); break;
     case 'closewrap': $('#modal').hidden=true; break;
