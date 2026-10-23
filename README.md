@@ -1,4 +1,22 @@
-# Griaßdi – KI-Sales-Agent · Landingpage
+# Griaßdi – KI-Sales-Agent
+
+## MVP-App (`app/index.html`)
+
+Klickbarer erster MVP des Agents – einfach im Browser öffnen:
+
+- **Heute:** Anrufliste mit Lead-Score und Anlass („Warum heute anrufen“)
+- **Recherche:** Firma, Ansprechperson, News, LinkedIn-Kontext, Quellen
+- **Pitch:** Einstieg, Überleitung, Fragen, Nutzen, Einwände, Abschluss – Sie/Du, mit KI personalisierbar
+- **Dialer mit Live-Coaching:** simuliertes Gespräch, Coaching-Tipps, Checkliste, Redeanteil, Einwand-Hilfe
+- **Nachbereitung:** Ergebnis, Pitch-Score, CRM-Zusammenfassung, Follow-up-Mail
+- **Tracking, Leads (CSV-Import), Einrichtung** (Angebot, Zielgruppe, Datenquellen, Telefonie, Plan)
+- **Testversion:** 3 Anrufe, danach Pro (79 €) / Premium (199 €)
+
+KI-Funktionen laufen in der Claude-Artifact-Ansicht; außerhalb nutzt die App Vorlagen. Alle Firmen und Personen sind erfunden, es wird niemand angerufen.
+
+---
+
+## Landingpage
 
 Interaktive Landingpage für den **Griaßdi Sales-Agent**: Anrufliste, Dialer, Lead-Recherche, Pitch und Live-Coaching in einem Agenten – gebaut für Vertriebsteams im DACH-Raum.
 
@@ -6,6 +24,7 @@ Interaktive Landingpage für den **Griaßdi Sales-Agent**: Anrufliste, Dialer, L
 
 | Datei | Zweck |
 | --- | --- |
+| `app/index.html` | MVP-App des Sales-Agents (eigenständig, ohne Abhängigkeiten). |
 | `index.html` | Fertige, eigenständige Seite. Läuft ohne Server und ohne Abhängigkeiten, z. B. über GitHub Pages. |
 | `src/landingpage.dc.html` | Design-Quelle (Claude Design Canvas). Hier wird die Seite bearbeitet. |
 | `runtime/dc-lite.js` | Kleine Laufzeit ohne Abhängigkeiten, die die Vorlage rendert und interaktiv macht. |
