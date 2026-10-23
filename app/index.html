@@ -710,7 +710,7 @@ const lead = id => S.leads.find(l=>l.id===id);
 const me = () => S.team.find(m=>m.id===S.me) || S.team[0];
 const isLead = () => me().rolle==='lead';
 const can = k => isLead() || !!S.perms[k];
-const visibleLeads = () => isLead() ? S.leads : S.leads.filter(l=>(me().personas||[]).includes(l.g) || l.src==='CSV-Import');
+const visibleLeads = () => isLead() ? S.leads : S.leads.filter(l=>(me().personas||[]).includes(l.g) || (l.src==='CSV-Import'||l.src==='Erweiterung'));
 const cur = () => { const v=visibleLeads(); return v.find(l=>l.id===S.sel) || v[0] || S.leads[0]; };
 const effPitch = () => { const pr = (!isLead() && can('repPitch')) ? (me().prefs||{}) : {}; const o={...S.pitch}; Object.keys(pr).forEach(k=>{ if(pr[k]) o[k]=pr[k]; }); return o; };
 const techName = k => (TECHNIKEN.find(t=>t[0]===k)||[,''])[1];
@@ -1968,6 +1968,19 @@ document.addEventListener('change', e=>{
   r.readAsText(f);
 });
 
+/* Schnittstelle für die Browser-Erweiterung */
+window.GriassdiApp = {
+  quickLead(tel, title){
+    const num = String(tel||'').replace(/[^\d+ ()\/-]/g,'').trim();
+    if (!/\d{5,}/.test(num.replace(/\D/g,''))){ toast('Bitte eine Telefonnummer markieren'); return false; }
+    const firma = String(title||'Neuer Kontakt').split(/[|·–-]/)[0].trim().slice(0,60) || 'Neuer Kontakt';
+    const l = {id:'q'+Date.now(), g:(me().personas||[])[0]||'g1', firma, ort:'–', land:'–', branche:'–', ma:0, web:'–', gegr:null, person:'Neuer Kontakt', anrede:'', nachname:'', vorname:'Kontakt',
+      rolle:'–', seit:'–', tel:num, mail:'–', trig:'Schnellanruf', anlass:'Nummer aus dem Browser übernommen', satzSie:'dass Sie zu unserer Zielgruppe passen', quelle:'Browser', wann:'gerade eben',
+      news:[], linkedin:'', schmerz:'Hm, das machen wir eigentlich händisch.', score:60, best:'–', src:'Erweiterung', status:'offen', hot:Date.now()};
+    S.leads.unshift(l); S.sel=l.id; S.view='heute'; save(); render(); toast('Nummer übernommen – bereit zum Anrufen');
+    return true;
+  }
+};
 $('#brand-mascot').innerHTML = mascot(32);
 render();
 setTimeout(()=>{ if (S.sigCfg && S.sigCfg.alert) pushSignal(true); }, 20000);
