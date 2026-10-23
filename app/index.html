@@ -152,7 +152,7 @@ input[type=range]{accent-color:var(--accent)}
 @keyframes bl{0%,100%{opacity:.25}50%{opacity:1}}
 
 /* Dialer */
-.dialer{background:var(--dial);color:var(--dial-ink);border-color:var(--dial-line)}
+.dialer{overflow:auto;background:var(--dial);color:var(--dial-ink);border-color:var(--dial-line)}
 .dialer .panel-h h2{font-size:16px}
 .dialer .label{color:var(--dial-muted)}
 .d-status{display:flex;align-items:center;gap:10px;padding:16px 18px 6px}
@@ -424,6 +424,7 @@ details.dfold .transcript{margin-top:10px}
 .qck svg{width:16px;height:16px}
 .qck.ok{background:var(--good);border-color:var(--good);color:#fff}
 .trow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.trow .span2{grid-column:1/-1}
 .mailrow{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
 .mailrow svg{width:16px;height:16px;flex:none}
 .mailrow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:7px 10px}
@@ -457,6 +458,33 @@ table.deal th{color:var(--muted);font-weight:600;width:130px}
 .navbtn .count.good{background:var(--good)}
 .kpi.goal{border-color:var(--good)}
 @media (max-width:820px){ .trow{grid-template-columns:1fr 1fr} .qrow{grid-template-columns:auto minmax(0,1fr)} .qrow input{grid-column:2} }
+
+/* Einwände & CRM-Abgleich */
+.steps3{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:6px;counter-reset:st}
+.steps3 li{display:grid;grid-template-columns:22px 82px minmax(0,1fr);gap:6px;align-items:baseline;counter-increment:st;font-size:14px}
+.steps3 li::before{content:counter(st);width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-size:11px;font-weight:800;display:grid;place-items:center}
+.steps3 li b{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.steps3.dark li{color:var(--dial-ink)}
+.steps3.dark li::before{background:#FFC26633;color:#FFC266}
+.steps3.dark li b{color:var(--dial-muted)}
+.coach .steps3{margin-top:8px}
+.coach.big .steps3 li span{font-size:14px;font-weight:500}
+.helper-out .hoh{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.regeln{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.regeln li{display:flex;gap:8px;align-items:center}
+.regeln svg{width:16px;height:16px;color:var(--good);flex:none}
+.ewlist{display:grid;gap:10px;margin-bottom:10px}
+.ew{border:1px solid var(--line);border-radius:14px;padding:10px;display:grid;gap:6px}
+.ewh{display:grid;grid-template-columns:minmax(0,1fr) 170px auto;gap:6px}
+.ew input,.ew select{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:7px 10px;min-width:0;width:100%}
+.ewh input{font-weight:700}
+.ewr{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px;align-items:center;font-size:12px;color:var(--muted);font-weight:700}
+.ddline{border:0;background:none;padding:0;display:flex;gap:6px;align-items:center;color:var(--good);font-size:12px;font-weight:700;text-align:left}
+.ddline svg{width:14px;height:14px}
+.ddlist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ddlist li{display:flex;gap:10px;align-items:flex-start}
+.stopsign{width:56px;height:56px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--f-display);font-size:30px;font-weight:800}
+@media (max-width:820px){ .ewh{grid-template-columns:minmax(0,1fr) auto} .ewh select{grid-column:1/-1;grid-row:2} .ewr{grid-template-columns:1fr} .steps3 li{grid-template-columns:22px minmax(0,1fr)} .steps3 li b{display:none} }
 
 /* Modal + toast */
 .modal{position:fixed;inset:0;background:rgba(20,12,8,.45);display:grid;place-items:center;padding:16px;z-index:50}
@@ -654,15 +682,17 @@ const TECHNIKEN=[
   ['konter','Schlagfertiger Konter','Ein kurzer, lockerer Satz nimmt die Spannung raus.'],
   ['dranbleiben','Dranbleiben','Nach dem ersten Nein mindestens einmal nachfassen.']];
 const KREUTER_EINWAENDE=[
-  {einwand:'Keine Zeit',technik:'bumerang',antwort:'Genau deshalb rufe ich an – wir sparen Ihnen Zeit. Ich brauche 15 Minuten: Donnerstag um 10 oder lieber Freitag um 9?'},
-  {einwand:'Schicken Sie mir Unterlagen',technik:'vorwand',antwort:'Mache ich gern. Damit ich nicht das Falsche schicke: Angenommen, die Unterlagen passen – was wäre dann der nächste Schritt bei Ihnen?'},
-  {einwand:'Zu teuer',technik:'preis',antwort:'Verstehe. Im Vergleich wozu? Was kostet Sie heute die Nacharbeit pro Monat? Genau die holen wir zurück – schauen wir uns das 15 Minuten gemeinsam an?'},
-  {einwand:'Kein Interesse',technik:'dranbleiben',antwort:'Darf ich kurz fragen: Liegt es am Thema an sich oder am Zeitpunkt?'},
-  {einwand:'Ich überleg’s mir',technik:'vorwand',antwort:'Gerne. Was genau möchten Sie noch überlegen – den Nutzen oder den Preis?'},
-  {einwand:'Haben wir schon',technik:'bumerang',antwort:'Sehr gut, dann kennen Sie das Thema schon. Wenn Sie eine Sache daran ändern könnten – welche wäre das?'},
-  {einwand:'Muss ich mit dem Chef besprechen',technik:'isolieren',antwort:'Klar. Angenommen, Ihr Chef sagt ja – wären Sie selbst dabei? Dann holen wir ihn gleich zur Demo dazu: Donnerstag oder Freitag?'},
-  {einwand:'Woher haben Sie meine Nummer?',technik:'konter',antwort:'Aus öffentlichen Firmendaten – und ich halte es kurz, versprochen. Darf ich Ihnen in 30 Sekunden sagen, warum ich anrufe?'}];
-const PITCH = {frameTage:2,terminOwner:'self',methode:'kreuter',techniken:TECHNIKEN.map(t=>t[0]),ansprache:'sie',stil:'beratend',laenge:'kurz',dialekt:'1',ziel:'demo',dauer:15,slots:'Donnerstag um 10 oder lieber Freitag um 9',
+  {einwand:'Keine Zeit',technik:'bumerang',kw:['zeit','stress','busy','eng','gerade schlecht'],abfedern:'Genau deshalb rufe ich an – und ich halte es kurz.',pruefen:'Ist es nur gerade der Moment, oder ist das Thema grundsätzlich nicht wichtig für Sie?',abschluss:'Dann machen wir gleich einen fixen Termin, wenn es ruhiger ist: {termin}?'},
+  {einwand:'Kein Interesse',technik:'dranbleiben',kw:['interesse','brauchen wir nicht','kein bedarf','nicht interessant'],abfedern:'Verstehe – Sie kennen es ja auch noch nicht.',pruefen:'Darf ich fragen: Liegt es am Thema an sich oder am Zeitpunkt?',abschluss:'Schauen wir es uns einmal in Ruhe an – wenn es nicht passt, sagen Sie es mir ehrlich. {termin}?'},
+  {einwand:'Schicken Sie mir Unterlagen',technik:'vorwand',kw:['unterlag','schick','mail','prospekt','info','broschüre'],abfedern:'Mache ich gern.',pruefen:'Damit ich nicht das Falsche schicke: Was müsste drinstehen, damit es für Sie interessant ist?',abschluss:'Am besten zeige ich es Ihnen gleich live, dann sehen Sie sofort, ob es passt: {termin}?'},
+  {einwand:'Zu teuer',technik:'preis',kw:['teuer','preis','kost','budget','geld','kosten'],abfedern:'Gut, dass Sie das gleich ansprechen.',pruefen:'Zu teuer im Vergleich wozu? Was kostet Sie die jetzige Lösung im Monat an Zeit?',abschluss:'Rechnen wir das im Termin für Ihr Team konkret durch – {termin}?'},
+  {einwand:'Haben wir schon',technik:'bumerang',kw:['haben schon','haben wir','anbieter','bereits','nutzen schon','lösung'],abfedern:'Sehr gut, dann kennen Sie das Thema schon.',pruefen:'Wenn Sie an Ihrer jetzigen Lösung eine Sache ändern könnten – welche wäre das?',abschluss:'Genau das schauen wir uns an – ein Vergleich kostet nichts. {termin}?'},
+  {einwand:'Ich überleg’s mir',technik:'vorwand',kw:['überleg','nachdenken','melde mich','schlaf','bedenk'],abfedern:'Klar, das ist eine wichtige Entscheidung.',pruefen:'Was genau möchten Sie noch überlegen – den Nutzen, den Zeitpunkt oder den Preis?',abschluss:'Dann klären wir genau das im Termin, und Sie entscheiden danach: {termin}?'},
+  {einwand:'Muss ich mit dem Chef besprechen',technik:'isolieren',kw:['chef','geschäftsführ','vorgesetzt','abstimmen','betriebsrat','entscheide nicht'],abfedern:'Natürlich, das sollte er mitentscheiden.',pruefen:'Angenommen, Ihr Chef sagt ja – wären Sie selbst dafür?',abschluss:'Dann holen wir ihn gleich zum Termin dazu: {termin}?'},
+  {einwand:'Rufen Sie später wieder an',technik:'vorwand',kw:['monat','später','nächstes jahr','frühjahr','herbst','wieder an'],abfedern:'Mache ich gern.',pruefen:'Was ist in drei Monaten anders als heute?',abschluss:'Dann reservieren wir den Termin gleich für dann – so geht er nicht unter. Passt der erste Dienstag im Monat?'},
+  {einwand:'Woher haben Sie meine Nummer?',technik:'konter',kw:['nummer','woher','wer gab'],abfedern:'Aus öffentlichen Firmendaten – und ich halte es kurz, versprochen.',pruefen:'Darf ich Ihnen in 30 Sekunden sagen, warum ich gerade Sie anrufe?',abschluss:'Und dann entscheiden Sie, ob wir uns einen Termin nehmen.'},
+  {einwand:'Wir sind zufrieden',technik:'bumerang',kw:['zufrieden','läuft gut','passt so','kein problem'],abfedern:'Das freut mich – zufriedene Firmen sind die besten Gesprächspartner.',pruefen:'Was müsste passieren, damit es noch besser läuft?',abschluss:'Ein Blick von außen kostet nichts: {termin}?'}];
+const PITCH = {frameTage:2,terminOwner:'self',methode:'kreuter',techniken:TECHNIKEN.map(t=>t[0]),ansprache:'sie',stil:'beratend',laenge:'kurz',dialekt:'1',ziel:'demo',dauer:45,slots:'Donnerstag um 10 oder lieber Freitag um 9',
   opener:'{gruss}, {meinname} von {meinefirma}. Ich hab gesehen, {anlass} – genau deshalb ruf ich an.',
   dos:'Anlass immer im ersten Satz nennen\nOffene Fragen stellen\nKurz bleiben, nach 30 Sekunden eine Frage',
   donts:'Keine Preise oder Rabatte am Telefon\nNicht schlecht über Mitbewerber reden\nKein Fachchinesisch',
@@ -693,7 +723,7 @@ const OUTCOMES = [
 const OUTLABEL = Object.fromEntries(OUTCOMES.concat([['offen','Offen']]));
 
 /* ---------------- state ---------------- */
-const KEY = 'griassdi-mvp-v5';
+const KEY = 'griassdi-mvp-v7';
 function freshState(){
   const cp = x => JSON.parse(JSON.stringify(x));
   return { view:'heute', atab:'zufuhr', sel:'l1', tab:'recherche', filter:'alle', gfilter:'alle', tone:'sie', plan:'test', callsUsed:0,
@@ -752,7 +782,7 @@ function pitchRules(){
   return `Stil: ${p.stil}. Länge: ${p.laenge}. Sprache: ${['Hochdeutsch','leicht österreichisch gefärbt','kräftig österreichisch, aber verständlich'][+p.dialekt||0]}. Ziel des Anrufs: ${{demo:'Online-Demo',termin:'Vor-Ort-Termin',rueckruf:'Rückruf vereinbaren'}[p.ziel]} (${p.dauer} Minuten), Terminvorschlag: ${p.slots}.
 Do's: ${p.dos.replace(/\n/g,'; ')}
 Don'ts: ${p.donts.replace(/\n/g,'; ')}
-Einwand-Bibliothek (bevorzugt nutzen): ${p.einwaende.filter(e=>e.einwand).map(e=>e.einwand+(e.technik?' ['+techName(e.technik)+']':'')+' → '+e.antwort).join(' | ')}${meth}`;
+Einwand-Bibliothek (bevorzugt nutzen): ${p.einwaende.filter(e=>e.einwand).map(e=>e.einwand+(e.technik?' ['+techName(e.technik)+']':'')+' → '+objText(e)).join(' | ')}${meth}`;
 }
 function duSatz(l){ return l.satzSie.replace(/\bSie\b/g,'du').replace(/suchen\b/,'suchst').replace(/hatten\b/,'hattest').replace(/haben\b/,'hast').replace(/bauen\b/,'baust').replace(/umstellen\b/,'umstellst').replace(/eröffnen\b/,'eröffnest'); }
 function tplPitch(l){
@@ -768,7 +798,7 @@ function tplPitch(l){
     fragen: du ? [`Wie macht ihr das Thema ${s.thema} heute?`,'Was nervt dich daran am meisten?','Wer entscheidet bei euch über so etwas mit?']
                : [`Wie lösen Sie das Thema ${s.thema} heute?`,'Was ist dabei am mühsamsten?','Wer entscheidet bei Ihnen über so etwas mit?'],
     nutzen: s.nutzen,
-    einwaende: P.einwaende.filter(e=>e.einwand&&e.antwort).map(e=>({einwand:e.einwand,antwort:e.antwort,technik:kreuter()?(e.technik||''):''})),
+    einwaende: P.einwaende.filter(e=>e.einwand&&(e.abfedern||e.antwort)).map(e=>({...e,technik:kreuter()?(e.technik||''):''})),
     abschluss: ab,
     ki:false
   };
@@ -799,7 +829,7 @@ Antworte nur mit JSON in genau dieser Form:
       bruecke: typeof r.bruecke==='string'&&r.bruecke ? r.bruecke : base.bruecke,
       fragen: Array.isArray(r.fragen)&&r.fragen.length ? r.fragen.map(String).slice(0,4) : base.fragen,
       nutzen: Array.isArray(r.nutzen)&&r.nutzen.length ? r.nutzen.map(String).slice(0,4) : base.nutzen,
-      einwaende: Array.isArray(r.einwaende)&&r.einwaende.length ? r.einwaende.filter(x=>x&&x.einwand).map(x=>({einwand:String(x.einwand),antwort:String(x.antwort||''),technik:TECHNIKEN.some(t=>t[0]===x.technik)?x.technik:''})).slice(0,5) : base.einwaende,
+      einwaende: base.einwaende,
       abschluss: typeof r.abschluss==='string'&&r.abschluss ? r.abschluss : base.abschluss,
       ki:true
     };
@@ -828,23 +858,27 @@ function buildScript(l, p){
     {t:25, who:'kunde', text: boss?'Das entscheide ich.':'Das mache ich gemeinsam mit der Geschäftsführung.', cover:'entscheider'},
     {t:27, who:'du', text:qq.zeitrahmen},
     {t:30, who:'kunde', text: du?'Am besten noch vor dem Jahreswechsel. Aber ehrlich, grad haben wir keine Zeit für ein neues Tool.':'Am besten noch vor dem Jahreswechsel. Aber ehrlich gesagt haben wir gerade keine Zeit für ein neues Tool.', cover:'zeitrahmen'},
-    {t:32, tip:['achtung', (kre&&ob.technik ? techName(ob.technik)+': ' : 'Einwand „keine Zeit“: ') + '„'+ob.antwort+'“']},
-    {t:35, who:'du', text:ob.antwort, cover:'einwand'},
-    {t:39, who:'kunde', text:'Hm, okay. Und was kostet das?'},
-    {t:41, tip:['tipp', kre&&tech.includes('preis') ? 'Preis verteidigen: Nutzen – Preis – Nutzen. Dann Budget klären.' : 'Kurz den Preisrahmen nennen, dann Budget klären.']},
-    {t:43, who:'du', text:(pr?`Das hängt von der Teamgröße ab – ${pr}. `:'')+qq.budget},
-    {t:46, who:'kunde', text:'Wenn es passt, ist das Budget da.', cover:'budget'},
-    {t:48, tip:['gut','Qualifiziert ✓ – jetzt den Termin fixieren!']},
-    {t:50, who:'du', text:p.abschluss},
-    ...(kre&&tech.includes('alternativ') ? [{t:52, tip:['gut','Alternativfrage – jetzt schweigen und warten.']}] : []),
-    {t:54, who:'kunde', text:'Donnerstag um 10 passt.', cover:'termin'},
-    {t:56, who:'du', text: du?`Super, die Einladung kommt gleich. Danke dir, ${l.vorname}!`:`Perfekt, Sie bekommen gleich die Einladung. Danke, ${l.anrede} ${l.nachname}!`},
-    {t:58, tip:['gut','Termin steht! Auflegen – Griaßdi trägt alles ein.']}
+    {t:32, tip:['achtung', 'Einwand „'+ob.einwand+'“'+(kre&&ob.technik?' · '+techName(ob.technik):''), ob]},
+    {t:35, who:'du', text:fillSlots([ob.abfedern,ob.pruefen].filter(Boolean).join(' ')||objText(ob)), cover:'einwand'},
+    {t:39, who:'kunde', text: du?'Nein, wichtig ist das schon. Nur grad ist es eng.':'Nein, wichtig ist das schon. Nur gerade ist es eng.'},
+    {t:41, tip:['gut','War ein Vorwand – Interesse ist da. Weiter qualifizieren: Budget.']},
+    {t:43, who:'kunde', text:'Und was kostet das?'},
+    {t:45, tip:['tipp', kre&&tech.includes('preis') ? 'Preis verteidigen: Nutzen – Preis – Nutzen. Dann Budget klären.' : 'Kurz den Preisrahmen nennen, dann Budget klären.']},
+    {t:47, who:'du', text:(pr?`Das hängt von der Teamgröße ab – ${pr}. `:'')+qq.budget},
+    {t:50, who:'kunde', text:'Wenn es passt, ist das Budget da.', cover:'budget'},
+    {t:52, tip:['gut','Qualifiziert ✓ – jetzt den Termin fixieren!']},
+    {t:54, who:'du', text:p.abschluss},
+    ...(kre&&tech.includes('alternativ') ? [{t:56, tip:['gut','Alternativfrage – jetzt schweigen und warten.']}] : []),
+    {t:58, who:'kunde', text:'Donnerstag um 10 passt.', cover:'termin'},
+    {t:60, who:'du', text: du?`Super, die Einladung kommt gleich. Danke dir, ${l.vorname}!`:`Perfekt, Sie bekommen gleich die Einladung. Danke, ${l.anrede} ${l.nachname}!`},
+    {t:62, tip:['gut','Termin steht! Auflegen – Griaßdi trägt alles ein.']}
   ];
 }
 function startCall(){
   if (S.callsUsed >= callLimit()){ openPlans(); return; }
   const l = cur();
+  if (!C.force){ const chk=crmCheck(l); if(!chk.ok){ blockCall(l,chk); return; } }
+  C.force=false;
   S.callsUsed++; save();
   Object.assign(C,{status:'ringing',leadId:l.id,ringStart:Date.now(),start:0,t:0,ev:buildScript(l,pitchFor(l)),shown:0,lines:[],tip:null,covered:{},helper:'',helperBusy:false});
   renderDialer(); renderNav();
@@ -862,7 +896,7 @@ function tick(){
   let changed=false;
   while (C.shown < C.ev.length && C.ev[C.shown].t <= C.t){
     const e = C.ev[C.shown++]; changed=true;
-    if (e.tip){ if (S.pitch.tipps && me().coaching!==false) C.tip = {k:e.tip[0], text:e.tip[1]}; }
+    if (e.tip){ if (S.pitch.tipps && me().coaching!==false) C.tip = {k:e.tip[0], text:e.tip[1], obj:e.tip[2]||null}; }
     else { C.lines.push(e); if (e.cover) C.covered[e.cover]=true; }
   }
   if (changed) updateLive();
@@ -923,7 +957,7 @@ function renderQueue(){
   const NS = new Set(visSignals().filter(x=>x.status==='neu').map(x=>x.leadId));
   const list = V.slice().sort((a,b)=> ((a.status!=='offen')-(b.status!=='offen')) || ((b.hot||0)-(a.hot||0)));
   $('#queue').innerHTML = `<div class="panel-h"><h2>Anrufliste</h2><span class="note num" style="margin-left:auto">${done}/${V.length}</span></div>
-   <div class="prog"><div class="bar"><i style="width:${done/all*100}%"></i></div></div>
+   <div class="prog"><div class="bar"><i style="width:${done/all*100}%"></i></div><button class="ddline" data-act="dedup">${icon('check')}Mit CRM abgeglichen · ${S.dedup?S.dedup.removed.length:0} aussortiert</button></div>
    <div class="scroll">${(()=>{ const fr=dueFrames(); return fr.length?`<div class="frames"><span class="label">Frame-Calls heute</span>${fr.map(t=>`<button class="qitem frameitem" data-act="openframe" data-v="${t.id}"><span class="av">${icon('calendar')}</span><span class="n">${esc(t.person.replace(/^(Mag\.|Dr\.)\s*/,''))}</span><span class="trig">Frame</span><span class="c" style="grid-column:2/4">Termin ${esc(fmtDate(t.date,t.time))}</span></button>`).join('')}</div>`:''; })()}<ul class="qlist">${list.map(l=>`<li><button class="qitem ${l.status!=='offen'?'done':''}" data-act="sel" data-v="${l.id}" aria-current="${l.id===S.sel}">
      <span class="av">${esc(initials(l.person))}</span>
      <span class="n">${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}${NS.has(l.id)?'<span class="hotdot" title="Neues Signal"></span>':''}</span>
@@ -947,7 +981,7 @@ function renderWork(){
       <div class="say"><span class="label">Dann qualifizieren</span><ul class="qlist2">${(()=>{ const qq=qualiQuestions(l,p); return QUALI.map(([k,n])=>`<li><span class="qtag">${n}</span><span>${esc(qq[k])}</span></li>`).join(''); })()}</ul></div>
       <div class="say goal"><span class="label">Ziel: Termin</span><p>${esc(p.abschluss)}</p></div>
       <div class="minibar"><button class="btn ghost sm" data-act="genpitch" ${busy?'disabled':''}>${icon('spark')}${p.ki?'Neu schreiben':'Mit KI anpassen'}</button><button class="btn ghost sm" data-act="copypitch">${icon('copy')}Kopieren</button></div>
-      <details class="fold"><summary>Einwände <span class="note">${p.einwaende.length}</span></summary><div class="foldbody">${p.einwaende.map(o=>`<div class="obj">${o.technik?`<span class="tech">${esc(techName(o.technik))}</span>`:''}<b>„${esc(o.einwand)}“</b><span>${esc(o.antwort)}</span></div>`).join('')}</div></details>
+      <details class="fold"><summary>Einwände <span class="note">${p.einwaende.length}</span></summary><div class="foldbody">${p.einwaende.map(o=>`<div class="obj">${o.technik?`<span class="tech">${esc(techName(o.technik))}</span>`:''}<b>„${esc(o.einwand)}“</b>${stepsHtml(o)}</div>`).join('')}</div></details>
       <details class="fold"><summary>Mehr zum Lead</summary><div class="foldbody">
         ${pg?`<div class="tipbox"><span class="label">So ansprechen</span><div>${esc(pg.ansprache)}</div></div>`:''}
         <div class="facts"><div class="fact"><span class="label">Mitarbeiter</span><b class="num">${l.ma||'–'}</b></div><div class="fact"><span class="label">Ort</span><b>${esc(l.ort)}</b></div><div class="fact"><span class="label">Beste Zeit</span><b>${esc(l.best)}</b></div><div class="fact"><span class="label">Score</span><b class="num">${l.score}</b></div></div>
@@ -991,35 +1025,113 @@ function updateLive(full){
   tr.scrollTop = tr.scrollHeight;
   const co = $('#d-coach');
   const tip = C.tip || {k:'tipp', text:'Lächeln beim Sprechen – man hört es.'};
-  co.innerHTML = `<div class="coach big ${tip.k}">${mascot(30,true)}<div><span class="k">${{gut:'Gut so',tipp:'Tipp',achtung:'Achtung'}[tip.k]}</span><p>${esc(tip.text)}</p></div></div>`;
+  co.innerHTML = `<div class="coach big ${tip.k}">${mascot(30,true)}<div><span class="k">${{gut:'Gut so',tipp:'Tipp',achtung:'Achtung'}[tip.k]}</span><p>${esc(tip.text)}</p>${tip.obj?stepsHtml(tip.obj,true):''}</div></div>`;
   const r = ratio();
   $('#r-bar').style.width=r+'%';
   $('#r-hint').textContent = r>S.pitch.redeanteil ? `Du redest ${r} % – hör mehr zu` : `Dein Redeanteil: ${r} %`;
   CHECKS.forEach(([k])=>{ const el=$('#ck-'+k); if(el) el.classList.toggle('ok', !!C.covered[k]); });
 }
-/* ---------------- objection helper ---------------- */
+/* ---------------- Einwandbehandlung (3 Schritte) ---------------- */
+const KREUTER_REGELN=['Nie „aber“ sagen – erst abfedern, dann fragen.','Immer prüfen: echter Einwand oder Vorwand?','Nach jeder Antwort zurück zum Termin – mit Alternativfrage.','Nach dem ersten Nein mindestens einmal nachfassen.','Kurz bleiben. Frage stellen. Dann schweigen.'];
+const fillSlots = t => String(t||'').replace(/\{termin\}/g, effPitch().slots||'Donnerstag oder Freitag');
+const objSteps = e => [e.abfedern, e.pruefen, e.abschluss].map(fillSlots).filter(Boolean);
+const objText = e => objSteps(e).join(' ') || fillSlots(e.antwort||'');
+function objMatch(text, list){
+  const t=' '+String(text).toLowerCase()+' ';
+  let best=null, bestN=0;
+  (list||[]).forEach(e=>{ const kws=(e.kw&&e.kw.length?e.kw:e.einwand.toLowerCase().split(/[^a-zäöüß]+/).filter(w=>w.length>3));
+    const n=kws.filter(w=>t.includes(String(w).toLowerCase())).length; if(n>bestN){ bestN=n; best=e; } });
+  return best;
+}
+function stepsHtml(e, dark){
+  const st=[['Abfedern',e.abfedern],['Prüfen',e.pruefen],['Zum Termin',e.abschluss]].filter(x=>x[1]);
+  if (!st.length) return `<span>${esc(fillSlots(e.antwort||''))}</span>`;
+  return `<ol class="steps3 ${dark?'dark':''}">${st.map(([n,v])=>`<li><b>${n}</b><span>${esc(fillSlots(v))}</span></li>`).join('')}</ol>`;
+}
 function localObjection(text){
-  const p = pitchFor(lead(C.leadId)); const t=text.toLowerCase();
-  const hit = p.einwaende.find(e=>e.einwand.toLowerCase().split(/[^a-zäöüß]+/).filter(w=>w.length>3).some(w=>t.includes(w)));
-  if (hit) return (hit.technik?'['+techName(hit.technik)+'] ':'')+hit.antwort;
-  const pick = /zeit|stress|später|busy/.test(t)?0 : /unterlag|mail|schick|info/.test(t)?1 : /teuer|preis|kost|budget|haben schon|bereits|anbieter/.test(t)?2 : -1;
-  return pick>=0 && p.einwaende[pick] ? p.einwaende[pick].antwort : (S.tone==='du'?'Versteh ich. Darf ich kurz fragen, was dir dabei am wichtigsten wäre?':'Verstehe ich. Darf ich kurz fragen, was Ihnen dabei am wichtigsten wäre?');
+  const p = pitchFor(lead(C.leadId));
+  return objMatch(text, p.einwaende) || objMatch(text, KREUTER_EINWAENDE) ||
+    {einwand:'Unklar', technik:'vorwand', abfedern:'Verstehe ich.', pruefen:S.tone==='du'?'Darf ich fragen, was genau dahintersteckt?':'Darf ich fragen, was genau dahintersteckt?', abschluss:'Lassen Sie uns das im Termin in Ruhe klären – {termin}?'};
+}
+function showObjection(o){
+  const out=$('#helper-out'); if(!out) return;
+  out.innerHTML = `<div class="helper-out"><div class="hoh"><b>„${esc(o.einwand)}“</b>${o.technik?`<span class="tech">${esc(techName(o.technik))}</span>`:''}</div>${stepsHtml(o,true)}</div>`;
 }
 async function helpObjection(text){
   const out = $('#helper-out'); if(!out) return;
   C.covered.einwand = true; updateLive();
-  if (!AI){ out.innerHTML = `<div class="helper-out">${esc(localObjection(text))}</div>`; return; }
+  const local = localObjection(text);
+  if (!AI){ showObjection(local); return; }
   if (C.ctl) C.ctl.abort();
   C.ctl = new AbortController();
   out.innerHTML = '<div class="helper-out"><span class="dots"><i></i><i></i><i></i></span></div>';
   const l = lead(C.leadId), s=ctx(l);
   try{
-    await AI(`Du coachst live während eines Kaltakquise-Telefonats im DACH-Raum. Ich verkaufe ${s.angebot}. Gegenüber: ${l.person}, ${l.rolle} bei ${l.firma}. Gegenüber sagt gerade: "${text}". Unser Wissen: ${kbBrief().slice(0,2500)}
-Einwand-Bibliothek: ${S.pitch.einwaende.map(e=>e.einwand+' → '+e.antwort).join(' | ')}
-Buyer Persona: ${personaBrief(ctx(l).gruppe)}
-${kreuter()?'Methodik: Techniken angelehnt an Dirk Kreuter ('+effPitch().techniken.map(techName).join(', ')+'). Prüfe zuerst, ob es ein Einwand oder ein Vorwand ist, wähle die passende Technik und schreib ihren Namen in eckigen Klammern davor, z. B. [Bumerang]. Die Antwort führt zurück zum Termin.\n':''}Gib mir genau eine Antwort, die ich jetzt sagen kann: höchstens 2 kurze Sätze, ${tone()}, freundlich, endet mit einer Frage. Nur die Antwort, ohne Einleitung und ohne Anführungszeichen.`,
-      {modelTier:'quick', cache:false, signal:C.ctl.signal, onText:({text})=>{ const o=$('#helper-out'); if(o) o.innerHTML=`<div class="helper-out">${esc(text)}</div>`; }});
-  }catch(e){ const m=aiErr(e); if(m){ const o=$('#helper-out'); if(o) o.innerHTML=`<div class="helper-out">${esc(localObjection(text))}</div>`; } }
+    const r = await AI.json(`Du coachst live während eines Kaltakquise-Telefonats im DACH-Raum. Ziel des Anrufs: qualifizieren und einen Termin legen.
+Ich verkaufe ${s.angebot}. Gegenüber: ${l.person}, ${l.rolle} bei ${l.firma}. Buyer Persona: ${personaBrief(ctx(l).gruppe)}
+Gegenüber sagt gerade: "${text}"
+Unser Wissen: ${kbBrief().slice(0,2000)}
+Einwand-Bibliothek: ${S.pitch.einwaende.map(e=>e.einwand+' → '+objText(e)).join(' | ')}
+Methodik (angelehnt an Dirk Kreuter): ${KREUTER_REGELN.join(' ')} Techniken: ${TECHNIKEN.map(t=>t[0]+' = '+t[1]).join(', ')}.
+Antworte in drei Schritten, ${tone()}, jeder Schritt höchstens ein kurzer Satz: 1) abfedern ohne „aber“, 2) prüfen ob Einwand oder Vorwand (eine Frage), 3) zurück zum Termin mit Alternativfrage (${effPitch().slots}).
+Antworte nur mit JSON: {"einwand":"kurzer Name","technik":"${TECHNIKEN.map(t=>t[0]).join('|')}","abfedern":"","pruefen":"","abschluss":""}`,
+      {modelTier:'quick', cache:false, signal:C.ctl.signal});
+    showObjection({einwand:String(r.einwand||local.einwand), technik:TECHNIKEN.some(t=>t[0]===r.technik)?r.technik:local.technik, abfedern:String(r.abfedern||''), pruefen:String(r.pruefen||''), abschluss:String(r.abschluss||'')});
+  }catch(e){ const m=aiErr(e); if(m) showObjection(local); }
+}
+function einwandEditor(){
+  const kre=S.pitch.methode==='kreuter';
+  return `<div class="ewlist">${S.pitch.einwaende.map((e,i)=>`<div class="ew">
+      <div class="ewh"><input data-bind="pitch.einwaende.${i}.einwand" value="${esc(e.einwand)}" placeholder="Einwand, z. B. „Keine Zeit“" aria-label="Einwand">
+        ${kre?`<select data-bind="pitch.einwaende.${i}.technik" aria-label="Technik"><option value="">– Technik –</option>${TECHNIKEN.map(t=>`<option value="${t[0]}" ${e.technik===t[0]?'selected':''}>${t[1]}</option>`).join('')}</select>`:''}
+        <button type="button" class="del" data-act="listdel" data-path="pitch.einwaende" data-i="${i}" aria-label="Entfernen">✕</button></div>
+      ${[['abfedern','1 · Abfedern'],['pruefen','2 · Prüfen'],['abschluss','3 · Zum Termin']].map(([k,n])=>`<label class="ewr"><span>${n}</span><input data-bind="pitch.einwaende.${i}.${k}" value="${esc(e[k]||'')}" aria-label="${n}"></label>`).join('')}
+    </div>`).join('')}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost sm" data-act="listadd" data-path="pitch.einwaende">+ Einwand</button>${kre?'<button type="button" class="btn ghost sm" data-act="loadkreuter">Standard-Einwände ergänzen</button>':''}</div>
+    <p class="note" style="margin:8px 0 0">{termin} wird durch deine Terminvorschläge ersetzt.</p>`;
+}
+
+/* ---------------- CRM-Abgleich (Duplikate) ---------------- */
+const CRM_DEMO=[
+  {firma:'Muster Druck GmbH',domain:'muster-druck.at',tel:'+43 1 000 55 66',status:'kunde',info:'Bestandskunde seit 2024'},
+  {firma:'Beispiel Bäckerei KG',domain:'beispiel-baeckerei.at',tel:'+43 732 000 11 22',status:'kunde',info:'Bestandskunde seit 2023'},
+  {firma:'Muster Consulting GmbH',domain:'muster-consulting.at',tel:'+43 1 000 33 44',status:'deal',info:'Offener Deal · Phase „Angebot“ · Owner Sarah'},
+  {firma:'Beispiel Hotel Sonnhof',domain:'beispiel-sonnhof.at',tel:'+43 512 000 99 88',status:'kontakt',info:'Vor 12 Tagen angerufen – „Kein Interesse“'},
+  {firma:'Muster IT OG',domain:'muster-it.at',tel:'+43 316 000 77 66',status:'sperre',info:'Hat Werbewiderspruch eingelegt – nicht anrufen'},
+  {firma:'Beispiel Handel AG',domain:'beispiel-handel.ch',tel:'',status:'deal',info:'Heute von Sarah angelegt – offener Deal, Phase „Erstgespräch“',late:true}];
+const CRM_LABEL={kunde:'Bestandskunde',deal:'Offener Deal',kontakt:'Kürzlich kontaktiert',sperre:'Nicht anrufen',team:'Bei Kolleg:in'};
+const normFirm = s => String(s||'').toLowerCase().replace(/\b(gmbh|ag|kg|og|e\.?u\.?|co|& co|ug|se)\b/g,'').replace(/[^a-z0-9äöüß]/g,'');
+const normTel = s => { let d=String(s||'').replace(/[^\d+]/g,''); if(d.startsWith('0043')) d='+43'+d.slice(4); if(d.startsWith('0')&&!d.startsWith('00')) d='+43'+d.slice(1); return d.replace(/\D/g,''); };
+const normDom = s => String(s||'').toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0].split('@').pop();
+function crmCheck(l){
+  const f=normFirm(l.firma), t=normTel(l.tel), d=normDom(l.web&&l.web!=='–'?l.web:(l.mail||''));
+  for (const r of CRM_DEMO){
+    const by = (f&&normFirm(r.firma)===f)?'Firmenname' : (t.length>6&&normTel(r.tel)===t)?'Telefonnummer' : (d&&d.includes('.')&&normDom(r.domain)===d)?'Domain' : null;
+    if (by) return {ok:false, status:r.status, grund:CRM_LABEL[r.status], info:r.info, by, firma:r.firma};
+  }
+  const cut=Date.now()-(+S.leadCfg.sperrfrist||180)*864e5;
+  const recent=S.log.find(x=>x.leadId!==l.id && normFirm(x.firma)===f && x.ts>cut && x.outcome==='kein');
+  if (recent) return {ok:false,status:'kontakt',grund:CRM_LABEL.kontakt,info:'„Kein Interesse“ am '+new Date(recent.ts).toLocaleDateString('de-AT'),by:'Anrufverlauf',firma:l.firma};
+  const t2=S.termine.find(x=>x.leadId!==l.id && normFirm(x.firma)===f);
+  if (t2) return {ok:false,status:'deal',grund:CRM_LABEL.deal,info:'Termin am '+fmtDate(t2.date,t2.time),by:'Firmenname',firma:l.firma};
+  return {ok:true};
+}
+function seedDedup(){ return {checked:42, removed:CRM_DEMO.filter(r=>!r.late).map(r=>({firma:r.firma, grund:CRM_LABEL[r.status], info:r.info}))}; }
+function openDedup(){
+  const d=S.dedup;
+  $('#modal').innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="dd-h">
+    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="dd-h">CRM-Abgleich</h2><span class="note">${d.checked} Leads geprüft · ${d.removed.length} aussortiert</span></div><button class="x" data-act="closemodal" aria-label="Schließen">✕</button></div>
+    <ul class="ddlist">${d.removed.map(r=>`<li><span class="pill st-kein">${esc(r.grund)}</span><div><b>${esc(r.firma)}</b><div class="note">${esc(r.info)}</div></div></li>`).join('')}</ul>
+    <div class="tipbox"><span class="label">So prüft Griaßdi</span><div>Domain, Firmenname, Telefonnummer und E-Mail gegen ${S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'das CRM'} – vor der Lieferung, beim Import und direkt vor jedem Anruf.</div></div></div>`;
+  $('#modal').hidden=false;
+}
+function blockCall(l, chk){
+  $('#modal').innerHTML = `<div class="sheet small" role="alertdialog" aria-modal="true" aria-labelledby="bk-h">
+    <div class="donehead"><span class="stopsign">!</span><h2 id="bk-h">Stopp – nicht anrufen</h2><span class="note">${esc(l.firma)}</span></div>
+    <div class="tipbox" style="background:var(--bad-soft)"><span class="label" style="color:var(--bad)">${esc(chk.grund)}</span><div>${esc(chk.info)}</div><div class="note">Treffer über: ${esc(chk.by)}</div></div>
+    <button class="btn wide" data-act="skiplead" data-v="${l.id}">Überspringen & aus der Liste nehmen</button>
+    <button class="btn ghost wide" data-act="forcecall">Trotzdem anrufen</button></div>`;
+  $('#modal').hidden=false;
 }
 
 /* ---------------- wrap-up: Qualifizierung & Termin ---------------- */
@@ -1045,7 +1157,7 @@ function openWrap(reached){
   const thu = nextWeekday(4);
   const ownerDef = S.pitch.terminOwner && S.pitch.terminOwner!=='self' && S.team.some(m=>m.id===S.pitch.terminOwner) ? S.pitch.terminOwner : S.me;
   W = {outcome: !reached ? 'nicht' : c.termin ? 'termin' : Object.values(q).filter(x=>x.ok).length>=2 ? 'rueckruf' : 'kein',
-       quali:q, termin:{date:isoDate(thu), time:'10:00', art:'Online-Demo', owner:ownerDef, mail:l.mail}, rueckruf:{date:isoDate(nextWeekday(2)), time:'09:30'}, grund:'',
+       quali:q, termin:{date:isoDate(thu), time:'10:00', dauer:+S.pitch.dauer||45, art:'Online-Demo', owner:ownerDef, mail:l.mail}, rueckruf:{date:isoDate(nextWeekday(2)), time:'09:30'}, grund:'',
        notes:'', ai:null, busy:false, err:'', score: reached?pitchScore():null, ratio: reached?ratio():null, step:'form', reached};
   renderWrap();
 }
@@ -1054,7 +1166,7 @@ function readWrapInputs(){
   const g=id=>{ const el=$('#'+id); return el?el.value:null; };
   if (g('wrap-notes')!=null) W.notes=g('wrap-notes');
   QUALI.forEach(([k])=>{ const v=g('q-'+k); if(v!=null) W.quali[k].v=v; });
-  ['date','time','art','owner','mail'].forEach(k=>{ const v=g('t-'+k); if(v!=null) W.termin[k]=v; });
+  ['date','time','art','owner','mail','dauer'].forEach(k=>{ const v=g('t-'+k); if(v!=null) W.termin[k]=(k==='dauer'?+v:v); });
   ['date','time'].forEach(k=>{ const v=g('r-'+k); if(v!=null) W.rueckruf[k]=v; });
 }
 function renderWrap(){
@@ -1070,7 +1182,8 @@ function renderWrap(){
       ${QUALI.map(([k,n])=>`<div class="qrow"><button class="qck ${W.quali[k].ok?'ok':''}" data-act="qtoggle" data-v="${k}" aria-pressed="${W.quali[k].ok}" aria-label="${n} geklärt">${icon('check')}</button><label for="q-${k}">${n}</label><input id="q-${k}" value="${esc(W.quali[k].v)}" placeholder="noch offen"></div>`).join('')}</div>`:''}
     ${o==='termin'?`<div class="tbox"><b>Termin</b><div class="trow"><input type="date" id="t-date" value="${W.termin.date}" aria-label="Datum"><input type="time" id="t-time" value="${W.termin.time}" aria-label="Uhrzeit">
         <select id="t-art" aria-label="Art">${['Online-Demo','Vor-Ort-Termin','Telefontermin'].map(x=>`<option ${W.termin.art===x?'selected':''}>${x}</option>`).join('')}</select>
-        <select id="t-owner" aria-label="Termin führt">${S.team.filter(x=>x.status==='aktiv').map(x=>`<option value="${x.id}" ${W.termin.owner===x.id?'selected':''}>${x.id===S.me?'Ich führe den Termin':'Übergabe an '+esc(x.vorname)}</option>`).join('')}</select></div>
+        <select id="t-dauer" aria-label="Dauer">${[15,30,45,60,90].map(x=>`<option value="${x}" ${+W.termin.dauer===x?'selected':''}>${x} Minuten</option>`).join('')}</select>
+        <select id="t-owner" aria-label="Termin führt" class="span2">${S.team.filter(x=>x.status==='aktiv').map(x=>`<option value="${x.id}" ${W.termin.owner===x.id?'selected':''}>${x.id===S.me?'Ich führe den Termin':'Übergabe an '+esc(x.vorname)}</option>`).join('')}</select></div>
         <div class="mailrow">${icon('mail')}<span>Outlook-Einladung an</span><input type="email" id="t-mail" value="${esc(W.termin.mail)}" aria-label="E-Mail für die Einladung"></div>
         <p class="note" style="margin:0">Frame-Call ${S.pitch.frameTage||2} Tage vorher: ${esc(fmtDate(frameDate(W.termin.date)))}</p></div>`:''}
     ${o==='rueckruf'?`<div class="tbox"><b>Rückruf am</b><div class="trow"><input type="date" id="r-date" value="${W.rueckruf.date}" aria-label="Datum"><input type="time" id="r-time" value="${W.rueckruf.time}" aria-label="Uhrzeit"></div></div>`:''}
@@ -1097,7 +1210,7 @@ function tplWrap(l){
     kein:`${l.person} hat kein Interesse${W.grund?' – '+W.grund:''}.`, nicht:`${l.person} nicht erreicht.`}[o];
   const next = {termin:`${art} am ${when}`, rueckruf:`Rückruf am ${fmtDate(W.rueckruf.date,W.rueckruf.time)}`, kein:'Sperrfrist, in 6 Monaten erneut prüfen', nicht:'Morgen zur besten Anrufzeit nochmal ('+l.best+')'}[o];
   const g = du?`Hallo ${l.vorname},`:`Sehr geehrte${l.anrede==='Herr'?'r Herr':' Frau'} ${l.nachname},`;
-  const body = {termin: du?`danke dir für das nette Gespräch! Wie besprochen sehen wir uns am ${when} zur ${art} (${S.pitch.dauer} Minuten). Die Einladung mit Link ist schon in deinem Postfach.`:`vielen Dank für das angenehme Gespräch. Wie besprochen sehen wir uns am ${when} zur ${art} (${S.pitch.dauer} Minuten). Die Einladung mit Link haben Sie bereits erhalten.`,
+  const body = {termin: du?`danke dir für das nette Gespräch! Wie besprochen sehen wir uns am ${when} zur ${art} (${W.termin.dauer} Minuten). Die Einladung mit Link ist schon in deinem Postfach.`:`vielen Dank für das angenehme Gespräch. Wie besprochen sehen wir uns am ${when} zur ${art} (${W.termin.dauer} Minuten). Die Einladung mit Link haben Sie bereits erhalten.`,
     rueckruf: du?`danke für deine Zeit vorhin. Wie besprochen meld ich mich am ${fmtDate(W.rueckruf.date,W.rueckruf.time)} nochmal.`:`vielen Dank für Ihre Zeit. Wie besprochen melde ich mich am ${fmtDate(W.rueckruf.date,W.rueckruf.time)} wieder.`,
     kein: du?'danke dir trotzdem für deine Zeit. Falls sich bei euch was ändert, meld dich gern.':'vielen Dank trotzdem für Ihre Zeit. Falls sich bei Ihnen etwas ändert, melden Sie sich gern.',
     nicht: du?`ich hab dich vorhin telefonisch nicht erreicht. Ich hab gesehen, ${duSatz(l)} – und hätte dazu eine kurze Idee. Passt dir ein kurzer Anruf diese Woche?`:`ich habe Sie vorhin telefonisch leider nicht erreicht. Ich habe gesehen, ${l.satzSie} – und hätte dazu eine kurze Idee. Passt Ihnen ein kurzer Anruf diese Woche?`}[o];
@@ -1113,7 +1226,7 @@ async function aiWrap(){
     const r = await AI.json(`Fasse ein Kaltakquise-Telefonat für das CRM zusammen und schreib die passende Mail auf Deutsch, ${tone()}. Ziel des Calls: Qualifizierung und Termin.
 Ich: ${s.name} von ${s.firma}, Produkt: ${s.produkt.name} – ${s.angebot}. Don'ts: ${S.pitch.donts.replace(/\n/g,'; ')}
 Lead: ${JSON.stringify(leadBrief(l))}
-Ergebnis: ${OUTLABEL[W.outcome]}${W.outcome==='termin'?' – '+W.termin.art+' am '+fmtDate(W.termin.date,W.termin.time)+', '+S.pitch.dauer+' Minuten':''}${W.outcome==='rueckruf'?' am '+fmtDate(W.rueckruf.date,W.rueckruf.time):''}${W.grund?' – Grund: '+W.grund:''}
+Ergebnis: ${OUTLABEL[W.outcome]}${W.outcome==='termin'?' – '+W.termin.art+' am '+fmtDate(W.termin.date,W.termin.time)+', '+W.termin.dauer+' Minuten':''}${W.outcome==='rueckruf'?' am '+fmtDate(W.rueckruf.date,W.rueckruf.time):''}${W.grund?' – Grund: '+W.grund:''}
 Qualifizierung: ${QUALI.map(([k,n])=>n+': '+(W.quali[k].ok?W.quali[k].v||'ja':'offen')).join('; ')}
 Meine Notiz: ${W.notes||'(keine)'}
 Gesprächsverlauf:
@@ -1134,7 +1247,7 @@ function saveWrap(){
   const when=fmtDate(W.termin.date,W.termin.time), owner=S.team.find(x=>x.id===W.termin.owner)||me();
   let acts=[];
   if (o==='termin'){
-    const t={id:'t'+Date.now(), leadId:l.id, person:l.person, firma:l.firma, mail:W.termin.mail||l.mail, date:W.termin.date, time:W.termin.time, art:W.termin.art, owner:owner.id, by:S.me, status:'eingeladen', quali:JSON.parse(JSON.stringify(W.quali)), summary:a.zusammenfassung, persona:(ctx(l).gruppe||{}).ansprache||'', frame:{date:frameDate(W.termin.date),status:'offen'}};
+    const t={id:'t'+Date.now(), leadId:l.id, person:l.person, firma:l.firma, mail:W.termin.mail||l.mail, date:W.termin.date, time:W.termin.time, dauer:+W.termin.dauer||45, art:W.termin.art, owner:owner.id, by:S.me, status:'eingeladen', quali:JSON.parse(JSON.stringify(W.quali)), summary:a.zusammenfassung, persona:(ctx(l).gruppe||{}).ansprache||'', frame:{date:frameDate(W.termin.date),status:'offen'}};
     S.termine.push(t); W.tid=t.id;
     acts=[`Deal „${l.firma} – ${ctx(l).produkt.name}“ in ${crm} angelegt · Phase „Termin vereinbart“`, `Infos übergeben: Qualifizierung ${qc}/4, Notiz, Gesprächszusammenfassung`, `Outlook-Einladung an ${t.mail} gesendet – mit Teams-Link und Agenda`, `Frame-Call am ${fmtDate(t.frame.date)} in ${owner.id===S.me?'deiner':owner.vorname+'s'} Anrufliste`, owner.id===S.me?'Briefing für den Termin vorbereitet':`Übergabe-Briefing an ${owner.vorname} geschickt`];
   } else if (o==='rueckruf'){
@@ -1173,15 +1286,15 @@ function inviteFor(t){
   const when=fmtDate(t.date,t.time);
   const g = du?`Hallo ${l.vorname},`:(l.anrede?`Sehr geehrte${l.anrede==='Herr'?'r Herr':' Frau'} ${l.nachname},`:`Guten Tag ${t.person},`);
   const body = du
-    ? `danke für das gute Gespräch! Hier die Einladung zu unserer ${t.art} am ${when} (${S.pitch.dauer} Minuten).\n\nAgenda:\n1. Kurz eure Situation – ${t.quali.bedarf&&t.quali.bedarf.ok?t.quali.bedarf.v:'wo es aktuell hakt'}\n2. Live-Demo, zugeschnitten auf euch\n3. Nächste Schritte\n\nWenn noch jemand dabei sein soll, leite die Einladung gern weiter.`
-    : `vielen Dank für das angenehme Gespräch. Anbei die Einladung zu unserer ${t.art} am ${when} (${S.pitch.dauer} Minuten).\n\nAgenda:\n1. Kurz Ihre Situation – ${t.quali.bedarf&&t.quali.bedarf.ok?t.quali.bedarf.v:'wo es aktuell hakt'}\n2. Live-Demo, zugeschnitten auf Sie\n3. Nächste Schritte\n\nWenn noch jemand dabei sein soll, leiten Sie die Einladung gern weiter.`;
+    ? `danke für das gute Gespräch! Hier die Einladung zu unserer ${t.art} am ${when} (${t.dauer||S.pitch.dauer} Minuten).\n\nAgenda:\n1. Kurz eure Situation – ${t.quali.bedarf&&t.quali.bedarf.ok?t.quali.bedarf.v:'wo es aktuell hakt'}\n2. Live-Demo, zugeschnitten auf euch\n3. Nächste Schritte\n\nWenn noch jemand dabei sein soll, leite die Einladung gern weiter.`
+    : `vielen Dank für das angenehme Gespräch. Anbei die Einladung zu unserer ${t.art} am ${when} (${t.dauer||S.pitch.dauer} Minuten).\n\nAgenda:\n1. Kurz Ihre Situation – ${t.quali.bedarf&&t.quali.bedarf.ok?t.quali.bedarf.v:'wo es aktuell hakt'}\n2. Live-Demo, zugeschnitten auf Sie\n3. Nächste Schritte\n\nWenn noch jemand dabei sein soll, leiten Sie die Einladung gern weiter.`;
   const owner=S.team.find(x=>x.id===t.owner)||me();
   return {an:t.mail, betreff:`${s.firma} × ${t.firma}: ${t.art} – ${when}`, ort: t.art==='Vor-Ort-Termin'?'Bei '+t.firma:t.art==='Telefontermin'?'Telefon':'Microsoft Teams (Link wird automatisch erzeugt)',
     text:`${g}\n\n${body}\n\n${du?'Bis bald':'Beste Grüße'}\n${owner.vorname} ${owner.nachname}\n${s.firma}`};
 }
 function dealFor(t){
   const l=lead(t.leadId); const p=l?ctx(l).produkt:S.products[0];
-  return [['Deal',`${t.firma} – ${p.name}`],['Phase','Termin vereinbart'],['Ansprechperson',`${t.person} · ${t.mail}`],['Termin',`${t.art}, ${fmtDate(t.date,t.time)}`],
+  return [['Deal',`${t.firma} – ${p.name}`],['Phase','Termin vereinbart'],['Ansprechperson',`${t.person} · ${t.mail}`],['Termin',`${t.art}, ${fmtDate(t.date,t.time)}, ${t.dauer||S.pitch.dauer} Min.`],
     ['Qualifizierung',QUALI.map(([k,n])=>n+(t.quali[k]&&t.quali[k].ok?' ✓':' –')).join(' · ')],
     ...QUALI.filter(([k])=>t.quali[k]&&t.quali[k].ok&&t.quali[k].v).map(([k,n])=>[n,t.quali[k].v]),
     ['Zusammenfassung',t.summary],['Frame-Call',fmtDate(t.frame.date)],['Quelle','Griaßdi Cold Call']];
@@ -1221,9 +1334,9 @@ function saveFrame(){
 function seedTermine(){
   const d1=nextWeekday(1), d2=nextWeekday(3);
   return [
-    {id:'t1',leadId:null,person:'Martin Eder',firma:'Muster Druck GmbH',mail:'m.eder@muster-druck.at',date:isoDate(d1),time:'14:00',art:'Online-Demo',owner:'u1',by:'u2',status:'eingeladen',frame:{date:frameDate(isoDate(d1),2),status:'offen'},
+    {id:'t1',leadId:null,person:'Martin Eder',firma:'Muster Druck GmbH',mail:'m.eder@muster-druck.at',date:isoDate(d1),time:'14:00',art:'Online-Demo',dauer:45,owner:'u1',by:'u2',status:'eingeladen',frame:{date:frameDate(isoDate(d1),2),status:'offen'},
      quali:{bedarf:{v:'Stundenzettel aus 3 Schichten',ok:true},entscheider:{v:'Ja – Geschäftsführer',ok:true},zeitrahmen:{v:'Ab Jänner',ok:true},budget:{v:'',ok:false}},summary:'Interesse an Zeiterfassung für Schichtbetrieb. Will vorher wissen, ob BMD-Export geht.',persona:'Kurz und direkt, Anlass im ersten Satz.'},
-    {id:'t2',leadId:null,person:'Julia Brandner',firma:'Beispiel Reisen KG',mail:'j.brandner@beispiel-reisen.at',date:isoDate(d2),time:'09:30',art:'Online-Demo',owner:'u3',by:'u3',status:'eingeladen',frame:{date:frameDate(isoDate(d2),2),status:'offen'},
+    {id:'t2',leadId:null,person:'Julia Brandner',firma:'Beispiel Reisen KG',mail:'j.brandner@beispiel-reisen.at',date:isoDate(d2),time:'09:30',art:'Online-Demo',dauer:45,owner:'u3',by:'u3',status:'eingeladen',frame:{date:frameDate(isoDate(d2),2),status:'offen'},
      quali:{bedarf:{v:'Saisonkräfte im Sommer, Dienstplan per Excel',ok:true},entscheider:{v:'Entscheidet mit Inhaber',ok:true},zeitrahmen:{v:'Vor der Sommersaison',ok:true},budget:{v:'Budget vorhanden',ok:true}},summary:'Voll qualifiziert. Inhaber kommt zur Demo dazu.',persona:'Bodenständig, Beispiel aus der Branche nennen.'}
   ];
 }
@@ -1233,7 +1346,7 @@ function renderTermine(){
     const d=new Date(t.date+'T'+t.time);
     return `<div class="card tcard"><div class="tdate"><b class="num">${d.getDate()}</b><span>${d.toLocaleDateString('de-AT',{month:'short'})}</span><small class="num">${esc(t.time)}</small></div>
       <div class="tmain"><div class="sig-h" style="gap:8px"><b style="flex:1;min-width:0">${esc(t.person)}</b><span class="pill ${t.status==='bestätigt'?'st-termin':t.status==='abgesagt'?'st-kein':'st-rueckruf'}">${t.status==='bestätigt'?'Bestätigt':t.status==='abgesagt'?'Abgesagt':'Eingeladen'}</span></div>
-        <div class="note">${esc(t.firma)} · ${esc(t.art)} · ${ow.id===S.me?'du führst':esc(ow.vorname)+' führt'}${t.by!==t.owner?' · gelegt von '+esc(by.vorname):''}</div>
+        <div class="note">${esc(t.firma)} · ${esc(t.art)} · ${t.dauer||S.pitch.dauer} Min. · ${ow.id===S.me?'du führst':esc(ow.vorname)+' führt'}${t.by!==t.owner?' · gelegt von '+esc(by.vorname):''}</div>
         <div class="qchips">${QUALI.map(([k,n])=>`<span class="${t.quali[k]&&t.quali[k].ok?'ok':''}">${n}</span>`).join('')}<span class="note">${qc}/4</span></div>
         <details class="fold"><summary>Briefing</summary><div class="foldbody"><p style="margin:0">${esc(t.summary)}</p>
           <ul class="list">${QUALI.map(([k,n])=>`<li><span class="bullet"></span><span><b>${n}:</b> ${esc(t.quali[k]&&t.quali[k].ok?t.quali[k].v||'ja':'noch offen – im Termin klären')}</span></li>`).join('')}</ul>
@@ -1346,7 +1459,7 @@ const CALLING=[
   {id:'sipgate',n:'sipgate',c:'#E6007E',d:'Deutsche Cloud-Telefonanlage',f:[['Token-ID','text'],['Personal Access Token','password']],hint:'sipgate: Konto → Personal Access Tokens'},
   {id:'placetel',n:'Placetel',c:'#0A7CC1',d:'Cloud-Telefonanlage für DACH',f:[['API-Token','password']],hint:'Placetel: Einstellungen → Integrationen → Web API'}
 ];
-const BIND_LISTS={'kb.usps':'','kb.referenzen':{kunde:'',ergebnis:''},'kb.faq':{frage:'',antwort:''},'kb.wettbewerber':{name:'',unterschied:''},'pitch.einwaende':{einwand:'',antwort:'',technik:''}};
+const BIND_LISTS={'kb.usps':'','kb.referenzen':{kunde:'',ergebnis:''},'kb.faq':{frage:'',antwort:''},'kb.wettbewerber':{name:'',unterschied:''},'pitch.einwaende':{einwand:'',technik:'',abfedern:'',pruefen:'',abschluss:'{termin}?',kw:[]}};
 
 const group = id => S.groups.find(g=>g.id===id);
 const product = id => S.products.find(p=>p.id===id);
@@ -1656,7 +1769,7 @@ function adminPitch(){
   const P='pitch', kre=S.pitch.methode==='kreuter';
   return `<div class="card"><h3>Verkaufsmethodik</h3>
       <div class="srow"><span>Methodik für Pitch, Einwände und Live-Coaching</span>${fSeg(P+'.methode',[['standard','Standard'],['kreuter','Nach Dirk Kreuter']])}</div>
-      ${kre?`<div class="techs">${TECHNIKEN.map(([k,n,d])=>`<div class="rule"><div><b>${n}</b><small>${d}</small></div><button class="switch" role="switch" aria-checked="${S.pitch.techniken.includes(k)}" aria-label="${n}" data-act="chip" data-path="pitch.techniken" data-v="${k}"></button></div>`).join('')}</div>
+      ${kre?`<ul class="regeln">${KREUTER_REGELN.map(r=>`<li>${icon('check')}<span>${esc(r)}</span></li>`).join('')}</ul><div class="techs">${TECHNIKEN.map(([k,n,d])=>`<div class="rule"><div><b>${n}</b><small>${d}</small></div><button class="switch" role="switch" aria-checked="${S.pitch.techniken.includes(k)}" aria-label="${n}" data-act="chip" data-path="pitch.techniken" data-v="${k}"></button></div>`).join('')}</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px"><button class="btn ghost sm" data-act="loadkreuter">Einwand-Bibliothek nach diesen Techniken ergänzen</button><span class="note">Angelehnt an öffentlich bekannte Verkaufstechniken von Dirk Kreuter, eigene Formulierungen. Kein offizielles Produkt.</span></div>`:'<p class="note" style="margin:8px 0 0">Standard: klare Struktur aus Einstieg, Fragen, Nutzen und Termin – ohne feste Einwand-Techniken.</p>'}</div>
     <div class="grid2">
     <div class="card"><h3>Ansprache & Stil</h3><div class="rows">
@@ -1667,7 +1780,7 @@ function adminPitch(){
     </div></div>
     <div class="card"><h3>Gesprächsziel</h3><div class="rows">
       <div class="srow"><span>Ziel des Anrufs</span>${fSeg(P+'.ziel',[['demo','Demo'],['termin','Vor-Ort-Termin'],['rueckruf','Rückruf']])}</div>
-      <div class="form">${fText('Dauer des Termins (Minuten)',P+'.dauer',{type:'number',num:true,min:5,max:90})}${fText('Terminvorschläge',P+'.slots',{ph:'Donnerstag um 10 oder Freitag um 9'})}
+      <div class="form">${fText('Standard-Termindauer (Minuten)',P+'.dauer',{type:'number',num:true,min:15,max:120})}${fText('Terminvorschläge',P+'.slots',{ph:'Donnerstag um 10 oder Freitag um 9'})}
         <div class="field full"><label>Termine führt</label><select data-bind="${P}.terminOwner" aria-label="Termine führt"><option value="self" ${(S.pitch.terminOwner||'self')==='self'?'selected':''}>Wer den Termin legt</option>${S.team.filter(m=>m.status==='aktiv').map(m=>`<option value="${m.id}" ${S.pitch.terminOwner===m.id?'selected':''}>Immer ${esc(m.vorname)} (Closer)</option>`).join('')}</select></div></div>
       <div class="form">${fText('Frame-Call: Tage vor dem Termin',P+'.frameTage',{type:'number',num:true,min:1,max:7})}</div>
       <div class="field"><label>Qualifizierung vor dem Termin</label><div class="icp">${QUALI.map(([k,n])=>`<span>${n}</span>`).join('')}</div></div>
@@ -1682,7 +1795,7 @@ function adminPitch(){
       <div class="card"><h3>Das bitte nie</h3><div class="form">${fArea('Don’ts',P+'.donts',{rows:4,ph:'z. B. Keine Preise am Telefon nennen'})}</div></div>
     </div>
     <div class="card"><h3>Einwand-Bibliothek</h3><p class="note" style="margin:-6px 0 12px">Diese Antworten zeigt Griaßdi im Pitch und live im Gespräch, wenn der Einwand kommt.</p>
-      ${listEditor(P+'.einwaende',[['einwand','Einwand, z. B. „Keine Zeit“'],['antwort','Deine Antwort darauf',true]].concat(kre?[['technik','Technik',false,[['','– Technik –']].concat(TECHNIKEN.map(t=>[t[0],t[1]]))]]:[]),'Einwand')}</div>
+      ${einwandEditor()}</div>
     <div class="card"><h3>Live-Coaching</h3><div class="rows">
       <div class="field"><label>Ziel-Redeanteil: höchstens <b class="num" id="out-rede">${S.pitch.redeanteil}</b> %</label><input type="range" min="40" max="80" step="5" data-bind="${P}.redeanteil" data-type="num" data-out="out-rede" value="${S.pitch.redeanteil}" aria-label="Ziel-Redeanteil"></div>
       <div class="rule"><div><b>Live-Tipps während des Gesprächs</b><small>Griaßdi blendet Hinweise ein, wenn ein Einwand kommt oder du zu viel redest.</small></div>${fSwitch(P+'.tipps','Live-Tipps')}</div>
@@ -1862,7 +1975,7 @@ document.addEventListener('click', e=>{
     case 'tab': S.tab=v; save(); renderWork(); break;
     case 'tone': S.tone=v; save(); renderWork(); renderDialer(); break;
     case 'genpitch': genPitch(cur()); break;
-    case 'copypitch': { const p=pitchFor(cur()); copyText([p.opener,p.bruecke,...p.fragen,...p.einwaende.map(o=>o.einwand+': '+o.antwort),p.abschluss].join('\n\n')); break; }
+    case 'copypitch': { const p=pitchFor(cur()); copyText([p.opener,p.bruecke,...p.fragen,...p.einwaende.map(o=>o.einwand+': '+objText(o)),p.abschluss].join('\n\n')); break; }
     case 'copy': copyText(v); break;
     case 'call': startCall(); break;
     case 'hangup': hangup(); break;
@@ -1871,6 +1984,9 @@ document.addEventListener('click', e=>{
     case 'qtoggle': readWrapInputs(); W.quali[v].ok=!W.quali[v].ok; if(W.ai) W.ai=null; renderWrap(); break;
     case 'grund': readWrapInputs(); W.grund=v; renderWrap(); break;
     case 'nextcall': nextAfterWrap(); break;
+    case 'dedup': openDedup(); break;
+    case 'skiplead': { const l=lead(v); if(l){ const chk=crmCheck(l); S.dedup.removed.unshift({firma:l.firma, grund:chk.grund||'Duplikat', info:chk.info||''}); S.leads=S.leads.filter(x=>x.id!==v); const n=visibleLeads().find(x=>x.status==='offen'); if(n) S.sel=n.id; save(); } $('#modal').hidden=true; render(); toast('Aus der Liste genommen – kein Doppelanruf'); break; }
+    case 'forcecall': $('#modal').hidden=true; C.force=true; startCall(); break;
     case 'openframe': if (C.status!=='idle'){ toast('Erst das laufende Gespräch beenden'); break; } openFrame(v); break;
     case 'fres': F.result=v; a.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===a)); $('#fr-new').hidden = v!=='verschoben'; break;
     case 'framesave': saveFrame(); break;
@@ -1889,7 +2005,7 @@ document.addEventListener('click', e=>{
     case 'sigcall': useSignal(v); break;
     case 'alertclose': hideAlert(); break;
     case 'loadkreuter': { const have=S.pitch.einwaende.map(e=>e.einwand.toLowerCase()); let n=0; KREUTER_EINWAENDE.forEach(e=>{ if(!have.includes(e.einwand.toLowerCase())){ S.pitch.einwaende.push({...e}); n++; } }); autosave('pitch'); renderAdmin(); toast(n?n+' Einwände ergänzt':'Alle Einwände sind schon in der Bibliothek'); break; }
-    case 'vaccept': { const x=S.vorschlaege.find(y=>y.id===v); if(x){ x.status='ok'; S.pitch.einwaende.push({einwand:x.einwand,antwort:x.antwort,technik:''}); autosave('pitch'); renderAdmin(); toast('In die Einwand-Bibliothek übernommen'); } break; }
+    case 'vaccept': { const x=S.vorschlaege.find(y=>y.id===v); if(x){ x.status='ok'; S.pitch.einwaende.push({einwand:x.einwand,technik:'',abfedern:x.antwort,pruefen:'',abschluss:'Schauen wir uns das im Termin an: {termin}?',kw:[]}); autosave('pitch'); renderAdmin(); toast('In die Einwand-Bibliothek übernommen'); } break; }
     case 'vreject': { const x=S.vorschlaege.find(y=>y.id===v); if(x){ x.status='nein'; save(); renderAdmin(); toast('Vorschlag abgelehnt'); } break; }
     case 'mactivate': S.team[+v].status='aktiv'; save(); renderAdmin(); renderTop(); toast(S.team[+v].vorname+' ist jetzt aktiv'); break;
     case 'mdel': if (a.dataset.confirm==='1'){ const m=S.team[+v]; if(m.rolle==='lead' && S.team.filter(x=>x.rolle==='lead').length<2){ toast('Mindestens eine Führungskraft muss bleiben'); break; } S.team.splice(+v,1); save(); renderAdmin(); renderTop(); toast(m.vorname+' entfernt'); }
@@ -1964,7 +2080,8 @@ document.addEventListener('change', e=>{
   if (e.target.id!=='csv-in' || !e.target.files[0]) return;
   const f=e.target.files[0]; const r=new FileReader();
   r.onload=()=>{ const rows=parseCSV(String(r.result)); if(!rows.length){ toast('Keine Zeilen gefunden – erste Zeile muss Spaltennamen enthalten'); return; }
-    S.leads=S.leads.concat(rows); save(); renderLeads(); renderNav(); toast(rows.length+' Leads importiert'); };
+    const ok=[], dup=[]; rows.forEach(r=>{ const c=crmCheck(r); if(c.ok && !S.leads.some(x=>normFirm(x.firma)===normFirm(r.firma)||(normTel(x.tel).length>6&&normTel(x.tel)===normTel(r.tel)))) ok.push(r); else dup.push({firma:r.firma, grund:c.ok?'Schon in der Liste':c.grund, info:c.ok?'Doppelt im Import':c.info}); });
+    S.leads=S.leads.concat(ok); S.dedup.checked+=rows.length; S.dedup.removed=dup.concat(S.dedup.removed); save(); renderLeads(); renderNav(); toast(ok.length+' importiert'+(dup.length?' · '+dup.length+' Duplikate übersprungen':'')); };
   r.readAsText(f);
 });
 
@@ -1974,6 +2091,8 @@ window.GriassdiApp = {
     const num = String(tel||'').replace(/[^\d+ ()\/-]/g,'').trim();
     if (!/\d{5,}/.test(num.replace(/\D/g,''))){ toast('Bitte eine Telefonnummer markieren'); return false; }
     const firma = String(title||'Neuer Kontakt').split(/[|·–-]/)[0].trim().slice(0,60) || 'Neuer Kontakt';
+    const chk = crmCheck({firma, tel:num, web:'', mail:''});
+    if (!chk.ok){ S.dedup.removed.unshift({firma:chk.firma||firma, grund:chk.grund, info:chk.info}); save(); toast('Nicht übernommen: '+chk.grund+' ('+(chk.firma||firma)+')'); return false; }
     const l = {id:'q'+Date.now(), g:(me().personas||[])[0]||'g1', firma, ort:'–', land:'–', branche:'–', ma:0, web:'–', gegr:null, person:'Neuer Kontakt', anrede:'', nachname:'', vorname:'Kontakt',
       rolle:'–', seit:'–', tel:num, mail:'–', trig:'Schnellanruf', anlass:'Nummer aus dem Browser übernommen', satzSie:'dass Sie zu unserer Zielgruppe passen', quelle:'Browser', wann:'gerade eben',
       news:[], linkedin:'', schmerz:'Hm, das machen wir eigentlich händisch.', score:60, best:'–', src:'Erweiterung', status:'offen', hot:Date.now()};
@@ -1982,6 +2101,7 @@ window.GriassdiApp = {
   }
 };
 $('#brand-mascot').innerHTML = mascot(32);
+if (!S.dedup) S.dedup = seedDedup();
 render();
 setTimeout(()=>{ if (S.sigCfg && S.sigCfg.alert) pushSignal(true); }, 20000);
 })();
