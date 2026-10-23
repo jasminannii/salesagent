@@ -486,6 +486,44 @@ table.deal th{color:var(--muted);font-weight:600;width:130px}
 .stopsign{width:56px;height:56px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--f-display);font-size:30px;font-weight:800}
 @media (max-width:820px){ .ewh{grid-template-columns:minmax(0,1fr) auto} .ewh select{grid-column:1/-1;grid-row:2} .ewr{grid-template-columns:1fr} .steps3 li{grid-template-columns:22px minmax(0,1fr)} .steps3 li b{display:none} }
 
+/* Tracking & Termin-Verlauf */
+.trk-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:14px}
+.hero-kpi{border:2px solid var(--good);display:flex;flex-direction:column;gap:6px}
+.hero-kpi>b{font-family:var(--f-display);font-size:64px;line-height:1;color:var(--good)}
+.kpi-sub{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.kpi-sub b{color:var(--ink)}
+.kpis.small{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.kpis.small .kpi b{font-size:26px}
+.funnel{display:grid;gap:8px}
+.fstep{display:grid;grid-template-columns:120px minmax(0,1fr) 48px 44px;gap:10px;align-items:center;font-size:13px}
+.fbar{height:14px;background:var(--surface-2);border-radius:9px;overflow:hidden}
+.fbar i{display:block;height:100%;background:var(--accent);opacity:.55;border-radius:9px}
+.fstep.key .fbar i{background:var(--good);opacity:1}
+.fstep.key span,.fstep.key b{font-weight:800;color:var(--good)}
+.fstep small{color:var(--muted)}
+.qdims{display:grid;gap:10px}
+.qdim{display:grid;grid-template-columns:170px minmax(0,1fr) 34px;gap:10px;align-items:center;font-size:13px}
+.qbar{position:relative;height:12px;background:var(--surface-2);border-radius:9px}
+.qbar i{display:block;height:100%;border-radius:9px}
+.qbar i.g{background:var(--good)} .qbar i.m{background:var(--sun)} .qbar i.b{background:var(--bad)}
+.qbar em{position:absolute;top:-3px;width:2px;height:18px;background:var(--ink);border-radius:2px}
+.trend{display:flex;gap:12px;align-items:flex-end;height:170px}
+.tcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%}
+.tb{flex:1;width:100%;max-width:46px;display:flex;align-items:flex-end;background:var(--surface-2);border-radius:10px;overflow:hidden}
+.tb i{display:block;width:100%;background:var(--accent);opacity:.45}
+.tb i.now{opacity:1;background:var(--good)}
+.tcol small{color:var(--muted);font-size:11px}
+.fold-card>summary{cursor:pointer;font-weight:800;font-family:var(--f-display);font-size:16px;list-style:none}
+.fold-card[open]>summary{margin-bottom:12px}
+.qmini{display:flex;gap:6px;flex-wrap:wrap}
+.qmini span{font-size:12px;border-radius:99px;padding:3px 9px;background:var(--surface-2)}
+.qmini span.g{background:var(--good-soft);color:var(--good)} .qmini span.m{background:var(--warn-soft);color:var(--warn)} .qmini span.b{background:var(--bad-soft);color:var(--bad)}
+.tacts{display:flex;gap:6px;flex-wrap:wrap}
+.btn.good{background:var(--good)} .btn.good:hover{filter:brightness(.92);background:var(--good)}
+.tlog{margin:0;padding-left:18px;display:grid;gap:6px}
+.tlog li span{display:block}
+@media (max-width:820px){ .trk-top{grid-template-columns:minmax(0,1fr)} .fstep{grid-template-columns:90px minmax(0,1fr) 40px} .fstep small{display:none} .qdim{grid-template-columns:minmax(0,1fr) 34px} .qdim .qbar{grid-column:1/-1;grid-row:2} }
+
 /* Modal + toast */
 .modal{position:fixed;inset:0;background:rgba(20,12,8,.45);display:grid;place-items:center;padding:16px;z-index:50}
 .sheet{background:var(--surface);border-radius:22px;width:min(720px,100%);max-height:calc(100% - 32px);overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
@@ -723,7 +761,7 @@ const OUTCOMES = [
 const OUTLABEL = Object.fromEntries(OUTCOMES.concat([['offen','Offen']]));
 
 /* ---------------- state ---------------- */
-const KEY = 'griassdi-mvp-v7';
+const KEY = 'griassdi-mvp-v8';
 function freshState(){
   const cp = x => JSON.parse(JSON.stringify(x));
   return { view:'heute', atab:'zufuhr', sel:'l1', tab:'recherche', filter:'alle', gfilter:'alle', tone:'sie', plan:'test', callsUsed:0,
@@ -846,10 +884,10 @@ function buildScript(l, p){
   const qq = qualiQuestions(l,p), boss=/Geschäfts|Inhaber|CEO|Direktor|Partner/.test(l.rolle), pr=ctx(l).produkt.preis||'';
   return [
     {t:1, who:'kunde', text:`${l.firma}, ${l.nachname}, grüß Gott?`},
-    {t:3, who:'du', text:p.opener},
+    {t:3, who:'du', text:p.opener, cover:'einstieg'},
     {t:6, tip:['gut','Stark: Anlass im ersten Satz.']},
     {t:9, who:'kunde', text: du?'Aha, ja. Worum geht’s genau?':'Aha, ja. Worum geht’s denn genau?'},
-    {t:11, who:'du', text:p.bruecke},
+    {t:11, who:'du', text:(du?'Klingt nach viel Bewegung bei euch – Gratulation! ':'Klingt nach viel Bewegung bei Ihnen – Gratulation! ')+p.bruecke, cover:'rapport'},
     {t:13, tip:['tipp','Jetzt qualifizieren – zuerst den Bedarf: „'+qq.bedarf+'“']},
     {t:15, who:'du', text:qq.bedarf},
     {t:18, who:'kunde', text:l.schmerz, cover:'bedarf'},
@@ -905,10 +943,7 @@ function ratio(){
   let du=0, k=0; C.lines.forEach(x=>{ if(x.who==='du') du+=x.text.length; else k+=x.text.length; });
   const tot=du+k; return tot? Math.round(du/tot*100) : 0;
 }
-function pitchScore(){
-  const n = ['bedarf','entscheider','zeitrahmen','budget','termin','einwand'].filter(k=>C.covered[k]).length; const r=ratio();
-  let s = 2 + n*1.4; if (r>S.pitch.redeanteil+10) s-=1; return Math.max(1,Math.min(10,Math.round(s)));
-}
+function pitchScore(){ return Math.round(qAvg(callQuality())||0); }
 function hangup(){
   clearInterval(C.iv);
   const wasLive = C.status==='live';
@@ -1158,7 +1193,7 @@ function openWrap(reached){
   const ownerDef = S.pitch.terminOwner && S.pitch.terminOwner!=='self' && S.team.some(m=>m.id===S.pitch.terminOwner) ? S.pitch.terminOwner : S.me;
   W = {outcome: !reached ? 'nicht' : c.termin ? 'termin' : Object.values(q).filter(x=>x.ok).length>=2 ? 'rueckruf' : 'kein',
        quali:q, termin:{date:isoDate(thu), time:'10:00', dauer:+S.pitch.dauer||45, art:'Online-Demo', owner:ownerDef, mail:l.mail}, rueckruf:{date:isoDate(nextWeekday(2)), time:'09:30'}, grund:'',
-       notes:'', ai:null, busy:false, err:'', score: reached?pitchScore():null, ratio: reached?ratio():null, step:'form', reached};
+       notes:'', ai:null, busy:false, err:'', q: reached?callQuality():null, score: reached?pitchScore():null, ratio: reached?ratio():null, step:'form', reached};
   renderWrap();
 }
 const qualiCount = q => Object.values(q).filter(x=>x.ok).length;
@@ -1176,7 +1211,8 @@ function renderWrap(){
   const qc = qualiCount(W.quali), o=W.outcome;
   const cta = {termin:'Termin eintragen & Einladung senden', rueckruf:'Rückruf planen', kein:'Speichern', nicht:'Später nochmal versuchen'}[o];
   m.innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="wrap-h">
-    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="wrap-h">Wie lief's mit ${esc(l.vorname)}?</h2>${W.score?`<span class="note">Pitch-Score ${W.score}/10 · Redeanteil ${W.ratio} %</span>`:''}</div><button class="x" data-act="closewrap" aria-label="Schließen">✕</button></div>
+    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="wrap-h">Wie lief's mit ${esc(l.vorname)}?</h2>${W.score?`<span class="note">Gesprächsqualität ${W.score}/10</span>`:''}</div><button class="x" data-act="closewrap" aria-label="Schließen">✕</button></div>
+    ${W.q?`<div class="qmini">${QDIM.map(([k,n])=>W.q[k]==null?'':`<span class="${W.q[k]>=7.5?'g':W.q[k]>=6?'m':'b'}">${n.split(' ')[0]} <b>${W.q[k]}</b></span>`).join('')}</div>`:''}
     <div class="outs big">${WRAP_OUT.map(([k,n])=>`<button class="out ${k==='termin'?'goal':''}" data-act="outcome" data-v="${k}" aria-pressed="${o===k}">${n}</button>`).join('')}</div>
     ${o!=='nicht'?`<div class="qbox"><div class="qhead"><b>Qualifizierung</b><span class="pill ${qc>=3?'st-termin':qc>=2?'st-rueckruf':'st-offen'}">${qc}/4 ${qc>=3?'· qualifiziert':''}</span></div>
       ${QUALI.map(([k,n])=>`<div class="qrow"><button class="qck ${W.quali[k].ok?'ok':''}" data-act="qtoggle" data-v="${k}" aria-pressed="${W.quali[k].ok}" aria-label="${n} geklärt">${icon('check')}</button><label for="q-${k}">${n}</label><input id="q-${k}" value="${esc(W.quali[k].v)}" placeholder="noch offen"></div>`).join('')}</div>`:''}
@@ -1241,13 +1277,13 @@ function saveWrap(){
   const l=lead(C.leadId); const a = W.ai||tplWrap(l); const o=W.outcome;
   const crm = S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi';
   const qc=qualiCount(W.quali);
-  S.log.push({user:S.me, leadId:l.id, firma:l.firma, person:l.person, outcome:o, dur:C.dur||0, score:W.score, ratio:W.ratio, ts:Date.now(), quali:qc,
+  S.log.push({user:S.me, leadId:l.id, firma:l.firma, person:l.person, outcome:o, dur:C.dur||0, score:W.score, ratio:W.ratio, ts:Date.now(), quali:qc, q:W.q,
     summary:a.zusammenfassung, next:a.naechster_schritt, notes:W.notes, einwand: C.lines.some(x=>/keine Zeit/.test(x.text))?'Keine Zeit':null});
   l.status = o; l.quali = JSON.parse(JSON.stringify(W.quali));
   const when=fmtDate(W.termin.date,W.termin.time), owner=S.team.find(x=>x.id===W.termin.owner)||me();
   let acts=[];
   if (o==='termin'){
-    const t={id:'t'+Date.now(), leadId:l.id, person:l.person, firma:l.firma, mail:W.termin.mail||l.mail, date:W.termin.date, time:W.termin.time, dauer:+W.termin.dauer||45, art:W.termin.art, owner:owner.id, by:S.me, status:'eingeladen', quali:JSON.parse(JSON.stringify(W.quali)), summary:a.zusammenfassung, persona:(ctx(l).gruppe||{}).ansprache||'', frame:{date:frameDate(W.termin.date),status:'offen'}};
+    const t={id:'t'+Date.now(), leadId:l.id, person:l.person, firma:l.firma, mail:W.termin.mail||l.mail, date:W.termin.date, time:W.termin.time, dauer:+W.termin.dauer||45, art:W.termin.art, owner:owner.id, by:S.me, status:'eingeladen', quali:JSON.parse(JSON.stringify(W.quali)), summary:a.zusammenfassung, persona:(ctx(l).gruppe||{}).ansprache||'', frame:{date:frameDate(W.termin.date),status:'offen'}, verschoben:0, events:[{typ:'gelegt',ts:Date.now(),by:S.me,info:''}]};
     S.termine.push(t); W.tid=t.id;
     acts=[`Deal „${l.firma} – ${ctx(l).produkt.name}“ in ${crm} angelegt · Phase „Termin vereinbart“`, `Infos übergeben: Qualifizierung ${qc}/4, Notiz, Gesprächszusammenfassung`, `Outlook-Einladung an ${t.mail} gesendet – mit Teams-Link und Agenda`, `Frame-Call am ${fmtDate(t.frame.date)} in ${owner.id===S.me?'deiner':owner.vorname+'s'} Anrufliste`, owner.id===S.me?'Briefing für den Termin vorbereitet':`Übergabe-Briefing an ${owner.vorname} geschickt`];
   } else if (o==='rueckruf'){
@@ -1323,9 +1359,9 @@ function saveFrame(){
   const t=S.termine.find(x=>x.id===F.id); if(!t) return;
   const crm = S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi';
   let msg;
-  if (F.result==='bestaetigt'){ t.status='bestätigt'; t.frame.status='erledigt'; msg=`Termin bestätigt – Deal in ${crm} aktualisiert`; }
-  else if (F.result==='verschoben'){ t.date=$('#fr-date').value||t.date; t.time=$('#fr-time').value||t.time; t.status='eingeladen'; t.frame={date:frameDate(t.date),status:'offen'}; msg=`Verschoben auf ${fmtDate(t.date,t.time)} – neue Outlook-Einladung gesendet`; }
-  else if (F.result==='abgesagt'){ t.status='abgesagt'; t.frame.status='erledigt'; msg=`Abgesagt – Deal in ${crm} auf „Verloren“ gesetzt`; }
+  if (F.result==='bestaetigt'){ t.status='bestätigt'; t.frame.status='erledigt'; tEvent(t,'bestaetigt','Frame-Call'); msg=`Termin bestätigt – Deal in ${crm} aktualisiert`; }
+  else if (F.result==='verschoben'){ const from=fmtDate(t.date,t.time); t.verschoben=(t.verschoben||0)+1; t.date=$('#fr-date').value||t.date; t.time=$('#fr-time').value||t.time; t.status='eingeladen'; t.frame={date:frameDate(t.date),status:'offen'}; tEvent(t,'verschoben','Frame-Call: von '+from+' auf '+fmtDate(t.date,t.time)); msg=`Verschoben auf ${fmtDate(t.date,t.time)} – neue Outlook-Einladung gesendet`; }
+  else if (F.result==='abgesagt'){ t.status='abgesagt'; t.frame.status='erledigt'; tEvent(t,'abgesagt','Frame-Call'); msg=`Abgesagt – Deal in ${crm} auf „Verloren“ gesetzt`; }
   else { const d=new Date(); d.setDate(d.getDate()+1); t.frame.date=isoDate(d); msg='Nicht erreicht – Frame-Call morgen nochmal'; }
   save(); $('#modal').hidden=true; F=null; toast(msg); render();
 }
@@ -1333,10 +1369,16 @@ function saveFrame(){
 /* ---------------- Termine ---------------- */
 function seedTermine(){
   const d1=nextWeekday(1), d2=nextWeekday(3);
+  const past = n => { const d=new Date(); d.setDate(d.getDate()-n); return isoDate(d); };
+  const q3 = {bedarf:{v:'Mitglieder-Check-in und Trainerstunden',ok:true},entscheider:{v:'Ja – Geschäftsführer',ok:true},zeitrahmen:{v:'Q1',ok:true},budget:{v:'',ok:false}};
   return [
-    {id:'t1',leadId:null,person:'Martin Eder',firma:'Muster Druck GmbH',mail:'m.eder@muster-druck.at',date:isoDate(d1),time:'14:00',art:'Online-Demo',dauer:45,owner:'u1',by:'u2',status:'eingeladen',frame:{date:frameDate(isoDate(d1),2),status:'offen'},
+    {id:'t3',leadId:null,person:'Stefan Wallner',firma:'Muster Fitness GmbH',mail:'s.wallner@muster-fitness.at',date:past(3),time:'11:00',art:'Online-Demo',dauer:45,owner:'u1',by:'u1',status:'abgesagt',frame:{date:past(5),status:'erledigt'},verschoben:1,
+     events:[{typ:'gelegt',ts:Date.now()-9*864e5,by:'u1',info:''},{typ:'verschoben',ts:Date.now()-5*864e5,by:'u1',info:'Frame-Call: Terminkollision'},{typ:'abgesagt',ts:Date.now()-3*864e5,by:'u1',info:'Keine Zeit'}],quali:q3,summary:'Interesse an Zeiterfassung für Trainer:innen.',persona:'Kurz und direkt.'},
+    {id:'t4',leadId:null,person:'Karin Fuchs',firma:'Beispiel Steuer OG',mail:'k.fuchs@beispiel-steuer.at',date:past(1),time:'15:00',art:'Online-Demo',dauer:45,owner:'u1',by:'u2',status:'bestätigt',frame:{date:past(3),status:'erledigt'},verschoben:0,
+     events:[{typ:'gelegt',ts:Date.now()-7*864e5,by:'u2',info:''},{typ:'bestaetigt',ts:Date.now()-3*864e5,by:'u1',info:'Frame-Call'}],quali:q3,summary:'Kanzlei mit 14 MA, will Zeiterfassung papierlos.',persona:'Sachlich, Fakten zu Recht und Export.'},
+    {id:'t1',leadId:null,person:'Martin Eder',firma:'Muster Druck GmbH',mail:'m.eder@muster-druck.at',date:isoDate(d1),time:'14:00',art:'Online-Demo',dauer:45,owner:'u1',by:'u2',status:'eingeladen',frame:{date:frameDate(isoDate(d1),2),status:'offen'},events:[{typ:'gelegt',ts:Date.now()-3*864e5,by:'u2',info:''}],
      quali:{bedarf:{v:'Stundenzettel aus 3 Schichten',ok:true},entscheider:{v:'Ja – Geschäftsführer',ok:true},zeitrahmen:{v:'Ab Jänner',ok:true},budget:{v:'',ok:false}},summary:'Interesse an Zeiterfassung für Schichtbetrieb. Will vorher wissen, ob BMD-Export geht.',persona:'Kurz und direkt, Anlass im ersten Satz.'},
-    {id:'t2',leadId:null,person:'Julia Brandner',firma:'Beispiel Reisen KG',mail:'j.brandner@beispiel-reisen.at',date:isoDate(d2),time:'09:30',art:'Online-Demo',dauer:45,owner:'u3',by:'u3',status:'eingeladen',frame:{date:frameDate(isoDate(d2),2),status:'offen'},
+    {id:'t2',leadId:null,person:'Julia Brandner',firma:'Beispiel Reisen KG',mail:'j.brandner@beispiel-reisen.at',date:isoDate(d2),time:'09:30',art:'Online-Demo',dauer:45,owner:'u3',by:'u3',status:'eingeladen',frame:{date:frameDate(isoDate(d2),2),status:'offen'},events:[{typ:'gelegt',ts:Date.now()-2*864e5,by:'u3',info:''}],
      quali:{bedarf:{v:'Saisonkräfte im Sommer, Dienstplan per Excel',ok:true},entscheider:{v:'Entscheidet mit Inhaber',ok:true},zeitrahmen:{v:'Vor der Sommersaison',ok:true},budget:{v:'Budget vorhanden',ok:true}},summary:'Voll qualifiziert. Inhaber kommt zur Demo dazu.',persona:'Bodenständig, Beispiel aus der Branche nennen.'}
   ];
 }
@@ -1345,13 +1387,16 @@ function renderTermine(){
   $('#view-termine').innerHTML = `<div class="page"><div class="tcards">${list.map(t=>{ const qc=qualiCount(t.quali); const ow=S.team.find(x=>x.id===t.owner)||{vorname:'?'}; const by=S.team.find(x=>x.id===t.by)||{vorname:'?'};
     const d=new Date(t.date+'T'+t.time);
     return `<div class="card tcard"><div class="tdate"><b class="num">${d.getDate()}</b><span>${d.toLocaleDateString('de-AT',{month:'short'})}</span><small class="num">${esc(t.time)}</small></div>
-      <div class="tmain"><div class="sig-h" style="gap:8px"><b style="flex:1;min-width:0">${esc(t.person)}</b><span class="pill ${t.status==='bestätigt'?'st-termin':t.status==='abgesagt'?'st-kein':'st-rueckruf'}">${t.status==='bestätigt'?'Bestätigt':t.status==='abgesagt'?'Abgesagt':'Eingeladen'}</span></div>
+      <div class="tmain"><div class="sig-h" style="gap:8px"><b style="flex:1;min-width:0">${esc(t.person)}</b>${t.verschoben?`<span class="pill st-offen">${t.verschoben}× verschoben</span>`:''}${t.neuFrom?'<span class="pill st-termin">Neulegung</span>':''}${(()=>{ const p=T_PILL[t.status]||T_PILL.eingeladen; return `<span class="pill ${p[0]}">${p[1]}</span>`; })()}</div>
         <div class="note">${esc(t.firma)} · ${esc(t.art)} · ${t.dauer||S.pitch.dauer} Min. · ${ow.id===S.me?'du führst':esc(ow.vorname)+' führt'}${t.by!==t.owner?' · gelegt von '+esc(by.vorname):''}</div>
         <div class="qchips">${QUALI.map(([k,n])=>`<span class="${t.quali[k]&&t.quali[k].ok?'ok':''}">${n}</span>`).join('')}<span class="note">${qc}/4</span></div>
         <details class="fold"><summary>Briefing</summary><div class="foldbody"><p style="margin:0">${esc(t.summary)}</p>
           <ul class="list">${QUALI.map(([k,n])=>`<li><span class="bullet"></span><span><b>${n}:</b> ${esc(t.quali[k]&&t.quali[k].ok?t.quali[k].v||'ja':'noch offen – im Termin klären')}</span></li>`).join('')}</ul>
           ${t.persona?`<div class="tipbox"><span class="label">So ansprechen</span><div>${esc(t.persona)}</div></div>`:''}</div></details>
-        ${t.frame?`<div class="framerow ${t.frame.status==='erledigt'?'ok':t.frame.date<=todayIso()?'due':''}">${icon(t.frame.status==='erledigt'?'check':'phone')}<span>Frame-Call ${t.frame.status==='erledigt'?'erledigt':(t.frame.date<=todayIso()?'heute fällig':'am '+esc(fmtDate(t.frame.date)))}</span>${t.frame.status!=='erledigt'&&t.status!=='abgesagt'?`<button class="btn sm ${t.frame.date<=todayIso()?'':'ghost'}" data-act="openframe" data-v="${t.id}">Frame-Call starten</button>`:''}</div>`:''}
+        ${t.frame&&['eingeladen','bestätigt'].includes(t.status)?`<div class="framerow ${t.frame.status==='erledigt'?'ok':t.frame.date<=todayIso()?'due':''}">${icon(t.frame.status==='erledigt'?'check':'phone')}<span>Frame-Call ${t.frame.status==='erledigt'?'erledigt':(t.frame.date<=todayIso()?'heute fällig':'am '+esc(fmtDate(t.frame.date)))}</span>${t.frame.status!=='erledigt'&&t.status!=='abgesagt'?`<button class="btn sm ${t.frame.date<=todayIso()?'':'ghost'}" data-act="openframe" data-v="${t.id}">Frame-Call starten</button>`:''}</div>`:''}
+        ${['eingeladen','bestätigt'].includes(t.status)?`<div class="tacts"><button class="btn sm good" data-act="tact" data-t="stattgefunden" data-v="${t.id}">${icon('check')}Stattgefunden</button><button class="btn ghost sm" data-act="tact" data-t="verschoben" data-v="${t.id}">Verschieben</button><button class="btn ghost sm" data-act="tact" data-t="abgesagt" data-v="${t.id}">Abgesagt</button><button class="btn ghost sm" data-act="tact" data-t="noshow" data-v="${t.id}">No-Show</button></div>`:''}
+        ${['abgesagt','noshow'].includes(t.status)&&!t.neuGelegt?`<div class="tacts"><button class="btn sm" data-act="tact" data-t="neu" data-v="${t.id}">${icon('calendar')}Neu legen</button></div>`:''}
+        ${(t.events||[]).length?`<details class="fold"><summary>Verlauf <span class="note">${t.events.length}</span></summary><div class="foldbody"><ol class="tlog">${t.events.map(e=>`<li><b>${esc(T_LABEL[e.typ]||e.typ)}</b><span class="note">${new Date(e.ts).toLocaleDateString('de-AT',{day:'numeric',month:'short'})} · ${esc((S.team.find(m=>m.id===e.by)||{vorname:''}).vorname)}${e.info?' · '+esc(e.info):''}</span></li>`).join('')}</ol></div></details>`:''}
         <details class="fold"><summary>Outlook-Einladung</summary><div class="foldbody">${(()=>{ const inv=inviteFor(t); return `<table class="deal"><tr><th>An</th><td>${esc(inv.an)}</td></tr><tr><th>Betreff</th><td>${esc(inv.betreff)}</td></tr></table><div class="mail">${esc(inv.text)}</div>`; })()}</div></details></div></div>`; }).join('') || '<div class="card"><p class="note" style="margin:0">Noch keine Termine. Jeder Termin aus einem Anruf landet hier – mit Briefing.</p></div>'}</div></div>`;
 }
 
@@ -1393,54 +1438,131 @@ function parseCSV(txt){
 }
 
 /* ---------------- Tracking view ---------------- */
-function teamCard(){
-  if (!(isLead()||can('repTeamStats'))) return '';
-  const td = new Date().toDateString();
-  const rows = S.team.filter(m=>m.status==='aktiv').map(m=>{ const L=S.log.filter(x=>x.user===m.id&&new Date(x.ts).toDateString()===td); const sd=TEAM_SEED[m.id]||{w:0,t:0,s:'–'};
-    return `<tr><td><div class="who"><span class="av sm">${esc(m.vorname[0]+(m.nachname[0]||''))}</span><b>${esc(m.vorname)}</b>${m.id===S.me?'<span class="note">(du)</span>':''}</div></td><td>${m.rolle==='lead'?'Führungskraft':'Mitarbeiter:in'}</td><td>${esc((m.personas||[]).map(id=>(group(id)||{}).name).filter(Boolean).join(', '))}</td><td class="num">${L.length}</td><td class="num">${L.filter(x=>x.outcome==='termin').length}</td><td class="num">${sd.w}</td><td class="num">${sd.t}</td><td class="num">${sd.s}</td></tr>`; }).join('');
-  return `<div class="card"><h3>Team</h3><div class="tablewrap"><table><thead><tr><th>Person</th><th>Rolle</th><th>Buyer Personas</th><th>Anrufe heute</th><th>Termine heute</th><th>Anrufe Woche</th><th>Termine Woche</th><th>Ø Score</th></tr></thead><tbody>${rows}</tbody></table></div><p class="note">Wochenwerte sind Beispielwerte.</p></div>`;
+/* ---------------- Termin-Status & Verlauf ---------------- */
+const T_LABEL={gelegt:'Termin gelegt',bestaetigt:'Bestätigt',verschoben:'Verschoben',abgesagt:'Abgesagt',neulegung:'Neu gelegt',stattgefunden:'Stattgefunden',noshow:'Nicht erschienen'};
+const T_PILL={eingeladen:['st-rueckruf','Eingeladen'],'bestätigt':['st-termin','Bestätigt'],abgesagt:['st-kein','Abgesagt'],stattgefunden:['st-termin','Stattgefunden'],noshow:['st-kein','No-Show']};
+function tEvent(t, typ, info){ (t.events=t.events||[]).push({typ, ts:Date.now(), by:S.me, info:info||''}); }
+let TA=null;
+function openTAction(id, typ){
+  const t=S.termine.find(x=>x.id===id); if(!t) return;
+  if (typ==='stattgefunden'){ t.status='stattgefunden'; tEvent(t,'stattgefunden'); save(); renderTermine(); toast('Stattgefunden ✓ – Deal-Phase im CRM aktualisiert'); return; }
+  TA={id, typ, grund:''};
+  const head={verschoben:'Termin verschieben',abgesagt:'Termin abgesagt',noshow:'Nicht erschienen',neu:'Termin neu legen'}[typ];
+  const gruende={verschoben:['Terminkollision','Krankheit','Kunde will später','Andere Person soll dabei sein'],abgesagt:['Kein Bedarf mehr','Keine Zeit','Hat sich anders entschieden','Unbekannt'],noshow:['Nicht erreicht','Vergessen','Technik-Problem'],neu:[]}[typ];
+  const d=new Date(t.date+'T12:00'); d.setDate(d.getDate()+7);
+  $('#modal').innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="ta-h">
+    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="ta-h">${head}</h2><span class="note">${esc(t.person)} · bisher ${esc(fmtDate(t.date,t.time))}</span></div><button class="x" data-act="closemodal" aria-label="Schließen">✕</button></div>
+    ${gruende.length?`<div><span class="label">Grund</span><div class="outs" style="margin-top:6px">${gruende.map(g=>`<button class="out" data-act="tagrund" data-v="${esc(g)}" aria-pressed="false">${esc(g)}</button>`).join('')}</div></div>`:''}
+    ${typ==='verschoben'||typ==='neu'?`<div class="tbox"><b>${typ==='neu'?'Neuer Termin':'Neuer Zeitpunkt'}</b><div class="trow"><input type="date" id="ta-date" value="${isoDate(d)}" aria-label="Datum"><input type="time" id="ta-time" value="${t.time}" aria-label="Uhrzeit"></div></div>`:''}
+    ${typ==='abgesagt'||typ==='noshow'?`<p class="note" style="margin:0">Tipp: Gleich neu legen – eine Neulegung ist oft mehr wert als ein neuer Lead.</p>`:''}
+    <button class="btn wide" data-act="tasave">${typ==='verschoben'?'Verschieben & neue Einladung senden':typ==='neu'?'Neu legen & Einladung senden':'Speichern'}</button>
+    ${typ==='abgesagt'||typ==='noshow'?`<button class="btn ghost wide" data-act="tasave" data-v="neu">Speichern & gleich neu legen</button>`:''}</div>`;
+  $('#modal').hidden=false;
+}
+function saveTAction(alsoNew){
+  const t=S.termine.find(x=>x.id===TA.id); if(!t) return;
+  const crm = S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi';
+  const nd=$('#ta-date')&&$('#ta-date').value, nt=$('#ta-time')&&$('#ta-time').value;
+  let msg='';
+  if (TA.typ==='verschoben'){
+    const from=fmtDate(t.date,t.time); t.date=nd||t.date; t.time=nt||t.time; t.verschoben=(t.verschoben||0)+1; t.status='eingeladen';
+    t.frame={date:frameDate(t.date),status:'offen'}; tEvent(t,'verschoben',`von ${from} auf ${fmtDate(t.date,t.time)}${TA.grund?' · '+TA.grund:''}`);
+    msg=`Verschoben auf ${fmtDate(t.date,t.time)} – neue Outlook-Einladung gesendet, ${crm} aktualisiert`;
+  } else if (TA.typ==='abgesagt' || TA.typ==='noshow'){
+    t.status=TA.typ; if(t.frame) t.frame.status='erledigt'; tEvent(t,TA.typ,TA.grund);
+    msg=TA.typ==='abgesagt'?`Absage gespeichert – ${crm} aktualisiert`:'No-Show gespeichert';
+    if (alsoNew){ $('#modal').hidden=true; save(); openTAction(t.id,'neu'); toast(msg); return; }
+  } else if (TA.typ==='neu'){
+    const n={...JSON.parse(JSON.stringify(t)), id:'t'+Date.now(), date:nd||t.date, time:nt||t.time, status:'eingeladen', verschoben:0, neuFrom:t.id, events:[], frame:{date:frameDate(nd||t.date),status:'offen'}};
+    tEvent(n,'neulegung',`nach ${T_LABEL[t.status]||'Absage'} am ${fmtDate(t.date,t.time)}`); t.neuGelegt=n.id; tEvent(t,'neulegung',`neu am ${fmtDate(n.date,n.time)}`);
+    S.termine.push(n); msg=`Neu gelegt: ${fmtDate(n.date,n.time)} – Einladung gesendet`;
+  }
+  save(); $('#modal').hidden=true; TA=null; renderTermine(); renderNav(); toast(msg);
+}
+
+/* ---------------- Gesprächsqualität ---------------- */
+const QDIM=[['einstieg','Einstieg'],['rapport','Verbindung & Sympathie'],['quali','Qualifizierung'],['einwand','Einwandbehandlung'],['abschluss','Terminlegung'],['rede','Redeanteil']];
+const QTIPS={einstieg:'Nenn den Anlass im ersten Satz – konkret und mit Namen. Kein „Wie geht’s?“.',
+  rapport:'Bau früh eine Brücke: Name nennen, kurz auf den Anlass eingehen („Gratuliere zum neuen Standort“), Tempo und Ton des Gegenübers spiegeln.',
+  quali:'Kläre alle vier Punkte vor dem Termin: Bedarf, Entscheider, Zeitrahmen, Budget.',
+  einwand:'Drei Schritte: abfedern ohne „aber“, prüfen (Einwand oder Vorwand?), zurück zum Termin mit Alternativfrage.',
+  abschluss:'Frag nicht „Haben Sie Zeit?“, sondern biete zwei Termine an – und dann schweigen.',
+  rede:'Stell eine Frage und hör zu. Ziel: unter 60 % Redeanteil.'};
+function callQuality(){
+  const c=C.covered, r=ratio(), tgt=+S.pitch.redeanteil||60;
+  const qn=['bedarf','entscheider','zeitrahmen','budget'].filter(k=>c[k]).length;
+  const objHappened=C.lines.some(x=>x.who==='kunde'&&/keine zeit|zu teuer|unterlagen|kein interesse|haben schon|überleg/i.test(x.text));
+  return {
+    einstieg: c.einstieg?9:4,
+    rapport: Math.min(10, (c.rapport?6:3) + (r<=tgt?2:0) + (C.lines.some(x=>x.who==='du'&&/danke/i.test(x.text))?1:0) + 1),
+    quali: Math.round(qn*2.5),
+    einwand: objHappened ? (c.einwand?8:3) : null,
+    abschluss: c.termin?10:(qn>=2?5:2),
+    rede: Math.max(1, Math.min(10, Math.round(10 - Math.max(0,r-tgt)/3)))
+  };
+}
+const qAvg = q => { const v=Object.values(q||{}).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; };
+const TEAM_Q={u1:{einstieg:8.1,rapport:7.2,quali:7.8,einwand:6.4,abschluss:7.5,rede:7.0},u2:{einstieg:7.4,rapport:6.1,quali:8.2,einwand:5.8,abschluss:6.9,rede:5.5},u3:{einstieg:8.6,rapport:8.9,quali:7.1,einwand:7.7,abschluss:8.2,rede:8.0},u4:{einstieg:0,rapport:0,quali:0,einwand:0,abschluss:0,rede:0}};
+const TEAM_T={u1:{gelegt:14,bestaetigt:10,verschoben:3,neulegung:2,abgesagt:2,noshow:1,stattgefunden:9,anrufe:212,gespraeche:96,quali:31},
+  u2:{gelegt:18,bestaetigt:11,verschoben:4,neulegung:3,abgesagt:4,noshow:2,stattgefunden:10,anrufe:260,gespraeche:118,quali:37},
+  u3:{gelegt:16,bestaetigt:14,verschoben:2,neulegung:2,abgesagt:1,noshow:0,stattgefunden:13,anrufe:231,gespraeche:109,quali:35},
+  u4:{gelegt:0,bestaetigt:0,verschoben:0,neulegung:0,abgesagt:0,noshow:0,stattgefunden:0,anrufe:0,gespraeche:0,quali:0}};
+const TREND={u1:[6.4,6.9,7.2,7.5],u2:[5.9,6.2,6.4,6.6],u3:[7.6,7.9,8.0,8.1]};
+function personStats(uid){
+  const base={...(TEAM_T[uid]||{gelegt:0,bestaetigt:0,verschoben:0,neulegung:0,abgesagt:0,noshow:0,stattgefunden:0,anrufe:0,gespraeche:0,quali:0})};
+  const m=new Date(); m.setDate(1); m.setHours(0,0,0,0);
+  S.termine.forEach(t=>(t.events||[]).forEach(e=>{ if(e.by===uid && e.ts>=m.getTime() && base[e.typ]!=null) base[e.typ]++; }));
+  const L=S.log.filter(x=>x.user===uid && x.ts>=m.getTime());
+  base.anrufe+=L.length; base.gespraeche+=L.filter(x=>x.outcome!=='nicht').length; base.quali+=L.filter(x=>(x.quali||0)>=3).length;
+  const qs=L.map(x=>x.q).filter(Boolean);
+  const q={...(TEAM_Q[uid]||{})};
+  if (qs.length) QDIM.forEach(([k])=>{ const v=qs.map(x=>x[k]).filter(x=>x!=null); if(v.length){ const n=4; q[k]=((q[k]||0)*n + v.reduce((a,b)=>a+b,0))/(n+v.length); } });
+  return {...base, q};
 }
 function renderTracking(){
-  const LOG = isLead() ? S.log : S.log.filter(x=>x.user===S.me);
-  const today = LOG.filter(x=> new Date(x.ts).toDateString()===new Date().toDateString());
-  const reached = today.filter(x=>x.outcome!=='nicht').length, termine=today.filter(x=>x.outcome==='termin').length;
-  const scores = today.map(x=>x.score).filter(Boolean);
-  const avg = scores.length? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1).replace('.',',') : '–';
-  const days=[]; const d=new Date(); let back=1;
-  while(days.length<4){ const x=new Date(d); x.setDate(d.getDate()-back++); if(x.getDay()%6) days.unshift(x); }
-  const seed=[[24,11,2],[31,14,3],[27,12,2],[29,15,4]];
-  const series = days.map((x,i)=>({lab:x.toLocaleDateString('de-AT',{weekday:'short'}), a:seed[i][0], e:seed[i][1], t:seed[i][2], ex:true}))
-    .concat([{lab:'Heute', a:today.length, e:reached, t:termine, ex:false}]);
-  const W_=520,H=200,pl=30,pb=26,max=35, bw=(W_-pl)/series.length;
-  const y = v => H-pb - v/max*(H-pb-10);
-  const grid=[0,10,20,30].map(v=>`<line x1="${pl}" x2="${W_}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`).join('');
-  const bars=series.map((s,i)=>{ const x=pl+i*bw+bw*0.18, w=bw*0.2;
-    return `<rect x="${x}" y="${y(s.a)}" width="${w}" height="${H-pb-y(s.a)}" rx="3" fill="var(--accent)" opacity="${s.ex?0.45:1}"/>
-      <rect x="${x+w+3}" y="${y(s.e)}" width="${w}" height="${H-pb-y(s.e)}" rx="3" fill="var(--sun)" opacity="${s.ex?0.5:1}"/>
-      <rect x="${x+2*w+6}" y="${y(s.t)}" width="${w}" height="${H-pb-y(s.t)}" rx="3" fill="var(--good)" opacity="${s.ex?0.5:1}"/>
-      <text x="${pl+i*bw+bw/2}" y="${H-8}" text-anchor="middle" font-weight="${s.ex?400:700}">${s.lab}</text>`; }).join('');
-  const all = LOG; const cnt = k=>all.filter(x=>x.outcome===k).length; const tot=Math.max(1,all.length);
-  const ob = {}; all.forEach(x=>{ if(x.einwand) ob[x.einwand]=(ob[x.einwand]||0)+1; });
-  const obl = Object.entries(ob).concat([['Schicken Sie mir Unterlagen',0],['Haben wir schon',0]]).slice(0,3);
+  const ids = isLead() ? S.team.filter(m=>m.status==='aktiv').map(m=>m.id) : [S.me];
+  const sum = k => ids.reduce((a,id)=>a+(personStats(id)[k]||0),0);
+  const st=sum('stattgefunden'), ge=sum('gelegt'), ns=sum('noshow'), ab=sum('abgesagt'), vs=sum('verschoben'), nl=sum('neulegung');
+  const show = st+ns+ab ? Math.round(st/(st+ns+ab)*100) : 0;
+  const mine = personStats(S.me);
+  const teamIds = S.team.filter(m=>m.status==='aktiv'&&TEAM_Q[m.id]).map(m=>m.id);
+  const teamQ = {}; QDIM.forEach(([k])=>{ const v=teamIds.map(id=>personStats(id).q[k]).filter(x=>x>0); teamQ[k]=v.length?v.reduce((a,b)=>a+b,0)/v.length:0; });
+  const weakest = QDIM.slice().sort((a,b)=>(mine.q[a[0]]||0)-(mine.q[b[0]]||0))[0];
+  const trend = (TREND[S.me]||[6,6.5,7,7.2]).concat([qAvg(mine.q)||0]);
+  const fun=[['Anrufe',sum('anrufe')],['Gespräche',sum('gespraeche')],['Qualifiziert',sum('quali')],['Termine gelegt',ge],['Stattgefunden',st]];
+  const fmax=Math.max(...fun.map(x=>x[1]),1);
+  const monat=new Date().toLocaleDateString('de-AT',{month:'long'});
   $('#view-tracking').innerHTML = `<div class="page">
-    <div class="kpis">
-      <div class="kpi"><span class="label">Anrufe heute</span><b class="num">${today.length}</b><small>von ${S.leads.length} Leads</small></div>
-      <div class="kpi"><span class="label">Erreicht</span><b class="num">${reached}</b><small>${today.length?Math.round(reached/today.length*100):0} % Erreichbarkeit</small></div>
-      <div class="kpi"><span class="label">Qualifiziert</span><b class="num">${today.filter(x=>(x.quali||0)>=3).length}</b><small>mind. 3 von 4 geklärt</small></div>
-      <div class="kpi goal"><span class="label">Termine</span><b class="num" style="color:var(--good)">${termine}</b><small>${reached?Math.round(termine/reached*100):0} % der Gespräche</small></div>
-      <div class="kpi"><span class="label">Ø Pitch-Score</span><b class="num">${avg}</b><small>aus dem Live-Coaching</small></div>
+    <div class="trk-top">
+      <div class="card hero-kpi"><span class="label">Stattgefundene Termine · ${esc(monat)}${isLead()?' · Team':''}</span><b class="num">${st}</b>
+        <div class="kpi-sub"><span><b class="num">${show} %</b> Show-Rate</span><span><b class="num">${ge?Math.round(st/ge*100):0} %</b> von gelegten Terminen</span></div></div>
+      <div class="kpis small">
+        <div class="kpi"><span class="label">Gelegt</span><b class="num">${ge}</b></div>
+        <div class="kpi"><span class="label">Verschoben</span><b class="num">${vs}</b></div>
+        <div class="kpi"><span class="label">Neu gelegt</span><b class="num" style="color:var(--good)">${nl}</b></div>
+        <div class="kpi"><span class="label">Abgesagt</span><b class="num" style="color:var(--bad)">${ab}</b></div>
+        <div class="kpi"><span class="label">No-Show</span><b class="num" style="color:var(--bad)">${ns}</b></div>
+      </div>
     </div>
+    <div class="card"><h3>Vom Anruf zum stattgefundenen Termin</h3><div class="funnel">${fun.map(([n,v],i)=>`<div class="fstep ${i===fun.length-1?'key':''}"><span>${n}</span><div class="fbar"><i style="width:${v/fmax*100}%"></i></div><b class="num">${v}</b>${i?`<small class="num">${fun[i-1][1]?Math.round(v/fun[i-1][1]*100):0} %</small>`:'<small></small>'}</div>`).join('')}</div></div>
     <div class="grid2">
-      <div class="card"><h3>Anrufe, Gespräche, Termine</h3><div style="overflow-x:auto"><svg class="chart" viewBox="0 0 ${W_} ${H}" width="100%" style="min-width:420px" role="img" aria-label="Balkendiagramm der letzten fünf Arbeitstage">${grid}${bars}</svg></div>
-        <div class="legend"><span><i style="background:var(--accent)"></i>Anrufe</span><span><i style="background:var(--sun)"></i>Erreicht</span><span><i style="background:var(--good)"></i>Termine</span></div>
-        <p class="note">Vortage sind Beispielwerte (blasser). „Heute“ zählt deine echten Demo-Anrufe.</p></div>
-      <div class="card"><h3>Ergebnisse gesamt</h3>${OUTCOMES.map(([k,n])=>`<div class="hbar"><span>${n}</span><span class="t"><i style="width:${cnt(k)/tot*100}%;${k==='termin'?'background:var(--good)':k==='kein'||k==='falsch'?'background:var(--bad)':k==='rueckruf'?'background:var(--sun)':'background:var(--muted)'}"></i></span><b class="num">${cnt(k)}</b></div>`).join('')}
-        <h3 style="margin-top:18px">Häufigste Einwände</h3><ul class="list">${obl.map(([n,c])=>`<li><span class="bullet"></span><span>„${esc(n)}“</span><span class="src num">${c}×</span></li>`).join('')}</ul></div>
+      <div class="card"><h3>Meine Gesprächsqualität</h3>
+        <div class="qdims">${QDIM.map(([k,n])=>{ const v=mine.q[k]||0, t=teamQ[k]||0; return `<div class="qdim"><span>${n}</span><div class="qbar"><i style="width:${v*10}%" class="${v>=7.5?'g':v>=6?'m':'b'}"></i><em style="left:${t*10}%" title="Team-Schnitt ${t.toFixed(1).replace('.',',')}"></em></div><b class="num">${v.toFixed(1).replace('.',',')}</b></div>`; }).join('')}</div>
+        <div class="legend"><span><i style="background:var(--good)"></i>Du</span><span><i style="background:var(--ink);width:2px"></i>Team-Schnitt</span></div>
+        <div class="tipbox" style="margin-top:12px"><span class="label">Dein nächster Hebel: ${esc(weakest[1])}</span><div>${esc(QTIPS[weakest[0]])}</div></div></div>
+      <div class="card"><h3>Mein Verlauf</h3><div class="trend">${trend.map((v,i)=>`<div class="tcol"><div class="tb"><i style="height:${v*10}%" class="${i===trend.length-1?'now':''}"></i></div><b class="num">${v.toFixed(1).replace('.',',')}</b><small>${i===trend.length-1?'jetzt':'KW '+(isoWeek(new Date())-(trend.length-1-i))}</small></div>`).join('')}</div>
+        <p class="note" style="margin:8px 0 0">Ø Gesprächsqualität pro Woche (0–10). Frühere Wochen sind Beispielwerte.</p></div>
     </div>
-    ${teamCard()}
-    <div class="card"><h3>Letzte Anrufe</h3>${all.length?`<div class="tablewrap"><table><thead><tr><th>Zeit</th><th>Lead</th><th>Ergebnis</th><th>Dauer</th><th>Score</th><th>Nächster Schritt</th></tr></thead><tbody>${all.slice().reverse().map(x=>`<tr><td class="num">${new Date(x.ts).toLocaleTimeString('de-AT',{hour:'2-digit',minute:'2-digit'})}</td><td><b>${esc(x.firma)}</b><div class="note">${esc(x.person)}</div></td><td><span class="pill st-${x.outcome}">${OUTLABEL[x.outcome]}</span></td><td class="num">${fmtTime(x.dur)}</td><td class="num">${x.score?x.score+'/10':'–'}</td><td>${esc(x.next||'')}</td></tr>`).join('')}</tbody></table></div>`:'<p class="note">Noch keine Anrufe. Starte in „Heute“ deinen ersten Anruf – er erscheint sofort hier.</p>'}</div>
+    ${isLead()||can('repTeamStats')?`<div class="card"><h3>Team</h3><div class="tablewrap"><table><thead><tr><th>Person</th><th>Gelegt</th><th>Verschoben</th><th>Neu gelegt</th><th>Abgesagt</th><th>Stattgefunden</th><th>Show-Rate</th><th>Qualität</th><th>Schwächster Bereich</th></tr></thead><tbody>
+      ${S.team.filter(m=>m.status==='aktiv').map(m=>{ const p=personStats(m.id); const sr=p.stattgefunden+p.noshow+p.abgesagt?Math.round(p.stattgefunden/(p.stattgefunden+p.noshow+p.abgesagt)*100):0; const w=QDIM.slice().sort((a,b)=>(p.q[a[0]]||0)-(p.q[b[0]]||0))[0];
+        return `<tr><td><div class="who"><span class="av sm">${esc(m.vorname[0]+(m.nachname[0]||''))}</span><b>${esc(m.vorname)}</b>${m.id===S.me?'<span class="note">(du)</span>':''}</div></td><td class="num">${p.gelegt}</td><td class="num">${p.verschoben}</td><td class="num">${p.neulegung}</td><td class="num">${p.abgesagt+p.noshow}</td><td class="num"><b>${p.stattgefunden}</b></td><td class="num">${sr} %</td><td class="num">${(qAvg(p.q)||0).toFixed(1).replace('.',',')}</td><td>${esc(w[1])}</td></tr>`; }).join('')}
+      </tbody></table></div>
+      ${isLead()?`<div class="tipbox" style="margin-top:12px"><span class="label">Team-Coaching diese Woche</span><div>${(()=>{ const w=QDIM.slice().sort((a,b)=>(teamQ[a[0]]||0)-(teamQ[b[0]]||0))[0]; return esc(w[1]+' ist im Team am schwächsten ('+(teamQ[w[0]]||0).toFixed(1).replace('.',',')+'). '+QTIPS[w[0]]); })()}</div></div>`:''}</div>`:''}
+    <details class="card fold-card"><summary>Letzte Anrufe</summary>${(()=>{ const L=(isLead()?S.log:S.log.filter(x=>x.user===S.me)).slice().reverse(); return L.length?`<div class="tablewrap"><table><thead><tr><th>Zeit</th><th>Lead</th><th>Ergebnis</th><th>Qualität</th><th>Nächster Schritt</th></tr></thead><tbody>${L.map(x=>`<tr><td class="num">${new Date(x.ts).toLocaleTimeString('de-AT',{hour:'2-digit',minute:'2-digit'})}</td><td><b>${esc(x.firma)}</b></td><td><span class="pill st-${x.outcome}">${OUTLABEL[x.outcome]}</span></td><td class="num">${x.q?(qAvg(x.q)||0).toFixed(1).replace('.',','):'–'}</td><td>${esc(x.next||'')}</td></tr>`).join('')}</tbody></table></div>`:'<p class="note">Noch keine Anrufe.</p>'; })()}</details>
+    <p class="note">Monatswerte enthalten Beispielwerte. Was du in der Demo machst, zählt sofort dazu.</p>
   </div>`;
 }
+function isoWeek(d){ const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); const n=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-n); const y=new Date(Date.UTC(t.getUTCFullYear(),0,1)); return Math.ceil(((t-y)/864e5+1)/7); }
 
 /* ---------------- Admin ---------------- */
 function adminTabs(){
@@ -1984,6 +2106,9 @@ document.addEventListener('click', e=>{
     case 'qtoggle': readWrapInputs(); W.quali[v].ok=!W.quali[v].ok; if(W.ai) W.ai=null; renderWrap(); break;
     case 'grund': readWrapInputs(); W.grund=v; renderWrap(); break;
     case 'nextcall': nextAfterWrap(); break;
+    case 'tact': openTAction(v, a.dataset.t); break;
+    case 'tagrund': TA.grund=v; a.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===a)); break;
+    case 'tasave': saveTAction(a.dataset.v==='neu'); break;
     case 'dedup': openDedup(); break;
     case 'skiplead': { const l=lead(v); if(l){ const chk=crmCheck(l); S.dedup.removed.unshift({firma:l.firma, grund:chk.grund||'Duplikat', info:chk.info||''}); S.leads=S.leads.filter(x=>x.id!==v); const n=visibleLeads().find(x=>x.status==='offen'); if(n) S.sel=n.id; save(); } $('#modal').hidden=true; render(); toast('Aus der Liste genommen – kein Doppelanruf'); break; }
     case 'forcecall': $('#modal').hidden=true; C.force=true; startCall(); break;
