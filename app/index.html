@@ -78,7 +78,8 @@ main{min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px}
 .prog{padding:0 16px 12px;display:flex;flex-direction:column;gap:6px}
 .prog .bar{height:6px;background:var(--line);border-radius:9px;overflow:hidden}
 .prog .bar i{display:block;height:100%;background:var(--good)}
-.filters{display:flex;gap:4px;padding:0 12px 10px}
+.filters{display:flex;gap:4px;padding:0 12px 10px;flex-wrap:wrap}
+input[type=range]{accent-color:var(--accent)}
 .seg{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--muted)}
 .seg[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .qlist{list-style:none;margin:0;padding:0 8px 10px;display:flex;flex-direction:column;gap:4px}
@@ -244,6 +245,75 @@ svg.chart text{fill:var(--muted);font-size:11px;font-family:var(--f-body)}
 .plan ul{margin:0;padding-left:18px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
 .plan .btn{margin-top:auto;justify-content:center}
 
+/* Admin */
+.atabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap}
+.atab{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;color:var(--muted);white-space:nowrap}
+.atab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:10px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.stepper button{border:0;background:none;width:34px;height:34px;font-size:18px;font-weight:700;color:var(--ink)}
+.stepper button:hover{background:var(--surface-2)}
+.stepper b{min-width:44px;text-align:center;font-family:var(--f-display);font-size:18px}
+.bigset{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bigset .stepper b{font-size:30px;min-width:80px}
+.bigset .stepper button{width:44px;height:52px;font-size:22px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chipsel{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.chipsel[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.stackbar{display:flex;height:14px;border-radius:9px;overflow:hidden;background:var(--surface-2);gap:2px}
+.stackbar i{display:block;height:100%}
+.distrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center}
+.sw{width:12px;height:12px;border-radius:4px;display:inline-block;flex:none}
+.sw.lg{width:20px;height:20px;border-radius:6px}
+.rules{display:grid;gap:2px;margin-top:14px}
+.rule{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.rule small{display:block;color:var(--muted)}
+.rule .switch{margin-left:auto}
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.gcard{display:flex;flex-direction:column;gap:10px}
+.gcard.off{opacity:.6}
+.gcard h3{margin:0;font-size:17px}
+.gtop{display:flex;align-items:center;gap:10px}
+.gtop .switch{margin-left:auto}
+.kv{display:flex;flex-direction:column;gap:4px}
+.gfoot{display:flex;gap:8px;align-items:center;margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+.gfoot>span:first-child{margin-right:auto}
+.rows{display:grid;gap:12px}
+.srow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}
+.srow>span{font-weight:600}
+.preview{margin-top:14px;background:var(--surface-2);border-radius:14px;padding:12px 14px;border-left:3px solid var(--accent)}
+.preview p{margin:4px 0 0;font-size:16px;font-weight:600;max-width:62ch}
+.lrows{display:grid;gap:8px;margin-bottom:10px}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) auto;gap:8px;align-items:start}
+.lrow.one{grid-template-columns:minmax(0,1fr) auto}
+.lrow input,.lrow textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;min-width:0;width:100%}
+.lrow textarea{resize:vertical}
+.del{border:0;background:var(--surface-2);border-radius:10px;width:34px;height:36px;color:var(--muted)}
+.del:hover{color:var(--bad)}
+.kbhead{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.kbmeter{display:flex;flex-direction:column;gap:6px;min-width:160px}
+.kbmeter b{font-family:var(--f-display);font-size:28px;line-height:1}
+.meter{height:6px;border-radius:9px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent)}
+.doc{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.doc svg{width:18px;height:18px;color:var(--muted);flex:none}
+.doc div{min-width:0;flex:1}
+.doc small{display:block;color:var(--muted)}
+.callgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.callcard{border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.callcard.def{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.callcard small{display:block;color:var(--muted);font-size:12px}
+.callcard .lg,.lg.cl{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-weight:800;color:#fff;flex:none}
+.callcard .lg svg{width:18px;height:18px}
+.cfoot{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cfoot .btn:last-child{margin-left:auto}
+.steps{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--muted)}
+.steps b{color:var(--ink)}
+.hook{display:flex;gap:8px;align-items:center;background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.hook code{font-size:12px;overflow-x:auto;white-space:nowrap;flex:1;min-width:0}
+.gsel{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--muted);max-width:150px}
+@media (max-width:820px){ .lrow{grid-template-columns:minmax(0,1fr) auto} .lrow>*:nth-child(2):not(.del){grid-column:1} .distrow{grid-template-columns:auto minmax(0,1fr)} .distrow .stepper{grid-column:2} }
+
 /* Modal + toast */
 .modal{position:fixed;inset:0;background:rgba(20,12,8,.45);display:grid;place-items:center;padding:16px;z-index:50}
 .sheet{background:var(--surface);border-radius:22px;width:min(720px,100%);max-height:calc(100% - 32px);overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
@@ -301,7 +371,7 @@ svg.chart text{fill:var(--muted);font-size:11px;font-family:var(--f-body)}
     </section>
     <section class="view" id="view-leads"></section>
     <section class="view" id="view-tracking"></section>
-    <section class="view" id="view-setup"></section>
+    <section class="view" id="view-admin"></section>
   </main>
 </div>
 <div class="modal" id="modal" hidden></div>
@@ -348,49 +418,49 @@ async function copyText(txt){
 
 /* ---------------- sample data (fictional) ---------------- */
 const LEADS = [
- {id:'l1',firma:'Muster Software GmbH',ort:'Wien',land:'AT',branche:'Software',ma:45,web:'muster-software.at',gegr:2014,
+ {id:'l1',g:'g1',firma:'Muster Software GmbH',ort:'Wien',land:'AT',branche:'Software',ma:45,web:'muster-software.at',gegr:2014,
   person:'Mag. Lisa Gruber',anrede:'Frau',nachname:'Gruber',vorname:'Lisa',rolle:'Geschäftsführerin',seit:'seit 2019',tel:'+43 1 000 12 34',mail:'l.gruber@muster-software.at',
   trig:'Stellen',anlass:'Sucht gerade 3 neue Entwickler:innen',satzSie:'dass Sie gerade drei neue Entwickler suchen',quelle:'Stellenportal',wann:'vor 2 Tagen',
   news:[['Neues Büro in Wien-Neubau bezogen','Pressetext · Sept. 2026'],['Teamgröße in einem Jahr von 30 auf 45 gewachsen','LinkedIn-Unternehmensseite']],
   linkedin:'Hat letzte Woche über flexible Arbeitszeiten im Team gepostet.',schmerz:'Ehrlich gesagt tragen die Leute ihre Stunden noch in eine Excel-Liste ein.',
   score:92,best:'Di–Do, 9–11 Uhr',src:'Apollo',status:'offen'},
- {id:'l2',firma:'Beispiel Event GmbH',ort:'Salzburg',land:'AT',branche:'Eventagentur',ma:22,web:'beispiel-event.at',gegr:2011,
+ {id:'l2',g:'g2',firma:'Beispiel Event GmbH',ort:'Salzburg',land:'AT',branche:'Eventagentur',ma:22,web:'beispiel-event.at',gegr:2011,
   person:'Thomas Huber',anrede:'Herr',nachname:'Huber',vorname:'Thomas',rolle:'Geschäftsführer',seit:'Gründer',tel:'+43 662 000 567',mail:'huber@beispiel-event.at',
   trig:'LinkedIn',anlass:'Postete über eine Rekordsaison mit 140 Events',satzSie:'dass Sie heuer eine Rekordsaison mit 140 Events hatten',quelle:'LinkedIn',wann:'vor 4 Tagen',
   news:[['Neuer Großkunde aus der Pharmabranche','Firmenwebsite · Okt. 2026']],
   linkedin:'Schreibt regelmäßig über Fachkräftemangel bei Event-Crews.',schmerz:'Bei den Events wissen wir oft erst am Monatsende, wer wie lange gearbeitet hat.',
   score:88,best:'Mo–Mi, 8–10 Uhr',src:'Lusha',status:'offen'},
- {id:'l3',firma:'Muster Maschinenbau AG',ort:'Linz',land:'AT',branche:'Maschinenbau',ma:85,web:'muster-maschinenbau.at',gegr:1987,
+ {id:'l3',g:'g3',firma:'Muster Maschinenbau AG',ort:'Linz',land:'AT',branche:'Maschinenbau',ma:85,web:'muster-maschinenbau.at',gegr:1987,
   person:'Sabine Leitner',anrede:'Frau',nachname:'Leitner',vorname:'Sabine',rolle:'Leitung Personal',seit:'seit 2021',tel:'+43 732 000 890',mail:'s.leitner@muster-maschinenbau.at',
   trig:'Presse',anlass:'Baut ein zweites Werk in Wels',satzSie:'dass Sie gerade ein zweites Werk in Wels bauen',quelle:'Regionalzeitung',wann:'vor 1 Woche',
   news:[['Spatenstich für Werk Wels, 40 neue Jobs geplant','Regionalzeitung · Okt. 2026'],['Lehrlingsoffensive 2026','Firmenwebsite']],
   linkedin:'Teilt Beiträge zu Employer Branding und Lehrlingsausbildung.',schmerz:'Wir haben noch Stempeluhren, die sind älter als die meisten Lehrlinge.',
   score:84,best:'Di–Do, 13–15 Uhr',src:'Apollo',status:'offen'},
- {id:'l4',firma:'Beispiel Agentur KG',ort:'München',land:'DE',branche:'Werbeagentur',ma:30,web:'beispiel-agentur.de',gegr:2016,
+ {id:'l4',g:'g1',firma:'Beispiel Agentur KG',ort:'München',land:'DE',branche:'Werbeagentur',ma:30,web:'beispiel-agentur.de',gegr:2016,
   person:'Max Berger',anrede:'Herr',nachname:'Berger',vorname:'Max',rolle:'Inhaber',seit:'Gründer',tel:'+49 89 000 4455',mail:'max@beispiel-agentur.de',
   trig:'Expansion',anlass:'Hat einen Standort in Wien eröffnet',satzSie:'dass Sie gerade einen Standort in Wien eröffnet haben',quelle:'Pressemeldung',wann:'vor 3 Tagen',
   news:[['Agentur eröffnet Büro in Wien','Pressemeldung · Okt. 2026']],
   linkedin:'Sucht laut Profil „Projektleitung Wien“.',schmerz:'Mit zwei Standorten wird das mit den Stundenlisten langsam chaotisch.',
   score:79,best:'Mi–Fr, 10–12 Uhr',src:'HubSpot',status:'offen'},
- {id:'l5',firma:'Muster Logistik GmbH',ort:'Graz',land:'AT',branche:'Logistik',ma:60,web:'muster-logistik.at',gegr:2003,
+ {id:'l5',g:'g2',firma:'Muster Logistik GmbH',ort:'Graz',land:'AT',branche:'Logistik',ma:60,web:'muster-logistik.at',gegr:2003,
   person:'Andrea Pichler',anrede:'Frau',nachname:'Pichler',vorname:'Andrea',rolle:'Leitung Personal',seit:'seit 2018',tel:'+43 316 000 221',mail:'a.pichler@muster-logistik.at',
   trig:'Stellen',anlass:'Sucht eine Lohnverrechnerin',satzSie:'dass Sie gerade eine Lohnverrechnung suchen',quelle:'Stellenportal',wann:'gestern',
   news:[['Neue Lagerhalle in Graz-Liebenau','Firmenwebsite · Aug. 2026']],
   linkedin:'Wenig aktiv auf LinkedIn – besser direkt anrufen.',schmerz:'Die Lohnverrechnung ist bei uns ein echtes Nadelöhr, gerade mit den Schichten.',
   score:90,best:'Mo–Do, 8–9 Uhr',src:'Apollo',status:'offen'},
- {id:'l6',firma:'Beispiel Hotel Alpenblick',ort:'Kitzbühel',land:'AT',branche:'Hotellerie',ma:40,web:'beispiel-alpenblick.at',gegr:1972,
+ {id:'l6',g:'g2',firma:'Beispiel Hotel Alpenblick',ort:'Kitzbühel',land:'AT',branche:'Hotellerie',ma:40,web:'beispiel-alpenblick.at',gegr:1972,
   person:'Florian Mayr',anrede:'Herr',nachname:'Mayr',vorname:'Florian',rolle:'Direktor',seit:'seit 2020',tel:'+43 5356 000 77',mail:'direktion@beispiel-alpenblick.at',
   trig:'Stellen',anlass:'Sucht 15 Saisonkräfte für den Winter',satzSie:'dass Sie für den Winter 15 Saisonkräfte suchen',quelle:'Stellenportal',wann:'vor 5 Tagen',
   news:[['Spa-Bereich renoviert, Neueröffnung im Dezember','Tourismusverband']],
   linkedin:'Kein aktives Profil gefunden.',schmerz:'In der Saison ist die Dienstplanung jedes Mal ein Puzzle.',
   score:76,best:'Di–Do, 14–16 Uhr',src:'Lusha',status:'offen'},
- {id:'l7',firma:'Muster Steuerberatung OG',ort:'Innsbruck',land:'AT',branche:'Steuerberatung',ma:18,web:'muster-stb.at',gegr:2009,
+ {id:'l7',g:'g1',firma:'Muster Steuerberatung OG',ort:'Innsbruck',land:'AT',branche:'Steuerberatung',ma:18,web:'muster-stb.at',gegr:2009,
   person:'Dr. Eva Wimmer',anrede:'Frau',nachname:'Wimmer',vorname:'Eva',rolle:'Partnerin',seit:'seit 2009',tel:'+43 512 000 334',mail:'wimmer@muster-stb.at',
   trig:'LinkedIn',anlass:'Stellt auf ein papierloses Büro um',satzSie:'dass Sie gerade auf ein papierloses Büro umstellen',quelle:'LinkedIn',wann:'vor 6 Tagen',
   news:[['Kanzlei als „Familienfreundlicher Betrieb“ ausgezeichnet','Landesregierung · 2026']],
   linkedin:'Postet über Digitalisierung in Kanzleien.',schmerz:'Die Zeiterfassung ist das Letzte, was bei uns noch auf Papier läuft.',
   score:72,best:'Mo–Mi, 11–12 Uhr',src:'CSV-Import',status:'offen'},
- {id:'l8',firma:'Beispiel Handel AG',ort:'Zürich',land:'CH',branche:'Einzelhandel',ma:55,web:'beispiel-handel.ch',gegr:1998,
+ {id:'l8',g:'g3',firma:'Beispiel Handel AG',ort:'Zürich',land:'CH',branche:'Einzelhandel',ma:55,web:'beispiel-handel.ch',gegr:1998,
   person:'Reto Keller',anrede:'Herr',nachname:'Keller',vorname:'Reto',rolle:'CEO',seit:'seit 2017',tel:'+41 44 000 66 11',mail:'r.keller@beispiel-handel.ch',
   trig:'Expansion',anlass:'Eröffnet eine zweite Filiale in Winterthur',satzSie:'dass Sie eine zweite Filiale in Winterthur eröffnen',quelle:'Handelszeitung',wann:'vor 1 Woche',
   news:[['Zweite Filiale ab Jänner','Handelszeitung · Okt. 2026']],
@@ -398,14 +468,33 @@ const LEADS = [
   score:68,best:'Di–Do, 9–10 Uhr',src:'Apollo',status:'offen'}
 ];
 
-const DEFAULTS = {
-  name:'Jasmin', firma:'Muster Digital GmbH', website:'muster-digital.at',
-  angebot:'eine App für digitale Zeiterfassung und Dienstplanung',
-  thema:'Zeiterfassung und Dienstplanung',
-  nutzen:'Spart der Lohnverrechnung rund 4 Stunden pro Monat\nMitarbeiter stempeln per Handy, auch auf Außenterminen\nRechtssicher nach Arbeitszeitgesetz',
-  zielgruppe:'KMUs mit 10–100 Mitarbeitern in Österreich, Deutschland und der Schweiz. Ansprechpartner: Geschäftsführung oder Personal.',
-  tageslimit:30, telefonie:'Browser-Dialer'
-};
+const PRODUCTS = [
+  {id:'p1',name:'Zeiterfassung App',thema:'Zeiterfassung',angebot:'eine App für digitale Zeiterfassung per Handy und PC',nutzen:'Spart der Lohnverrechnung rund 4 Stunden pro Monat\nMitarbeiter stempeln per Handy, auch auf Außenterminen\nRechtssicher nach Arbeitszeitgesetz',preis:'ab 4 € pro Mitarbeiter/Monat',laufzeit:'monatlich kündbar'},
+  {id:'p2',name:'Dienstplan Pro',thema:'Dienst- und Schichtplanung',angebot:'eine Dienstplanung, die Schichten, Urlaube und Saisonkräfte automatisch einplant',nutzen:'Dienstplan in 10 Minuten statt einem halben Tag\nTauschbörse für Schichten per App\nÜberstunden und Ruhezeiten immer im Blick',preis:'ab 6 € pro Mitarbeiter/Monat',laufzeit:'jährlich, Saisonmodell möglich'}
+];
+const GROUPS = [
+  {id:'g1',name:'Wachsende Büro-KMUs',produkt:'p1',branchen:['Software','Agenturen','Steuerberatung','Beratung'],groesseMin:10,groesseMax:80,regionen:['AT','DE'],bundeslaender:[],rollen:['Geschäftsführung','Leitung Personal'],signale:['Offene Stellen','Neuer Standort','Wachstum im Team'],ausschluss:'Konzerne, öffentliche Verwaltung',notiz:'Wachsen schnell, Stunden laufen noch über Excel. Entscheidet meist die Geschäftsführung selbst.',proTag:12,prio:'hoch',aktiv:true},
+  {id:'g2',name:'Schicht- & Saisonbetriebe',produkt:'p2',branchen:['Hotellerie','Logistik','Eventagenturen','Gastronomie'],groesseMin:15,groesseMax:150,regionen:['AT','DE'],bundeslaender:['Tirol','Salzburg','Steiermark'],rollen:['Direktion','Leitung Personal','Betriebsleitung'],signale:['Offene Stellen','Expansion / Neubau','Pressemeldung'],ausschluss:'Ketten mit zentraler Personalplanung',notiz:'Viele Schichten und Saisonkräfte, Dienstplan ist jedes Mal ein Puzzle.',proTag:10,prio:'hoch',aktiv:true},
+  {id:'g3',name:'Produktion & Filialhandel',produkt:'p1',branchen:['Maschinenbau','Einzelhandel','Produktion'],groesseMin:40,groesseMax:250,regionen:['AT','DE','CH'],bundeslaender:[],rollen:['Leitung Personal','Geschäftsführung'],signale:['Expansion / Neubau','Neuer Standort','Pressemeldung'],ausschluss:'',notiz:'Mehrere Standorte, alte Stempeluhren, Lohnverrechnung als Nadelöhr.',proTag:8,prio:'mittel',aktiv:true}
+];
+const KB = {meinName:'Jasmin',firma:'Muster Digital GmbH',website:'muster-digital.at',branche:'HR-Software',mitarbeiter:'25',standort:'Wien',
+  ueberUns:'Wir machen Zeiterfassung und Dienstplanung für KMUs im DACH-Raum einfach. Entwickelt und gehostet in Österreich, Support auf Deutsch.',
+  usps:['Server in Österreich, DSGVO-konform','In einem Tag eingerichtet','Persönlicher Support auf Deutsch'],
+  referenzen:[{kunde:'Hotel in Tirol, 60 MA',ergebnis:'Dienstplan in 15 statt 180 Minuten pro Woche'},{kunde:'Softwarefirma in Wien, 35 MA',ergebnis:'Lohnverrechnung spart 5 Stunden pro Monat'}],
+  faq:[{frage:'Funktioniert das mit unserer Lohnverrechnung?',antwort:'Ja, Export für BMD, DATEV und RZL ist dabei.'},{frage:'Wie lange dauert die Einführung?',antwort:'Meist ein Tag. Wir richten es gemeinsam ein.'}],
+  wettbewerber:[{name:'Excel / Papier',unterschied:'Keine Nacharbeit, rechtssicher, per Handy'}],
+  preise:'Ab 4 € pro Mitarbeiter und Monat. Keine Einrichtungsgebühr. Am Telefon keine Rabatte zusagen – auf die Demo verweisen.',docs:[]};
+const PITCH = {ansprache:'sie',stil:'beratend',laenge:'kurz',dialekt:'1',ziel:'demo',dauer:15,slots:'Donnerstag um 10 oder lieber Freitag um 9',
+  opener:'{gruss}, {meinname} von {meinefirma}. Ich hab gesehen, {anlass} – genau deshalb ruf ich an.',
+  dos:'Anlass immer im ersten Satz nennen\nOffene Fragen stellen\nKurz bleiben, nach 30 Sekunden eine Frage',
+  donts:'Keine Preise oder Rabatte am Telefon\nNicht schlecht über Mitbewerber reden\nKein Fachchinesisch',
+  einwaende:[{einwand:'Keine Zeit',antwort:'Verstehe ich gut. Genau deshalb dauert die Demo nur 15 Minuten – passt Ihnen eher Donnerstag oder Freitag?'},
+    {einwand:'Schicken Sie mir Unterlagen',antwort:'Mache ich gern. Damit ich Ihnen das Richtige schicke: Was wäre für Sie das Wichtigste?'},
+    {einwand:'Haben wir schon / zu teuer',antwort:'Gut, dann kennen Sie das Thema. Was würden Sie an Ihrer jetzigen Lösung ändern, wenn Sie könnten?'}],
+  redeanteil:60,tipps:true,score:true};
+const DEMO_NUMS=['+43 1 000 77 10 · Wien','+49 89 000 77 20 · München','+41 44 000 77 30 · Zürich'];
+const LEADCFG = {proTag:30,tage:['Mo','Di','Mi','Do','Fr'],zeit:'07:30',kanaele:['App','Microsoft Teams'],minScore:70,frische:14,sperrfrist:180,proFirma:1,dubletten:true,kunden:true,direkt:false,robinson:true};
+const CALLDEF = () => Object.fromEntries(['aircall','cloudtalk','sipgate','placetel'].map(k=>[k,{on:false,last4:'',nummer:DEMO_NUMS[0],click:true,transkript:true,aufnahme:false,sync:true}]));
 const CONNS = [
   {id:'apollo',n:'Apollo',d:'Leads & Kontaktdaten',c:'#3B2F8F'},
   {id:'lusha',n:'Lusha',d:'Telefonnummern',c:'#6E3FE0'},
@@ -422,11 +511,13 @@ const OUTCOMES = [
 const OUTLABEL = Object.fromEntries(OUTCOMES.concat([['offen','Offen']]));
 
 /* ---------------- state ---------------- */
-const KEY = 'griassdi-mvp-v1';
+const KEY = 'griassdi-mvp-v2';
 function freshState(){
-  return { view:'heute', sel:'l1', tab:'recherche', filter:'alle', tone:'sie', plan:'test', callsUsed:0,
-    leads: JSON.parse(JSON.stringify(LEADS)), pitches:{}, log:[], settings:{...DEFAULTS},
-    conns:{apollo:true,hubspot:true,lusha:false,pipedrive:false,salesforce:false,linkedin:false,teams:false,csv:true}, icp:null };
+  const cp = x => JSON.parse(JSON.stringify(x));
+  return { view:'heute', atab:'zufuhr', sel:'l1', tab:'recherche', filter:'alle', gfilter:'alle', tone:'sie', plan:'test', callsUsed:0,
+    leads: cp(LEADS), pitches:{}, log:[], products:cp(PRODUCTS), groups:cp(GROUPS), kb:cp(KB), pitch:cp(PITCH), leadCfg:cp(LEADCFG),
+    calling:CALLDEF(), telefonie:'browser',
+    apps:{apollo:true,hubspot:true,lusha:false,pipedrive:false,salesforce:false,linkedin:false,teams:false,csv:true} };
 }
 let S = freshState();
 try{ const raw = localStorage.getItem(KEY); if(raw){ S = Object.assign(freshState(), JSON.parse(raw)); } }catch(e){}
@@ -454,24 +545,39 @@ function leadBrief(l){
 }
 
 /* ---------------- pitch ---------------- */
-function nutzenList(){ return S.settings.nutzen.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,3); }
+function ctx(l){
+  const g = S.groups.find(x=>x.id===l.g) || null;
+  const p = (g && S.products.find(x=>x.id===g.produkt)) || S.products[0];
+  return {name:S.kb.meinName, firma:S.kb.firma, website:S.kb.website, angebot:p.angebot, thema:p.thema,
+    nutzen:p.nutzen.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,3), produkt:p, gruppe:g};
+}
+function kbBrief(){
+  const k=S.kb;
+  return `Über uns: ${k.ueberUns}\nUSPs: ${k.usps.filter(Boolean).join('; ')}\nReferenzen: ${k.referenzen.filter(r=>r.kunde).map(r=>r.kunde+' – '+r.ergebnis).join('; ')}\nFAQ: ${k.faq.filter(f=>f.frage).map(f=>f.frage+' → '+f.antwort).join(' | ')}\nMitbewerber: ${k.wettbewerber.filter(w=>w.name).map(w=>w.name+': '+w.unterschied).join('; ')}\nPreise: ${k.preise}\nDokumente (Auszug): ${k.docs.filter(d=>d.text).map(d=>d.name+': '+d.text.slice(0,1500)).join('\n').slice(0,4000)}`;
+}
+function pitchRules(){
+  const p=S.pitch;
+  return `Stil: ${p.stil}. Länge: ${p.laenge}. Sprache: ${['Hochdeutsch','leicht österreichisch gefärbt','kräftig österreichisch, aber verständlich'][+p.dialekt||0]}. Ziel des Anrufs: ${{demo:'Online-Demo',termin:'Vor-Ort-Termin',rueckruf:'Rückruf vereinbaren'}[p.ziel]} (${p.dauer} Minuten), Terminvorschlag: ${p.slots}.
+Do's: ${p.dos.replace(/\n/g,'; ')}
+Don'ts: ${p.donts.replace(/\n/g,'; ')}
+Einwand-Bibliothek (bevorzugt nutzen): ${p.einwaende.filter(e=>e.einwand).map(e=>e.einwand+' → '+e.antwort).join(' | ')}`;
+}
 function duSatz(l){ return l.satzSie.replace(/\bSie\b/g,'du').replace(/suchen\b/,'suchst').replace(/hatten\b/,'hattest').replace(/haben\b/,'hast').replace(/bauen\b/,'baust').replace(/umstellen\b/,'umstellst').replace(/eröffnen\b/,'eröffnest'); }
 function tplPitch(l){
-  const s=S.settings, du=S.tone==='du';
-  const hi = du ? `Hallo ${l.vorname}, hier ist ${s.name} von ${s.firma}.` : `Griaß Gott ${l.anrede} ${l.nachname}, ${s.name} von ${s.firma}.`;
-  const anl = du ? duSatz(l) : l.satzSie;
+  const s=ctx(l), du=S.tone==='du', P=S.pitch;
+  const br = {beratend:`Wir haben ${s.angebot}. Firmen in ${du?'deiner':'Ihrer'} Größe sparen sich damit vor allem Zettelwirtschaft und Nacharbeit.`,
+    direkt:`Wir haben ${s.angebot}. Kurz gesagt: ${s.nutzen[0]||''}.`, locker:`Wir machen ${s.angebot} – ohne großen Aufwand für ${du?'euch':'Sie'}.`}[P.stil];
+  const ab = {demo: du?`Ich zeig dir das gern in ${P.dauer} Minuten am Bildschirm – ${P.slots}?`:`Ich zeige Ihnen das gern in ${P.dauer} Minuten am Bildschirm – ${P.slots}?`,
+    termin: du?`Wollen wir uns dafür ${P.dauer} Minuten bei euch zusammensetzen – ${P.slots}?`:`Wollen wir uns dafür ${P.dauer} Minuten bei Ihnen zusammensetzen – ${P.slots}?`,
+    rueckruf: du?'Darf ich dich nächste Woche nochmal kurz anrufen – passt Dienstag Vormittag?':'Darf ich Sie nächste Woche nochmal kurz anrufen – passt Dienstag Vormittag?'}[P.ziel];
   return {
-    opener:`${hi} Ich hab gesehen, ${anl} – genau deshalb ruf ich an.`,
-    bruecke:`Wir haben ${s.angebot}. Firmen in Ihrer Größe sparen sich damit vor allem Zettelwirtschaft und Nacharbeit.`.replace(/Ihrer/,du?'deiner':'Ihrer'),
+    opener: fillOpener(P.opener, l),
+    bruecke: br,
     fragen: du ? [`Wie macht ihr das Thema ${s.thema} heute?`,'Was nervt dich daran am meisten?','Wer entscheidet bei euch über so etwas mit?']
                : [`Wie lösen Sie das Thema ${s.thema} heute?`,'Was ist dabei am mühsamsten?','Wer entscheidet bei Ihnen über so etwas mit?'],
-    nutzen: nutzenList(),
-    einwaende:[
-      {einwand:'Keine Zeit',antwort: du?'Versteh ich total. Genau deshalb dauert die Demo nur 15 Minuten – passt dir eher Donnerstag oder Freitag?':'Verstehe ich gut. Genau deshalb dauert die Demo nur 15 Minuten – passt Ihnen eher Donnerstag oder Freitag?'},
-      {einwand:'Schicken Sie Unterlagen',antwort: du?'Mach ich gern. Damit ich dir das Richtige schicke: Was wäre für euch das Wichtigste?':'Mache ich gern. Damit ich Ihnen das Richtige schicke: Was wäre für Sie das Wichtigste?'},
-      {einwand:'Haben wir schon / zu teuer',antwort: du?'Gut, dann kennst du das Thema. Was würdest du an eurer jetzigen Lösung ändern, wenn du könntest?':'Gut, dann kennen Sie das Thema. Was würden Sie an Ihrer jetzigen Lösung ändern, wenn Sie könnten?'}
-    ],
-    abschluss: du?'Ich zeig dir das gern in 15 Minuten am Bildschirm – Donnerstag um 10 oder lieber Freitag um 9?':'Ich zeige Ihnen das gern in 15 Minuten am Bildschirm – Donnerstag um 10 oder lieber Freitag um 9?',
+    nutzen: s.nutzen,
+    einwaende: P.einwaende.filter(e=>e.einwand&&e.antwort).map(e=>({einwand:e.einwand,antwort:e.antwort})),
+    abschluss: ab,
     ki:false
   };
 }
@@ -480,11 +586,17 @@ let pitchBusy = null, pitchErr = '';
 async function genPitch(l){
   if (!AI){ S.pitches[l.id+'|'+S.tone] = tplPitch(l); save(); toast('Vorlage erstellt – KI ist hier nicht verfügbar'); renderWork(); return; }
   pitchBusy = l.id; pitchErr=''; renderWork();
-  const s=S.settings;
-  const prompt = `Du bist Griaßdi, ein Sales-Coach für Kaltakquise im DACH-Raum. Schreib einen kurzen, natürlichen Telefon-Pitch auf Deutsch (österreichisch gefärbt, aber überall verständlich). Ansprache: ${tone()}.
-Verkäufer:in: ${s.name} von ${s.firma} (${s.website}). Angebot: ${s.angebot}. Nutzen: ${nutzenList().join('; ')}.
+  const s=ctx(l);
+  const prompt = `Du bist Griaßdi, ein Sales-Coach für Kaltakquise im DACH-Raum. Schreib einen natürlichen Telefon-Pitch auf Deutsch. Ansprache: ${tone()}.
+Verkäufer:in: ${s.name} von ${s.firma} (${s.website}). Produkt: ${s.produkt.name} – ${s.angebot}. Nutzen: ${s.nutzen.join('; ')}. Preis: ${s.produkt.preis}.
+Zielgruppe des Leads: ${s.gruppe?s.gruppe.name+' – '+s.gruppe.notiz:'–'}
+Wissen über unsere Firma:
+${kbBrief()}
+Pitch-Einstellungen:
+${pitchRules()}
+Vorlage für den Einstieg (Stil übernehmen): ${fillOpener(S.pitch.opener,l)}
 Lead: ${JSON.stringify(leadBrief(l))}
-Regeln: Der Opener hat höchstens 2 Sätze und nennt den konkreten Anlass. Kein Marketing-Sprech, keine Superlative, keine erfundenen Zahlen. Fragen sind offen. Einwand-Antworten enden mit einer Frage. Der Abschluss schlägt zwei konkrete Termine für eine 15-Minuten-Demo vor.
+Regeln: Der Opener hat höchstens 2 Sätze und nennt den konkreten Anlass. Kein Marketing-Sprech, keine Superlative, keine Zahlen außer denen oben. Fragen sind offen. Einwand-Antworten enden mit einer Frage. Der Abschluss schlägt das Gesprächsziel mit den Terminvorschlägen vor.
 Antworte nur mit JSON in genau dieser Form:
 {"opener":"","bruecke":"","fragen":["","",""],"nutzen":["","",""],"einwaende":[{"einwand":"","antwort":""},{"einwand":"","antwort":""},{"einwand":"","antwort":""}],"abschluss":""}`;
   try{
@@ -551,7 +663,7 @@ function tick(){
   let changed=false;
   while (C.shown < C.ev.length && C.ev[C.shown].t <= C.t){
     const e = C.ev[C.shown++]; changed=true;
-    if (e.tip) C.tip = {k:e.tip[0], text:e.tip[1]};
+    if (e.tip){ if (S.pitch.tipps) C.tip = {k:e.tip[0], text:e.tip[1]}; }
     else { C.lines.push(e); if (e.cover) C.covered[e.cover]=true; }
   }
   if (changed) updateLive();
@@ -562,7 +674,7 @@ function ratio(){
 }
 function pitchScore(){
   const n = Object.keys(C.covered).length; const r=ratio();
-  let s = 3 + n*1.5; if (r>70) s-=1; return Math.max(1,Math.min(10,Math.round(s)));
+  let s = 3 + n*1.5; if (r>S.pitch.redeanteil+10) s-=1; return Math.max(1,Math.min(10,Math.round(s)));
 }
 function hangup(){
   clearInterval(C.iv);
@@ -572,7 +684,7 @@ function hangup(){
 }
 
 /* ---------------- render: shell ---------------- */
-const VIEWS=[['heute','Heute','phone'],['leads','Leads','users'],['tracking','Tracking','chart'],['setup','Einrichtung','gear']];
+const VIEWS=[['heute','Heute','phone'],['leads','Leads','users'],['tracking','Tracking','chart'],['admin','Admin','gear']];
 function renderNav(){
   const open = S.leads.filter(l=>l.status==='offen').length;
   $('#navlist').innerHTML = VIEWS.map(([id,n,ic])=>`<button class="navbtn" data-act="view" data-v="${id}" ${S.view===id?'aria-current="page"':''}>${icon(ic)}<span>${n}</span>${id==='heute'&&open?`<span class="count num">${open}</span>`:''}</button>`).join('');
@@ -589,9 +701,9 @@ function renderNav(){
 }
 function renderTop(){
   const open = S.leads.filter(l=>l.status==='offen').length;
-  const titles = {heute:`Griaß di, ${esc(S.settings.name)}!`, leads:'Leads', tracking:'Tracking', setup:'Einrichtung'};
+  const titles = {heute:`Griaß di, ${esc(S.kb.meinName)}!`, leads:'Leads', tracking:'Tracking', admin:'Admin'};
   const subs = {heute: open?`${open} Leads sind für heute recherchiert und bereit. Fang oben an – die besten zuerst.`:'Alle Leads für heute erledigt. Stark!',
-    leads:'Alle Kontakte aus Apollo, CRM und eigenen Listen.', tracking:'Was deine Anrufe bringen – heute und diese Woche.', setup:'Was du verkaufst, an wen, und welche Tools Griaßdi nutzt.'};
+    leads:'Alle Kontakte aus Apollo, CRM und eigenen Listen.', tracking:'Was deine Anrufe bringen – heute und diese Woche.', admin:'Lead-Zufuhr, Zielgruppen, Produkte, Pitching, Wissensbasis und Connectoren.'};
   const ai = aiState==='on' ? '<span class="chip ai"><span class="dot"></span>KI aktiv</span>'
            : aiState==='pending' ? '<span class="chip"><span class="dot"></span>KI wird verbunden…</span>'
            : '<span class="chip off" title="Diese Ansicht hat keinen Zugriff auf Claude. Pitch und Mail kommen aus Vorlagen."><span class="dot"></span>Vorlagen-Modus</span>';
@@ -602,16 +714,17 @@ function render(){ renderNav(); renderTop();
   if (S.view==='heute'){ renderQueue(); renderWork(); renderDialer(); }
   if (S.view==='leads') renderLeads();
   if (S.view==='tracking') renderTracking();
-  if (S.view==='setup') renderSetup();
+  if (S.view==='admin') renderAdmin();
 }
 
 /* ---------------- render: Heute ---------------- */
 function renderQueue(){
   const done = S.leads.filter(l=>l.status!=='offen').length, all=S.leads.length;
-  const list = S.leads.filter(l=> S.filter==='alle' ? true : S.filter==='offen' ? l.status==='offen' : l.status!=='offen');
+  const list = S.leads.filter(l=> (S.gfilter==='alle'||l.g===S.gfilter) && (S.filter==='alle' ? true : S.filter==='offen' ? l.status==='offen' : l.status!=='offen'));
   $('#queue').innerHTML = `<div class="panel-h"><h2>Anrufliste</h2><span class="note" style="margin-left:auto">${new Date().toLocaleDateString('de-AT',{weekday:'long',day:'numeric',month:'long'})}</span></div>
    <div class="prog"><div class="bar"><i style="width:${done/all*100}%"></i></div><span class="note num">${done} von ${all} erledigt</span></div>
-   <div class="filters">${[['alle','Alle'],['offen','Offen'],['erledigt','Erledigt']].map(([k,n])=>`<button class="seg" data-act="filter" data-v="${k}" aria-pressed="${S.filter===k}">${n}</button>`).join('')}</div>
+   <div class="filters">${[['alle','Alle'],['offen','Offen'],['erledigt','Erledigt']].map(([k,n])=>`<button class="seg" data-act="filter" data-v="${k}" aria-pressed="${S.filter===k}">${n}</button>`).join('')}
+     <select class="gsel" id="gfilter" aria-label="Zielgruppe filtern"><option value="alle">Alle Zielgruppen</option>${S.groups.map(g=>`<option value="${g.id}" ${S.gfilter===g.id?'selected':''}>${esc(g.name)}</option>`).join('')}</select></div>
    <div class="scroll"><ul class="qlist">${list.map(l=>`<li><button class="qitem" data-act="sel" data-v="${l.id}" aria-current="${l.id===S.sel}">
      <span class="av">${esc(initials(l.person))}</span>
      <span class="n">${esc(l.person)}</span>
@@ -632,6 +745,8 @@ function renderWork(){
         <div class="fact"><span class="label">Standort</span><b>${esc(l.ort)}</b></div>
         <div class="fact"><span class="label">Gegründet</span><b class="num">${l.gegr||'–'}</b></div>
         <div class="fact"><span class="label">Beste Anrufzeit</span><b>${esc(l.best)}</b></div>
+        <div class="fact"><span class="label">Zielgruppe</span><b>${esc((ctx(l).gruppe||{}).name||'–')}</b></div>
+        <div class="fact"><span class="label">Produkt</span><b>${esc(ctx(l).produkt.name)}</b></div>
       </div>
       <div class="block"><h3>Ansprechperson</h3><ul class="list">
         <li><span class="bullet"></span><span><b>${esc(l.person)}</b>, ${esc(l.rolle)} (${esc(l.seit)})</span></li>
@@ -686,7 +801,7 @@ function renderDialer(){
       <div class="d-sec"><span class="label">Darauf achtet Griaßdi</span>${checks}</div>
       <div class="d-sec"><span class="label">Dein Einstieg</span><div style="font-size:13.5px">${esc(pitchFor(l).opener)}</div></div>
       <div class="d-sec"><span class="label">Beste Anrufzeit</span><div>${esc(l.best)}</div></div>
-      <p class="d-note">${S.plan==='test'?`<b class="num">${Math.max(0,left)} von 3</b> Testanrufen übrig. `:''}Demo-Anruf: Es wird niemand angerufen, das Gespräch ist simuliert.</p>`;
+      <p class="d-note">${S.plan==='test'?`<b class="num">${Math.max(0,left)} von 3</b> Testanrufen übrig. `:''}Anruf über ${S.telefonie==='browser'?'Browser-Dialer':esc(CALLING.find(t=>t.id===S.telefonie).n)+' · '+esc(S.calling[S.telefonie].nummer)}. Demo: Es wird niemand angerufen, das Gespräch ist simuliert.</p>`;
   } else if (C.status==='ringing'){
     h = `<div class="d-status">${mascot(38,true)}<div><b>Verbinde…</b><small>${esc(l.firma)}</small></div></div>
       <div class="d-who"><b>${esc(l.person)}</b><span class="num">${esc(l.tel)}</span></div>
@@ -700,7 +815,7 @@ function renderDialer(){
       <button class="callbtn end" data-act="hangup">${icon('phone')}Auflegen</button>
       <div class="d-sec" id="d-coach"></div>
       <div class="d-sec"><span class="label">Gespräch</span><div class="transcript" id="d-tr" aria-live="polite"></div></div>
-      <div class="d-sec"><div class="ratio-l"><span>Du <b id="r-du" class="num">0%</b></span><span>Gegenüber <b id="r-k" class="num">0%</b></span></div><div class="ratio"><i id="r-bar" style="width:0%"></i></div><span class="note" style="color:var(--dial-muted)" id="r-hint">Ziel: unter 60 % Redeanteil</span></div>
+      <div class="d-sec"><div class="ratio-l"><span>Du <b id="r-du" class="num">0%</b></span><span>Gegenüber <b id="r-k" class="num">0%</b></span></div><div class="ratio"><i id="r-bar" style="width:0%"></i></div><span class="note" style="color:var(--dial-muted)" id="r-hint">Ziel: unter ${S.pitch.redeanteil} % Redeanteil</span></div>
       <div class="d-sec"><span class="label">Einwand-Hilfe</span>
         <form class="helper" id="helper-form"><input id="helper-in" placeholder="Was sagt dein Gegenüber? z. B. „Schicken Sie mir was“" autocomplete="off"><button type="submit">Hilf mir</button></form>
         <div id="helper-out"></div></div>
@@ -722,7 +837,7 @@ function updateLive(full){
                        : `<span class="label">Griaßdi sagt</span><div class="coach tipp">${mascot(26)}<div><span class="k">Tipp</span><p>Lächeln beim Sprechen – man hört es.</p></div></div>`;
   const r = ratio();
   $('#r-du').textContent = r+'%'; $('#r-k').textContent=(C.lines.length?100-r:0)+'%'; $('#r-bar').style.width=r+'%';
-  $('#r-hint').textContent = r>65 ? 'Du redest viel – stell eine Frage und hör zu.' : 'Ziel: unter 60 % Redeanteil';
+  $('#r-hint').textContent = r>S.pitch.redeanteil ? 'Du redest viel – stell eine Frage und hör zu.' : `Ziel: unter ${S.pitch.redeanteil} % Redeanteil`;
   CHECKS.forEach(([k])=>{ const el=$('#ck-'+k); if(el) el.classList.toggle('ok', !!C.covered[k]); });
 }
 
@@ -739,9 +854,11 @@ async function helpObjection(text){
   if (C.ctl) C.ctl.abort();
   C.ctl = new AbortController();
   out.innerHTML = '<div class="helper-out"><span class="dots"><i></i><i></i><i></i></span></div>';
-  const l = lead(C.leadId), s=S.settings;
+  const l = lead(C.leadId), s=ctx(l);
   try{
-    await AI(`Du coachst live während eines Kaltakquise-Telefonats im DACH-Raum. Ich verkaufe ${s.angebot}. Gegenüber: ${l.person}, ${l.rolle} bei ${l.firma}. Gegenüber sagt gerade: "${text}". Gib mir genau eine Antwort, die ich jetzt sagen kann: höchstens 2 kurze Sätze, ${tone()}, freundlich, endet mit einer Frage. Nur die Antwort, ohne Einleitung und ohne Anführungszeichen.`,
+    await AI(`Du coachst live während eines Kaltakquise-Telefonats im DACH-Raum. Ich verkaufe ${s.angebot}. Gegenüber: ${l.person}, ${l.rolle} bei ${l.firma}. Gegenüber sagt gerade: "${text}". Unser Wissen: ${kbBrief().slice(0,2500)}
+Einwand-Bibliothek: ${S.pitch.einwaende.map(e=>e.einwand+' → '+e.antwort).join(' | ')}
+Gib mir genau eine Antwort, die ich jetzt sagen kann: höchstens 2 kurze Sätze, ${tone()}, freundlich, endet mit einer Frage. Nur die Antwort, ohne Einleitung und ohne Anführungszeichen.`,
       {modelTier:'quick', cache:false, signal:C.ctl.signal, onText:({text})=>{ const o=$('#helper-out'); if(o) o.innerHTML=`<div class="helper-out">${esc(text)}</div>`; }});
   }catch(e){ const m=aiErr(e); if(m){ const o=$('#helper-out'); if(o) o.innerHTML=`<div class="helper-out">${esc(localObjection(text))}</div>`; } }
 }
@@ -767,12 +884,12 @@ function renderWrap(){
     <div class="block"><span class="label">Zusammenfassung fürs CRM</span><p style="margin:6px 0 0">${esc(a.zusammenfassung)}</p><p class="note" style="margin:6px 0 0">Nächster Schritt: ${esc(a.naechster_schritt)}</p></div>
     <div class="block"><div style="display:flex;align-items:center;gap:8px"><span class="label">Follow-up-Mail</span><button class="copy" style="margin-left:auto" data-act="copymail">${icon('copy')}Kopieren</button></div>
       <div class="mail" id="mailtext" style="margin-top:8px"><b>Betreff: ${esc(a.mail_betreff)}</b>\n\n${esc(a.mail_text)}</div></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="savewrap">Speichern & nächster Lead ${icon('next')}</button><span class="note" style="align-self:center">Wird in ${S.conns.hubspot?'HubSpot':S.conns.pipedrive?'Pipedrive':S.conns.salesforce?'Salesforce':'Griaßdi'} eingetragen (Demo)</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="savewrap">Speichern & nächster Lead ${icon('next')}</button><span class="note" style="align-self:center">Wird in ${S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi'} eingetragen (Demo)</span></div>
   </div>`;
   m.hidden=false;
 }
 function tplWrap(l){
-  const s=S.settings, du=S.tone==='du', o=W.outcome;
+  const s=ctx(l), du=S.tone==='du', o=W.outcome;
   const sum = {termin:`${l.person} hat Interesse an ${s.angebot}. Schmerzpunkt: ${l.schmerz.replace(/^Ehrlich gesagt\s*/,'')} Demo-Termin vereinbart.`,
     rueckruf:`Gespräch mit ${l.person} geführt, Thema grundsätzlich relevant. Rückruf vereinbart.`,
     kein:`${l.person} hat aktuell kein Interesse.`, nicht:`${l.person} nicht erreicht.`, falsch:`${l.person} ist nicht zuständig – richtige Ansprechperson erfragen.`}[o];
@@ -789,11 +906,11 @@ async function aiWrap(){
   W.notes = $('#wrap-notes').value;
   if (!AI){ W.err='KI ist in dieser Ansicht nicht verfügbar – Griaßdi nutzt die Vorlage.'; renderWrap(); return; }
   W.busy=true; W.err=''; renderWrap();
-  const l=lead(C.leadId), s=S.settings;
+  const l=lead(C.leadId), s=ctx(l);
   const transcript = C.lines.map(x=>(x.who==='du'?'Ich':'Kunde')+': '+x.text).join('\n') || '(nicht erreicht)';
   try{
     const r = await AI.json(`Fasse ein Kaltakquise-Telefonat für das CRM zusammen und schreib eine Follow-up-Mail auf Deutsch, ${tone()}.
-Ich: ${s.name} von ${s.firma}, Angebot: ${s.angebot}.
+Ich: ${s.name} von ${s.firma}, Produkt: ${s.produkt.name} – ${s.angebot}. Gesprächsziel: ${S.pitch.ziel}. Don'ts: ${S.pitch.donts.replace(/\n/g,'; ')}
 Lead: ${JSON.stringify(leadBrief(l))}
 Ergebnis: ${OUTLABEL[W.outcome]}
 Meine Notiz: ${W.notes||'(keine)'}
@@ -895,43 +1012,310 @@ function renderTracking(){
   </div>`;
 }
 
-/* ---------------- Setup view ---------------- */
-let icpBusy=false, icpErr='';
-function renderSetup(){
-  const s=S.settings;
-  $('#view-setup').innerHTML = `<div class="page">
-    <div class="card"><h3>Was du verkaufst</h3>
-      <form class="form" id="setup-form">
-        <div class="field"><label for="f-name">Dein Vorname</label><input id="f-name" name="name" value="${esc(s.name)}"></div>
-        <div class="field"><label for="f-firma">Deine Firma</label><input id="f-firma" name="firma" value="${esc(s.firma)}"></div>
-        <div class="field"><label for="f-web">Website</label><input id="f-web" name="website" value="${esc(s.website)}"></div>
-        <div class="field"><label for="f-thema">Thema in einem Wort</label><input id="f-thema" name="thema" value="${esc(s.thema)}"></div>
-        <div class="field full"><label for="f-ang">Dein Angebot in einem Satz</label><input id="f-ang" name="angebot" value="${esc(s.angebot)}"></div>
-        <div class="field full"><label for="f-nut">Deine 3 wichtigsten Nutzen (eine Zeile pro Nutzen)</label><textarea id="f-nut" name="nutzen">${esc(s.nutzen)}</textarea></div>
-        <div class="field full"><label for="f-zg">Deine Zielgruppe</label><textarea id="f-zg" name="zielgruppe">${esc(s.zielgruppe)}</textarea></div>
-        <div class="full" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn" type="submit">Speichern</button><button class="btn ghost" type="button" data-act="icp" ${icpBusy?'disabled':''}>${icon('spark')}Zielgruppe schärfen</button>${icpBusy?'<span class="thinking"><span class="dots"><i></i><i></i><i></i></span>Griaßdi denkt nach…</span>':''}${icpErr?`<span class="note" style="color:var(--bad)">${esc(icpErr)}</span>`:''}</div>
-      </form>
-      ${S.icp?`<div style="margin-top:16px;display:grid;gap:10px">${[['branchen','Branchen'],['groesse','Größe'],['rollen','Ansprechpersonen'],['signale','Kaufsignale'],['ausschluss','Ausschließen']].map(([k,n])=>S.icp[k]&&S.icp[k].length?`<div><span class="label">${n}</span><div class="icp" style="margin-top:6px">${[].concat(S.icp[k]).map(x=>`<span>${esc(x)}</span>`).join('')}</div></div>`:'').join('')}<p class="note">Griaßdi sucht nach diesen Merkmalen die Leads für deine Tagesliste aus.</p></div>`:''}
-    </div>
-    <div class="card"><h3>Datenquellen & CRM</h3><p class="note" style="margin:-6px 0 12px">Pro: Griaßdi nutzt deine eigenen Konten. Premium: Kontaktdaten sind inklusive.</p>
-      <div class="conns">${CONNS.map(c=>`<div class="conn"><span class="lg" style="background:${c.c}">${esc(c.n.slice(0,2))}</span><div><b>${esc(c.n)}</b><small>${esc(c.d)}</small></div><button class="switch" role="switch" aria-checked="${!!S.conns[c.id]}" aria-label="${esc(c.n)} verbinden" data-act="conn" data-v="${c.id}"></button></div>`).join('')}</div></div>
-    <div class="card"><h3>Telefonie & Tagesliste</h3><div class="form">
-      <div class="field"><label for="f-tel">Telefonie</label><select id="f-tel" data-set="telefonie">${['Browser-Dialer','Aircall','sipgate','Placetel','Microsoft Teams Telefonie'].map(x=>`<option ${s.telefonie===x?'selected':''}>${x}</option>`).join('')}</select></div>
-      <div class="field"><label for="f-lim">Leads pro Tag: <b class="num" id="lim-v">${s.tageslimit}</b></label><input type="range" id="f-lim" min="10" max="80" step="5" value="${s.tageslimit}" data-set="tageslimit"></div>
-    </div></div>
-    <div class="card"><h3>Plan</h3><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span>Aktuell: <b>${{test:'Testversion',pro:'Pro',premium:'Premium'}[S.plan]}</b></span><button class="btn ghost" data-act="plans">Pläne ansehen</button><button class="btn ghost" data-act="reset" style="margin-left:auto">Demo zurücksetzen</button></div></div>
-  </div>`;
+/* ---------------- Admin ---------------- */
+const ADMIN_TABS=[['zufuhr','Lead-Zufuhr'],['gruppen','Zielgruppen'],['produkte','Produkte'],['pitch','Pitching'],['wissen','Wissensbasis'],['conn','Connectoren']];
+const GCOL=['#D63A24','#E89B2C','#1E7A4C','#3B6FD6','#8A4FD1','#C2417A'];
+const SIGNALE=['Offene Stellen','Neuer Standort','Expansion / Neubau','Wachstum im Team','Neue Geschäftsführung','Förderung erhalten','LinkedIn-Post zum Thema','Messeauftritt','Pressemeldung','Website-Relaunch'];
+const WOCHE=['Mo','Di','Mi','Do','Fr','Sa','So'];
+const CALLING=[
+  {id:'aircall',n:'Aircall',c:'#00B388',d:'Cloud-Telefonie mit Click-to-Call, Aufnahme & Webhooks',f:[['API ID','text'],['API Token','password']],hint:'Aircall: Integrations & API → API Keys → „Add a new API key“'},
+  {id:'cloudtalk',n:'CloudTalk',c:'#3B5BFD',d:'Cloud-Telefonie mit Click-to-Call, Aufnahme & Webhooks',f:[['API Key ID','text'],['API Key Secret','password']],hint:'CloudTalk: Einstellungen → API Keys → „Neuen API-Key anlegen“'},
+  {id:'sipgate',n:'sipgate',c:'#E6007E',d:'Deutsche Cloud-Telefonanlage',f:[['Token-ID','text'],['Personal Access Token','password']],hint:'sipgate: Konto → Personal Access Tokens'},
+  {id:'placetel',n:'Placetel',c:'#0A7CC1',d:'Cloud-Telefonanlage für DACH',f:[['API-Token','password']],hint:'Placetel: Einstellungen → Integrationen → Web API'}
+];
+const BIND_LISTS={'kb.usps':'','kb.referenzen':{kunde:'',ergebnis:''},'kb.faq':{frage:'',antwort:''},'kb.wettbewerber':{name:'',unterschied:''},'pitch.einwaende':{einwand:'',antwort:''}};
+
+const group = id => S.groups.find(g=>g.id===id);
+const product = id => S.products.find(p=>p.id===id);
+const gColor = g => GCOL[Math.max(0,S.groups.indexOf(g))%GCOL.length];
+function getPath(p){ return p.split('.').reduce((o,k)=>o==null?o:o[k], S); }
+function setPath(p,v){ const ks=p.split('.'), last=ks.pop(); const o=ks.reduce((o,k)=>o[k],S); o[last]=v; }
+let savedT;
+function autosave(path){
+  if (/^(kb|pitch|products|groups)/.test(path)) S.pitches={};
+  save(); const el=$('#saved'); if(el){ el.textContent='Gespeichert ✓'; clearTimeout(savedT); savedT=setTimeout(()=>{ const x=$('#saved'); if(x) x.textContent='Änderungen werden automatisch gespeichert'; },1500); }
 }
-async function sharpenIcp(){
-  const s=S.settings;
-  if (!AI){ S.icp={branchen:['Dienstleistung','Produktion','Handel'],groesse:['10–100 Mitarbeiter'],rollen:['Geschäftsführung','Personal'],signale:['Offene Stellen','Neuer Standort','Wachstum im Team'],ausschluss:['Konzerne über 250 MA']}; save(); renderSetup(); toast('Vorschlag aus Vorlage – KI hier nicht verfügbar'); return; }
-  icpBusy=true; icpErr=''; renderSetup();
+let uid=0; const fid = () => 'f'+(++uid);
+function fText(label,path,o={}){ const id=fid(); const v=getPath(path);
+  return `<div class="field ${o.full?'full':''}"><label for="${id}">${label}</label><input id="${id}" type="${o.type||'text'}" data-bind="${path}" ${o.num?'data-type="num"':''} value="${esc(v)}" placeholder="${esc(o.ph||'')}" ${o.min!=null?`min="${o.min}" max="${o.max}"`:''}>${o.hint?`<span class="note">${o.hint}</span>`:''}</div>`; }
+function fArea(label,path,o={}){ const id=fid();
+  return `<div class="field ${o.full===false?'':'full'}"><label for="${id}">${label}</label><textarea id="${id}" data-bind="${path}" placeholder="${esc(o.ph||'')}" ${o.rows?`rows="${o.rows}"`:''}>${esc(getPath(path))}</textarea>${o.hint?`<span class="note">${o.hint}</span>`:''}</div>`; }
+function fCsv(label,path,o={}){ const id=fid();
+  return `<div class="field ${o.full?'full':''}"><label for="${id}">${label}</label><input id="${id}" data-bind="${path}" data-type="csv" value="${esc((getPath(path)||[]).join(', '))}" placeholder="${esc(o.ph||'')}"><span class="note">Mit Komma trennen</span></div>`; }
+function fSeg(path,opts){ const v=getPath(path);
+  return `<div class="toggle" role="group">${opts.map(([k,n])=>`<button type="button" data-act="setval" data-path="${path}" data-v="${k}" aria-pressed="${String(v)===String(k)}">${n}</button>`).join('')}</div>`; }
+function fSwitch(path,label){ return `<button class="switch" role="switch" aria-checked="${!!getPath(path)}" aria-label="${esc(label)}" data-act="toggle" data-path="${path}"></button>`; }
+function fChips(path,opts){ const arr=getPath(path)||[];
+  return `<div class="chips">${opts.map(o=>`<button type="button" class="chipsel" data-act="chip" data-path="${path}" data-v="${esc(o)}" aria-pressed="${arr.includes(o)}">${esc(o)}</button>`).join('')}</div>`; }
+function stepper(path,step,min,max){ return `<div class="stepper"><button type="button" data-act="step" data-path="${path}" data-d="${-step}" data-min="${min}" data-max="${max}" aria-label="Weniger">−</button><b class="num">${getPath(path)}</b><button type="button" data-act="step" data-path="${path}" data-d="${step}" data-min="${min}" data-max="${max}" aria-label="Mehr">+</button></div>`; }
+function listEditor(path, fields, addLabel){
+  const arr=getPath(path)||[];
+  const rows=arr.map((it,i)=>{
+    const inputs = typeof it==='string'
+      ? `<input data-bind="${path}.${i}" value="${esc(it)}" aria-label="${addLabel} ${i+1}">`
+      : fields.map(([k,ph,area])=> area?`<textarea data-bind="${path}.${i}.${k}" placeholder="${esc(ph)}" rows="2" aria-label="${esc(ph)}">${esc(it[k])}</textarea>`:`<input data-bind="${path}.${i}.${k}" value="${esc(it[k])}" placeholder="${esc(ph)}" aria-label="${esc(ph)}">`).join('');
+    return `<div class="lrow ${typeof it==='string'?'one':''}">${inputs}<button type="button" class="del" data-act="listdel" data-path="${path}" data-i="${i}" aria-label="Entfernen">✕</button></div>`;
+  }).join('');
+  return `<div class="lrows">${rows||'<p class="note">Noch keine Einträge.</p>'}</div><button type="button" class="btn ghost sm" data-act="listadd" data-path="${path}">+ ${addLabel}</button>`;
+}
+
+function renderAdmin(){
+  uid=0;
+  const t=S.atab;
+  let body='';
+  if (t==='zufuhr') body=adminZufuhr();
+  if (t==='gruppen') body=adminGruppen();
+  if (t==='produkte') body=adminProdukte();
+  if (t==='pitch') body=adminPitch();
+  if (t==='wissen') body=adminWissen();
+  if (t==='conn') body=adminConn();
+  $('#view-admin').innerHTML = `<div class="page">
+    <div class="atabs" role="tablist">${ADMIN_TABS.map(([k,n])=>`<button class="atab" role="tab" data-act="atab" data-v="${k}" aria-selected="${t===k}">${n}</button>`).join('')}<span class="note" id="saved" style="margin-left:auto;align-self:center;white-space:nowrap">Änderungen werden automatisch gespeichert</span></div>
+    ${body}</div>`;
+  if (t==='pitch') updateOpenerPreview();
+}
+
+/* Lead-Zufuhr */
+function nextDelivery(){
+  const t=S.leadCfg.tage||[]; if(!t.length) return 'Kein Liefertag gewählt';
+  for(let i=1;i<=7;i++){ const d=new Date(); d.setDate(d.getDate()+i); if(t.includes(WOCHE[(d.getDay()+6)%7])) return i===1?'Morgen':d.toLocaleDateString('de-AT',{weekday:'long'}); }
+}
+function adminZufuhr(){
+  const c=S.leadCfg, act=S.groups.filter(g=>g.aktiv);
+  const sum=act.reduce((a,g)=>a+(+g.proTag||0),0);
+  const diff=c.proTag-sum;
+  const msg = diff===0 ? `<span style="color:var(--good)">Passt genau: ${sum} von ${c.proTag} Leads verteilt.</span>`
+    : diff>0 ? `${sum} von ${c.proTag} verteilt – die restlichen ${diff} füllt Griaßdi mit den Leads mit dem höchsten Score auf.`
+    : `<span style="color:var(--bad)">${sum} verteilt, aber nur ${c.proTag} pro Tag eingestellt. Griaßdi kürzt anteilig – oder erhöhe die Tagesmenge.</span>`;
+  const base=Math.max(c.proTag,sum)||1;
+  return `<div class="grid2">
+    <div class="card"><h3>Neue Leads pro Tag</h3>
+      <div class="bigset">${stepper('leadCfg.proTag',5,5,200)}<span class="note">pro Vertriebsmitarbeiter:in</span></div>
+      <div style="margin-top:16px;display:grid;gap:14px">
+        <div><span class="label">Liefertage</span><div style="margin-top:6px">${fChips('leadCfg.tage',WOCHE)}</div></div>
+        <div class="form">${fText('Lieferzeit','leadCfg.zeit',{type:'time'})}<div class="field"><label>Lieferung an</label>${fChips('leadCfg.kanaele',['App','Microsoft Teams','E-Mail'])}</div></div>
+      </div>
+      ${S.plan==='test'?'<p class="note" style="margin-top:12px">Testversion: einmalig 30 Leads. Die Tagesmenge gilt ab Pro.</p>':''}
+    </div>
+    <div class="card"><h3>So sieht deine nächste Lieferung aus</h3>
+      <p style="margin:0 0 12px;font-size:16px"><b>${nextDelivery()}</b> um <b class="num">${esc(c.zeit)}</b>: <b class="num">${c.proTag}</b> neue Leads per ${esc((c.kanaele||[]).join(' & ')||'App')}</p>
+      <div class="stackbar">${act.map(g=>`<i style="width:${(+g.proTag||0)/base*100}%;background:${gColor(g)}" title="${esc(g.name)}"></i>`).join('')}${diff>0?`<i style="width:${diff/base*100}%;background:var(--line)" title="Auffüllen nach Score"></i>`:''}</div>
+      <div style="margin-top:12px;display:grid;gap:8px">${act.map(g=>`<div class="distrow"><span class="sw" style="background:${gColor(g)}"></span><span><b>${esc(g.name)}</b><span class="note"> · ${esc((product(g.produkt)||{}).name||'–')}</span></span>${stepper('groups.'+S.groups.indexOf(g)+'.proTag',1,0,200)}</div>`).join('')||'<p class="note">Keine aktive Zielgruppe.</p>'}</div>
+      <p class="note" style="margin-top:10px">${msg}</p>
+    </div></div>
+    <div class="card"><h3>Qualität & Regeln</h3><div class="form">
+      <div class="field"><label>Mindest-Score: <b class="num" id="out-minScore">${c.minScore}</b></label><input type="range" min="40" max="95" step="5" data-bind="leadCfg.minScore" data-type="num" data-out="out-minScore" value="${c.minScore}" aria-label="Mindest-Score"></div>
+      <div class="field"><label>Anlass höchstens so alt: <b class="num" id="out-frische">${c.frische}</b> Tage</label><input type="range" min="3" max="60" step="1" data-bind="leadCfg.frische" data-type="num" data-out="out-frische" value="${c.frische}" aria-label="Anlass Alter"></div>
+      ${fText('Sperrfrist nach „Kein Interesse“ (Tage)','leadCfg.sperrfrist',{type:'number',num:true,min:0,max:365})}
+      ${fText('Max. Leads pro Firma','leadCfg.proFirma',{type:'number',num:true,min:1,max:5})}
+    </div>
+    <div class="rules">
+      <div class="rule"><div><b>Dubletten mit dem CRM abgleichen</b><small>Kontakte, die schon im CRM sind, kommen nicht nochmal.</small></div>${fSwitch('leadCfg.dubletten','Dubletten abgleichen')}</div>
+      <div class="rule"><div><b>Bestandskunden ausschließen</b><small>Firmen mit aktivem Deal oder Kundenstatus überspringen.</small></div>${fSwitch('leadCfg.kunden','Bestandskunden ausschließen')}</div>
+      <div class="rule"><div><b>Nur mit direkter Telefonnummer</b><small>Keine Zentralen – nur Durchwahl oder Mobilnummer.</small></div>${fSwitch('leadCfg.direkt','Nur direkte Nummer')}</div>
+      <div class="rule"><div><b>Robinsonliste & Sperrvermerke prüfen</b><small>Kontakte mit Werbewiderspruch werden nie geliefert.</small></div>${fSwitch('leadCfg.robinson','Robinsonliste prüfen')}</div>
+    </div></div>`;
+}
+
+/* Zielgruppen */
+let gAiBusy=false, gAiErr='';
+function adminGruppen(){
+  return `<div class="page-h"><div><h2>${S.groups.length} Zielgruppen</h2><p>Jede Zielgruppe gehört zu einem Produkt und bekommt ihren eigenen Anteil an Leads.</p></div>
+    <div class="right"><button class="btn ghost" data-act="gai" ${gAiBusy?'disabled':''}>${icon('spark')}Mit KI vorschlagen</button><button class="btn" data-act="gnew">+ Neue Zielgruppe</button></div></div>
+    ${gAiBusy?'<div class="thinking"><span class="dots"><i></i><i></i><i></i></span>Griaßdi schaut sich Produkte und Wissensbasis an…</div>':''}${gAiErr?`<p class="note" style="color:var(--bad)">${esc(gAiErr)}</p>`:''}
+    <div class="gcards">${S.groups.map((g,i)=>{ const p=product(g.produkt)||{}; const n=S.leads.filter(l=>l.g===g.id).length;
+      return `<div class="card gcard ${g.aktiv?'':'off'}"><div class="gtop"><span class="sw" style="background:${gColor(g)}"></span><h3>${esc(g.name||'Ohne Namen')}</h3>${fSwitch('groups.'+i+'.aktiv','Zielgruppe aktiv')}</div>
+        <div class="note">Produkt: <b style="color:var(--ink)">${esc(p.name||'–')}</b> · Priorität ${esc(g.prio)} · ${n} Leads in der Liste</div>
+        <div class="kv"><span class="label">Branchen</span><div class="icp">${(g.branchen||[]).map(x=>`<span>${esc(x)}</span>`).join('')||'<span class="note">alle</span>'}</div></div>
+        <div class="kv"><span class="label">Größe · Region</span><div>${g.groesseMin}–${g.groesseMax} Mitarbeiter · ${esc((g.regionen||[]).join(', ')||'DACH')}${g.bundeslaender&&g.bundeslaender.length?' ('+esc(g.bundeslaender.join(', '))+')':''}</div></div>
+        <div class="kv"><span class="label">Ansprechpersonen</span><div>${esc((g.rollen||[]).join(', ')||'–')}</div></div>
+        <div class="kv"><span class="label">Kaufsignale</span><div>${esc((g.signale||[]).join(' · ')||'–')}</div></div>
+        <div class="gfoot"><span><b class="num">${g.proTag}</b> Leads/Tag</span><button class="btn ghost sm" data-act="gedit" data-v="${i}">Bearbeiten</button><button class="btn ghost sm" data-act="gdel" data-v="${i}">Löschen</button></div></div>`; }).join('')}</div>`;
+}
+function openGroup(i){
+  uid=100; const g=S.groups[i], p='groups.'+i;
+  $('#modal').innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ge-h">
+    <div style="display:flex;align-items:center;gap:12px"><span class="sw lg" style="background:${gColor(g)}"></span><h2 id="ge-h">Zielgruppe bearbeiten</h2><button class="x" data-act="closeadmin" aria-label="Schließen">✕</button></div>
+    <div class="form">
+      ${fText('Name',p+'.name',{ph:'z. B. Wachsende Büro-KMUs'})}
+      <div class="field"><label>Produkt</label><select data-bind="${p}.produkt" aria-label="Produkt">${S.products.map(x=>`<option value="${x.id}" ${x.id===g.produkt?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
+      ${fCsv('Branchen',p+'.branchen',{full:true,ph:'Software, Agenturen, Steuerberatung'})}
+      ${fText('Mitarbeiter ab',p+'.groesseMin',{type:'number',num:true,min:1,max:10000})}
+      ${fText('Mitarbeiter bis',p+'.groesseMax',{type:'number',num:true,min:1,max:10000})}
+      <div class="field"><label>Länder</label>${fChips(p+'.regionen',['AT','DE','CH'])}</div>
+      ${fCsv('Bundesländer / Regionen (optional)',p+'.bundeslaender',{ph:'Wien, Oberösterreich, Bayern'})}
+      ${fCsv('Ansprechpersonen (Rollen)',p+'.rollen',{full:true,ph:'Geschäftsführung, Leitung Personal'})}
+      <div class="field full"><label>Kaufsignale – darauf achtet Griaßdi</label>${fChips(p+'.signale',SIGNALE)}</div>
+      ${fArea('Ausschließen',p+'.ausschluss',{ph:'z. B. Konzerne, öffentliche Verwaltung, bestehende Kunden von Mitbewerber X',rows:2})}
+      ${fArea('Beschreibung in eigenen Worten',p+'.notiz',{ph:'Wer ist der ideale Kunde? Was hat er für ein Problem?',rows:3,hint:'Griaßdi nutzt diesen Text für Lead-Auswahl und Pitch.'})}
+      ${fText('Leads pro Tag',p+'.proTag',{type:'number',num:true,min:0,max:200})}
+      <div class="field"><label>Priorität</label>${fSeg(p+'.prio',[['hoch','Hoch'],['mittel','Mittel'],['niedrig','Niedrig']])}</div>
+    </div>
+    <div><button class="btn" data-act="closeadmin">Fertig</button></div></div>`;
+  $('#modal').hidden=false;
+}
+async function suggestGroup(){
+  const prods=S.products.map(p=>({id:p.id,name:p.name,angebot:p.angebot,nutzen:p.nutzen}));
+  const add = r => { const pid = product(r.produkt)?r.produkt:S.products[0].id;
+    S.groups.push({id:'g'+Date.now(), name:String(r.name||'Neue Zielgruppe'), produkt:pid, branchen:[].concat(r.branchen||[]).map(String), groesseMin:+r.groesseMin||10, groesseMax:+r.groesseMax||100,
+      regionen:[].concat(r.regionen||['AT']).map(String).filter(x=>['AT','DE','CH'].includes(x)), bundeslaender:[], rollen:[].concat(r.rollen||[]).map(String), signale:[].concat(r.signale||[]).map(String).filter(x=>SIGNALE.includes(x)),
+      ausschluss:String(r.ausschluss||''), notiz:String(r.begruendung||''), proTag:5, prio:'mittel', aktiv:false}); save(); };
+  if (!AI){ add({name:'Filialbetriebe im Handel',produkt:S.products[0].id,branchen:['Einzelhandel','Gastronomie','Bäckereien'],groesseMin:15,groesseMax:150,regionen:['AT','DE'],rollen:['Geschäftsführung','Filialleitung'],signale:['Neuer Standort','Offene Stellen'],ausschluss:'Franchise-Ketten mit zentraler IT',begruendung:'Mehrere Standorte, wechselnde Schichten, viel Abstimmung.'});
+    renderAdmin(); toast('Vorschlag aus Vorlage hinzugefügt (inaktiv) – KI hier nicht verfügbar'); return; }
+  gAiBusy=true; gAiErr=''; renderAdmin();
   try{
-    const r = await AI.json(`Ich verkaufe ${s.angebot} (${s.website}). Nutzen: ${nutzenList().join('; ')}. Meine Zielgruppe in eigenen Worten: ${s.zielgruppe}
-Schärfe die Zielgruppe für Kaltakquise im DACH-Raum. Antworte nur mit JSON: {"branchen":["max 5"],"groesse":["1-2"],"rollen":["max 4"],"signale":["max 5 konkrete Kaufsignale, die man online sieht"],"ausschluss":["max 3"]}`, {modelTier:'quick', cache:false});
-    S.icp = r; save();
-  }catch(e){ icpErr=aiErr(e); }
-  icpBusy=false; renderSetup();
+    const r = await AI.json(`Du hilfst bei der Zielgruppen-Planung für Kaltakquise im DACH-Raum.
+Firma: ${S.kb.firma} – ${S.kb.ueberUns}
+Produkte: ${JSON.stringify(prods)}
+Bestehende Zielgruppen (nicht wiederholen): ${S.groups.map(g=>g.name).join('; ')}
+Schlage EINE neue, klar abgegrenzte Zielgruppe vor. Kaufsignale nur aus dieser Liste: ${SIGNALE.join(', ')}. Länder nur AT, DE, CH.
+Antworte nur mit JSON: {"name":"","produkt":"produkt-id","branchen":["max 5"],"groesseMin":10,"groesseMax":100,"regionen":["AT"],"rollen":["max 3"],"signale":["max 4"],"ausschluss":"","begruendung":"1-2 Sätze"}`, {cache:false});
+    add(r); toast('Neue Zielgruppe vorgeschlagen – prüfen und aktivieren');
+  }catch(e){ gAiErr=aiErr(e); }
+  gAiBusy=false; renderAdmin();
+}
+
+/* Produkte */
+function adminProdukte(){
+  return `<div class="page-h"><div><h2>${S.products.length} Produkte</h2><p>Was du verkaufst. Griaßdi pitcht jedem Lead das Produkt seiner Zielgruppe.</p></div><div class="right"><button class="btn" data-act="pnew">+ Neues Produkt</button></div></div>
+  <div class="gcards">${S.products.map((p,i)=>{ const gs=S.groups.filter(g=>g.produkt===p.id);
+    return `<div class="card gcard"><div class="gtop"><h3>${esc(p.name||'Ohne Namen')}</h3></div>
+      <p style="margin:0">${esc(p.angebot)}</p>
+      <div class="kv"><span class="label">Nutzen</span><ul class="list">${p.nutzen.split('\n').filter(x=>x.trim()).map(x=>`<li><span class="bullet"></span><span>${esc(x)}</span></li>`).join('')}</ul></div>
+      <div class="kv"><span class="label">Preis</span><div>${esc(p.preis||'–')}</div></div>
+      <div class="kv"><span class="label">Zielgruppen</span><div class="icp">${gs.map(g=>`<span>${esc(g.name)}</span>`).join('')||'<span class="note">keine</span>'}</div></div>
+      <div class="gfoot"><span></span><button class="btn ghost sm" data-act="pedit" data-v="${i}">Bearbeiten</button>${S.products.length>1?`<button class="btn ghost sm" data-act="pdel" data-v="${i}">Löschen</button>`:''}</div></div>`; }).join('')}</div>`;
+}
+function openProduct(i){
+  uid=200; const p='products.'+i;
+  $('#modal').innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pe-h">
+    <div style="display:flex;align-items:center;gap:12px"><h2 id="pe-h">Produkt bearbeiten</h2><button class="x" data-act="closeadmin" aria-label="Schließen">✕</button></div>
+    <div class="form">
+      ${fText('Name',p+'.name',{ph:'z. B. Zeiterfassung App'})}
+      ${fText('Thema in wenigen Worten',p+'.thema',{ph:'Zeiterfassung und Dienstplanung'})}
+      ${fText('Angebot in einem Satz',p+'.angebot',{full:true,ph:'eine App für digitale Zeiterfassung'})}
+      ${fArea('Die 3 wichtigsten Nutzen (eine Zeile pro Nutzen)',p+'.nutzen',{rows:4})}
+      ${fText('Preis',p+'.preis',{ph:'ab 4 € pro Mitarbeiter/Monat'})}
+      ${fText('Typische Vertragslaufzeit',p+'.laufzeit',{ph:'monatlich kündbar'})}
+    </div><div><button class="btn" data-act="closeadmin">Fertig</button></div></div>`;
+  $('#modal').hidden=false;
+}
+
+/* Pitching */
+const PH=[['{gruss}','Begrüßung'],['{meinname}','Dein Name'],['{meinefirma}','Deine Firma'],['{anlass}','Anlass'],['{firma}','Firma des Leads'],['{produkt}','Produkt']];
+function fillOpener(tpl,l){
+  const c=ctx(l), du=S.tone==='du';
+  return tpl.replace(/\{gruss\}/g, du?`Hallo ${l.vorname}`:`Griaß Gott ${l.anrede} ${l.nachname}`.trim())
+    .replace(/\{meinname\}/g,c.name).replace(/\{meinefirma\}/g,c.firma).replace(/\{anlass\}/g, du?duSatz(l):l.satzSie)
+    .replace(/\{firma\}/g,l.firma).replace(/\{produkt\}/g,c.produkt.name);
+}
+function updateOpenerPreview(){ const el=$('#op-prev'); if(el) el.textContent = fillOpener(S.pitch.opener, S.leads[0]); }
+function adminPitch(){
+  const P='pitch';
+  return `<div class="grid2">
+    <div class="card"><h3>Ansprache & Stil</h3><div class="rows">
+      <div class="srow"><span>Ansprache</span>${fSeg(P+'.ansprache',[['sie','Sie'],['du','Du']])}</div>
+      <div class="srow"><span>Stil</span>${fSeg(P+'.stil',[['beratend','Beratend'],['direkt','Direkt'],['locker','Locker']])}</div>
+      <div class="srow"><span>Länge</span>${fSeg(P+'.laenge',[['kurz','Kurz'],['mittel','Mittel']])}</div>
+      <div class="srow"><span>Sprache</span>${fSeg(P+'.dialekt',[['0','Hochdeutsch'],['1','Leicht österreichisch'],['2','Kräftig']])}</div>
+    </div></div>
+    <div class="card"><h3>Gesprächsziel</h3><div class="rows">
+      <div class="srow"><span>Ziel des Anrufs</span>${fSeg(P+'.ziel',[['demo','Demo'],['termin','Vor-Ort-Termin'],['rueckruf','Rückruf']])}</div>
+      <div class="form">${fText('Dauer des Termins (Minuten)',P+'.dauer',{type:'number',num:true,min:5,max:90})}${fText('Terminvorschläge',P+'.slots',{ph:'Donnerstag um 10 oder Freitag um 9'})}</div>
+    </div></div></div>
+    <div class="card"><h3>Einstieg</h3>
+      <div class="form">${fArea('Vorlage für den ersten Satz',P+'.opener',{rows:3})}</div>
+      <div class="chips" style="margin-top:8px">${PH.map(([k,n])=>`<button type="button" class="chipsel" data-act="ph" data-v="${k}" title="${n}">${k}</button>`).join('')}</div>
+      <div class="preview"><span class="label">Vorschau mit ${esc(S.leads[0].person)}</span><p id="op-prev"></p></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>So soll Griaßdi pitchen</h3><div class="form">${fArea('Do’s',P+'.dos',{rows:4,ph:'z. B. Anlass immer im ersten Satz nennen'})}</div></div>
+      <div class="card"><h3>Das bitte nie</h3><div class="form">${fArea('Don’ts',P+'.donts',{rows:4,ph:'z. B. Keine Preise am Telefon nennen'})}</div></div>
+    </div>
+    <div class="card"><h3>Einwand-Bibliothek</h3><p class="note" style="margin:-6px 0 12px">Diese Antworten zeigt Griaßdi im Pitch und live im Gespräch, wenn der Einwand kommt.</p>
+      ${listEditor(P+'.einwaende',[['einwand','Einwand, z. B. „Keine Zeit“'],['antwort','Deine Antwort darauf',true]],'Einwand')}</div>
+    <div class="card"><h3>Live-Coaching</h3><div class="rows">
+      <div class="field"><label>Ziel-Redeanteil: höchstens <b class="num" id="out-rede">${S.pitch.redeanteil}</b> %</label><input type="range" min="40" max="80" step="5" data-bind="${P}.redeanteil" data-type="num" data-out="out-rede" value="${S.pitch.redeanteil}" aria-label="Ziel-Redeanteil"></div>
+      <div class="rule"><div><b>Live-Tipps während des Gesprächs</b><small>Griaßdi blendet Hinweise ein, wenn ein Einwand kommt oder du zu viel redest.</small></div>${fSwitch(P+'.tipps','Live-Tipps')}</div>
+      <div class="rule"><div><b>Pitch-Score nach jedem Anruf</b><small>Bewertung von 1–10 mit Checkliste.</small></div>${fSwitch(P+'.score','Pitch-Score')}</div>
+    </div>
+    <div style="margin-top:14px"><button class="btn" data-act="testpitch">${icon('next')}Pitch an einem Lead testen</button></div></div>`;
+}
+
+/* Wissensbasis */
+function kbScore(){
+  const k=S.kb; let n=0, t=7;
+  if (k.firma&&k.ueberUns&&k.ueberUns.length>40) n++;
+  if (k.usps.filter(x=>x.trim()).length>=2) n++;
+  if (k.referenzen.filter(x=>x.kunde).length>=1) n++;
+  if (k.faq.filter(x=>x.frage).length>=2) n++;
+  if (k.wettbewerber.filter(x=>x.name).length>=1) n++;
+  if (k.preise&&k.preise.trim()) n++;
+  if (k.docs.length) n++;
+  return Math.round(n/t*100);
+}
+function adminWissen(){
+  const sc=kbScore();
+  return `<div class="card kbhead"><div style="flex:1;min-width:220px"><h3 style="margin:0 0 4px">Was Griaßdi über deine Firma weiß</h3><p class="note" style="margin:0">Daraus baut Griaßdi Pitches, Antworten auf Einwände und Follow-up-Mails. Je mehr hier steht, desto besser klingt es nach dir.</p></div>
+      <div class="kbmeter"><b class="num">${sc} %</b><span class="note">vollständig</span><div class="meter"><i style="width:${sc}%"></i></div></div></div>
+    <div class="card"><h3>Firmenprofil</h3><div class="form">
+      ${fText('Dein Name (so stellst du dich vor)','kb.meinName')}${fText('Firma','kb.firma')}
+      ${fText('Website','kb.website')}${fText('Branche','kb.branche')}
+      ${fText('Mitarbeiter','kb.mitarbeiter')}${fText('Standort','kb.standort')}
+      ${fArea('Über uns – in 2–4 Sätzen','kb.ueberUns',{rows:3})}</div></div>
+    <div class="grid2">
+      <div class="card"><h3>Was euch besonders macht</h3>${listEditor('kb.usps',[],'Alleinstellungsmerkmal')}</div>
+      <div class="card"><h3>Referenzen</h3>${listEditor('kb.referenzen',[['kunde','Kunde / Branche'],['ergebnis','Ergebnis, z. B. „spart 6 h/Monat“']],'Referenz')}</div>
+    </div>
+    <div class="card"><h3>Häufige Fragen von Kunden</h3>${listEditor('kb.faq',[['frage','Frage'],['antwort','Antwort',true]],'Frage')}</div>
+    <div class="grid2">
+      <div class="card"><h3>Mitbewerber</h3>${listEditor('kb.wettbewerber',[['name','Name'],['unterschied','Was ihr anders macht']],'Mitbewerber')}</div>
+      <div class="card"><h3>Preise & Konditionen</h3><div class="form">${fArea('Was darf Griaßdi zu Preisen sagen?','kb.preise',{rows:5})}</div></div>
+    </div>
+    <div class="card"><h3>Dokumente</h3><p class="note" style="margin:-6px 0 12px">Produktblätter, Preislisten, Gesprächsleitfäden. Text-Dateien (.txt, .md, .csv) liest Griaßdi hier sofort; PDF und Word werden im echten Produkt ausgelesen.</p>
+      <label class="btn ghost" for="kb-up" style="cursor:pointer">${icon('upload')}Dokument hinzufügen</label><input type="file" id="kb-up" multiple hidden>
+      <div class="lrows" style="margin-top:12px">${S.kb.docs.map((d,i)=>`<div class="doc">${icon('copy')}<div><b>${esc(d.name)}</b><small>${Math.max(1,Math.round(d.size/1024))} KB · ${d.text?'gelesen – '+d.text.length.toLocaleString('de-AT')+' Zeichen':'wird im echten Produkt ausgelesen'}</small></div><button type="button" class="del" data-act="docdel" data-v="${i}" aria-label="Entfernen">✕</button></div>`).join('')||'<p class="note">Noch keine Dokumente.</p>'}</div></div>`;
+}
+
+/* Connectoren */
+function adminConn(){
+  const cc=S.calling;
+  const cur_=S.telefonie;
+  return `<div class="card"><h3>Telefonie</h3><p class="note" style="margin:-6px 0 12px">Verbinde dein Calling-Tool. Griaßdi startet Anrufe darüber per Klick, hört für das Live-Coaching mit und schreibt Ergebnis und Notiz zurück.</p>
+    <div class="callgrid">
+      <div class="callcard ${cur_==='browser'?'def':''}"><span class="lg" style="background:var(--ink);color:var(--bg)">${icon('phone')}</span><div><b>Browser-Dialer</b><small>Direkt aus Griaßdi telefonieren – ohne weiteres Tool</small></div>
+        <div class="cfoot"><span class="pill st-termin">Bereit</span>${cur_==='browser'?'<span class="note">Standard</span>':'<button class="btn ghost sm" data-act="teldef" data-v="browser">Als Standard</button>'}</div></div>
+      ${CALLING.map(t=>{ const c=cc[t.id]; return `<div class="callcard ${cur_===t.id?'def':''}"><span class="lg" style="background:${t.c}">${esc(t.n.slice(0,2))}</span><div><b>${esc(t.n)}</b><small>${esc(t.d)}</small></div>
+        <div class="cfoot">${c.on?'<span class="pill st-termin">Verbunden</span>':'<span class="pill st-offen">Nicht verbunden</span>'}
+        ${c.on&&cur_!==t.id?`<button class="btn ghost sm" data-act="teldef" data-v="${t.id}">Als Standard</button>`:''}${cur_===t.id?'<span class="note">Standard</span>':''}
+        <button class="btn ${c.on?'ghost':''} sm" data-act="calledit" data-v="${t.id}">${c.on?'Einstellungen':'Verbinden'}</button></div></div>`; }).join('')}
+    </div></div>
+    ${[['CRM',['hubspot','pipedrive','salesforce']],['Lead- & Kontaktdaten',['apollo','lusha','linkedin','csv']],['Kommunikation',['teams']]].map(([h,ids])=>`<div class="card"><h3>${h}</h3><div class="conns">${ids.map(id=>{ const c=CONNS.find(x=>x.id===id); return `<div class="conn"><span class="lg" style="background:${c.c}">${esc(c.n.slice(0,2))}</span><div><b>${esc(c.n)}</b><small>${esc(c.d)}</small></div>${fSwitch('apps.'+id,c.n+' verbinden')}</div>`; }).join('')}</div></div>`).join('')}
+    <p class="note">Vorschau: Verbindungen sind simuliert. Im echten Produkt werden Zugangsdaten verschlüsselt auf Servern in der EU gespeichert und nie im Browser.</p>`;
+}
+const CW={};
+function openCalling(id){
+  uid=300; const t=CALLING.find(x=>x.id===id), c=S.calling[id], p='calling.'+id;
+  const hook=`https://hooks.griassdi.app/${id}/ws-demo-7f3a`;
+  $('#modal').innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ce-h">
+    <div style="display:flex;align-items:center;gap:12px"><span class="lg cl" style="background:${t.c}">${esc(t.n.slice(0,2))}</span><div><h2 id="ce-h">${esc(t.n)} verbinden</h2><span class="note">${c.on?'Verbunden · Schlüssel endet auf ••••'+esc(c.last4):'Noch nicht verbunden'}</span></div><button class="x" data-act="closeadmin" aria-label="Schließen">✕</button></div>
+    <ol class="steps"><li><b>API-Schlüssel anlegen.</b> ${esc(t.hint)}.</li><li><b>Hier eintragen und testen.</b> Griaßdi prüft die Verbindung und lädt eure Nummern.</li><li><b>Webhook eintragen.</b> Damit meldet ${esc(t.n)} Gesprächsbeginn, -ende und Aufnahme zurück.</li></ol>
+    <form class="form" id="call-form" data-id="${id}" autocomplete="off">
+      ${t.f.map(([n,type],i)=>`<div class="field"><label for="cf-${i}">${n}</label><input id="cf-${i}" type="${type}" placeholder="${c.on&&type==='password'?'••••••••'+esc(c.last4):''}" autocomplete="off"></div>`).join('')}
+      <div class="full" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn" type="submit">Verbindung testen</button>${c.on?`<button type="button" class="btn ghost" data-act="calloff" data-v="${id}">Trennen</button>`:''}<span class="note" id="cf-msg">${CW[id]||''}</span></div>
+    </form>
+    ${c.on?`<div class="form">
+      <div class="field full"><label>Ausgehende Nummer</label><select data-bind="${p}.nummer" aria-label="Ausgehende Nummer">${DEMO_NUMS.map(n=>`<option ${c.nummer===n?'selected':''}>${n}</option>`).join('')}</select></div>
+      <div class="field full"><label>Webhook-URL (in ${esc(t.n)} eintragen)</label><div class="hook"><code>${hook}</code><button type="button" class="copy" data-act="copy" data-v="${hook}">${icon('copy')}Kopieren</button></div><span class="note">Ereignisse: Anruf gestartet, angenommen, beendet, Aufnahme verfügbar.</span></div></div>
+      <div class="rules">
+        <div class="rule"><div><b>Click-to-Call</b><small>„Anrufen“ in Griaßdi wählt über ${esc(t.n)}.</small></div>${fSwitch(p+'.click','Click-to-Call')}</div>
+        <div class="rule"><div><b>Live-Transkript für Coaching</b><small>Griaßdi hört mit und gibt Tipps. Gegenüber wird zu Gesprächsbeginn informiert.</small></div>${fSwitch(p+'.transkript','Live-Transkript')}</div>
+        <div class="rule"><div><b>Gespräche aufzeichnen</b><small>Nur mit Einwilligung des Gegenübers – rechtlich vorab prüfen.</small></div>${fSwitch(p+'.aufnahme','Aufzeichnung')}</div>
+        <div class="rule"><div><b>Ergebnis & Notiz zurückschreiben</b><small>Tags und Notiz am Anruf in ${esc(t.n)} und im CRM.</small></div>${fSwitch(p+'.sync','Zurückschreiben')}</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="closeadmin">Fertig</button>${S.telefonie!==id?`<button class="btn ghost" data-act="teldef" data-v="${id}">Als Standard für Anrufe</button>`:''}</div>`:''}
+    <p class="note">Vorschau: Der Test ist simuliert und die eingegebenen Schlüssel werden nicht gespeichert.</p></div>`;
+  $('#modal').hidden=false;
 }
 
 /* ---------------- events ---------------- */
@@ -960,8 +1344,29 @@ document.addEventListener('click', e=>{
     case 'closemodal': $('#modal').hidden=true; break;
     case 'plans': openPlans(); break;
     case 'setplan': S.plan=v; save(); $('#modal').hidden=true; toast((v==='pro'?'Pro':'Premium')+' aktiviert (Demo)'); render(); break;
-    case 'conn': S.conns[v]=!S.conns[v]; save(); a.setAttribute('aria-checked', S.conns[v]); toast(`${CONNS.find(c=>c.id===v).n} ${S.conns[v]?'verbunden':'getrennt'} (Demo)`); break;
-    case 'icp': sharpenIcp(); break;
+    case 'atab': S.atab=v; save(); renderAdmin(); break;
+    case 'setval': { const p=a.dataset.path; const old=getPath(p); setPath(p, typeof old==='number'?Number(v):v); if(p==='pitch.ansprache') S.tone=v; autosave(p); a.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===a)); if(p.startsWith('pitch')) updateOpenerPreview(); break; }
+    case 'toggle': { const p=a.dataset.path; setPath(p,!getPath(p)); a.setAttribute('aria-checked',!!getPath(p)); autosave(p); if(/^groups\.\d+\.aktiv$/.test(p) && $('#modal').hidden) renderAdmin(); break; }
+    case 'chip': { const p=a.dataset.path; const arr=(getPath(p)||[]).slice(); const i=arr.indexOf(v); if(i>=0) arr.splice(i,1); else arr.push(v); setPath(p,arr); a.setAttribute('aria-pressed',i<0); autosave(p); if(p.startsWith('leadCfg')&&$('#modal').hidden) renderAdmin(); break; }
+    case 'step': { const p=a.dataset.path; const n=Math.min(+a.dataset.max,Math.max(+a.dataset.min,(+getPath(p)||0)+(+a.dataset.d))); setPath(p,n); autosave(p); renderAdmin(); break; }
+    case 'listadd': { const p=a.dataset.path; const tpl=BIND_LISTS[p]; getPath(p).push(typeof tpl==='string'?'':{...tpl}); autosave(p); renderAdmin(); const ins=document.querySelectorAll(`[data-bind^="${p}.${getPath(p).length-1}"]`); if(ins[0]) ins[0].focus(); break; }
+    case 'listdel': { const p=a.dataset.path; getPath(p).splice(+a.dataset.i,1); autosave(p); renderAdmin(); break; }
+    case 'ph': { const ta=document.querySelector('[data-bind="pitch.opener"]'); if(!ta) break; const st=ta.selectionStart??ta.value.length; ta.value=ta.value.slice(0,st)+v+ta.value.slice(ta.selectionEnd??st); ta.focus(); ta.selectionStart=ta.selectionEnd=st+v.length; ta.dispatchEvent(new Event('input',{bubbles:true})); break; }
+    case 'testpitch': S.view='heute'; S.tab='pitch'; S.tone=S.pitch.ansprache; save(); render(); window.scrollTo(0,0); break;
+    case 'gnew': S.groups.push({id:'g'+Date.now(),name:'Neue Zielgruppe',produkt:S.products[0].id,branchen:[],groesseMin:10,groesseMax:100,regionen:['AT'],bundeslaender:[],rollen:[],signale:[],ausschluss:'',notiz:'',proTag:5,prio:'mittel',aktiv:true}); save(); renderAdmin(); openGroup(S.groups.length-1); break;
+    case 'gedit': openGroup(+v); break;
+    case 'gdel': if (a.dataset.confirm==='1'){ const g=S.groups.splice(+v,1)[0]; S.leads.forEach(l=>{ if(l.g===g.id) l.g=null; }); autosave('groups'); renderAdmin(); toast('Zielgruppe gelöscht'); }
+      else { a.dataset.confirm='1'; a.textContent='Wirklich?'; setTimeout(()=>{ if(a.isConnected){ a.dataset.confirm=''; a.textContent='Löschen'; } },3000); } break;
+    case 'gai': suggestGroup(); break;
+    case 'pnew': S.products.push({id:'p'+Date.now(),name:'Neues Produkt',thema:'',angebot:'',nutzen:'',preis:'',laufzeit:''}); save(); renderAdmin(); openProduct(S.products.length-1); break;
+    case 'pedit': openProduct(+v); break;
+    case 'pdel': if (a.dataset.confirm==='1'){ const p=S.products.splice(+v,1)[0]; S.groups.forEach(g=>{ if(g.produkt===p.id) g.produkt=S.products[0].id; }); autosave('products'); renderAdmin(); toast('Produkt gelöscht – Zielgruppen auf „'+S.products[0].name+'“ umgestellt'); }
+      else { a.dataset.confirm='1'; a.textContent='Wirklich?'; setTimeout(()=>{ if(a.isConnected){ a.dataset.confirm=''; a.textContent='Löschen'; } },3000); } break;
+    case 'docdel': S.kb.docs.splice(+v,1); autosave('kb'); renderAdmin(); break;
+    case 'closeadmin': $('#modal').hidden=true; renderAdmin(); break;
+    case 'calledit': openCalling(v); break;
+    case 'calloff': S.calling[v].on=false; S.calling[v].last4=''; if(S.telefonie===v) S.telefonie='browser'; CW[v]=''; save(); openCalling(v); toast(CALLING.find(t=>t.id===v).n+' getrennt'); break;
+    case 'teldef': S.telefonie=v; save(); if(!$('#modal').hidden && v!=='browser') openCalling(v); renderAdmin(); toast('Anrufe laufen jetzt über '+(v==='browser'?'den Browser-Dialer':CALLING.find(t=>t.id===v).n)); break;
     case 'reset': if (a.dataset.confirm==='1'){ clearInterval(C.iv); C.status='idle'; S=freshState(); save(); render(); toast('Demo zurückgesetzt'); }
       else { a.dataset.confirm='1'; a.textContent='Wirklich zurücksetzen?'; setTimeout(()=>{ if(a.isConnected){ a.dataset.confirm=''; a.textContent='Demo zurücksetzen'; } },3000); } break;
   }
@@ -970,14 +1375,33 @@ $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') $('#modal')
 document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('#modal').hidden) $('#modal').hidden=true; });
 document.addEventListener('submit', e=>{
   if (e.target.id==='helper-form'){ e.preventDefault(); const i=$('#helper-in'); const t=i.value.trim(); if(t) helpObjection(t); }
-  if (e.target.id==='setup-form'){ e.preventDefault(); const fd=new FormData(e.target); fd.forEach((v,k)=>{ S.settings[k]=String(v).trim(); }); S.pitches={}; save(); renderTop(); toast('Gespeichert – Pitches werden neu aufgebaut'); }
+  if (e.target.id==='call-form'){ e.preventDefault(); const id=e.target.dataset.id; const t=CALLING.find(x=>x.id===id);
+    const vals=t.f.map((_,i)=>$('#cf-'+i).value.trim()); const c=S.calling[id];
+    if (vals.some(x=>x.length<4) && !c.on){ CW[id]='Bitte alle Felder ausfüllen.'; $('#cf-msg').textContent=CW[id]; $('#cf-msg').style.color='var(--bad)'; return; }
+    const last=vals[vals.length-1]; if(last) c.last4=last.slice(-4);
+    c.on=true; if(S.telefonie==='browser') S.telefonie=id; CW[id]='Verbunden (Demo) – '+DEMO_NUMS.length+' Nummern gefunden.'; save(); openCalling(id); }
 });
-document.addEventListener('input', e=>{
-  const k=e.target.dataset && e.target.dataset.set; if(!k) return;
-  S.settings[k] = e.target.type==='range' ? Number(e.target.value) : e.target.value; save();
-  if (k==='tageslimit') $('#lim-v').textContent=e.target.value;
-});
+function onBind(e){
+  const el=e.target; const p=el.dataset && el.dataset.bind; if(!p) return;
+  const ty=el.dataset.type; let v=el.value;
+  if (ty==='num') v = v===''?0:Number(v);
+  else if (ty==='csv') v = v.split(',').map(x=>x.trim()).filter(Boolean);
+  setPath(p,v); autosave(p);
+  if (el.dataset.out){ const o=$('#'+el.dataset.out); if(o) o.textContent=el.value; }
+  if (p.startsWith('pitch')||p.startsWith('kb.meinName')||p.startsWith('kb.firma')) updateOpenerPreview();
+  if (p==='kb.meinName') renderTop();
+}
+document.addEventListener('input', onBind);
 document.addEventListener('change', e=>{
+  if (e.target.tagName==='SELECT' && e.target.dataset.bind) onBind(e);
+  if (e.target.id==='gfilter'){ S.gfilter=e.target.value; save(); renderQueue(); return; }
+  if (e.target.id==='kb-up' && e.target.files.length){
+    const files=[...e.target.files]; let left=files.length;
+    files.forEach(f=>{ const isText=/\.(txt|md|csv)$/i.test(f.name)||/^text\//.test(f.type);
+      const done=text=>{ S.kb.docs.push({name:f.name,size:f.size,text:text?String(text).slice(0,20000):''}); if(--left===0){ autosave('kb'); renderAdmin(); toast(files.length+' Dokument'+(files.length>1?'e':'')+' hinzugefügt'); } };
+      if (isText && f.size<2e6){ const r=new FileReader(); r.onload=()=>done(r.result); r.onerror=()=>done(''); r.readAsText(f); } else done(''); });
+    return;
+  }
   if (e.target.id!=='csv-in' || !e.target.files[0]) return;
   const f=e.target.files[0]; const r=new FileReader();
   r.onload=()=>{ const rows=parseCSV(String(r.result)); if(!rows.length){ toast('Keine Zeilen gefunden – erste Zeile muss Spaltennamen enthalten'); return; }
