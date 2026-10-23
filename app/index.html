@@ -407,6 +407,57 @@ details.dfold .transcript{margin-top:10px}
 .kv.note{font-size:12.5px}
 .grid2{align-items:start}
 
+/* Qualifizierung & Termin */
+.qlist2{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
+.qlist2 li{display:flex;gap:8px;align-items:baseline;font-size:15px}
+.qtag{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);min-width:82px;flex:none}
+.say.goal{border-color:var(--good)}
+.say.goal .label{color:var(--good)}
+.out.goal{border-color:var(--good);color:var(--good)}
+.out.goal[aria-pressed="true"]{background:var(--good);color:#fff;border-color:var(--good)}
+.qbox,.tbox{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.qhead{display:flex;align-items:center;gap:8px}.qhead .pill{margin-left:auto}
+.qrow{display:grid;grid-template-columns:auto 86px minmax(0,1fr);gap:8px;align-items:center}
+.qrow label{font-weight:600;font-size:13px}
+.qrow input,.trow input,.trow select{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;min-width:0;width:100%}
+.qck{width:28px;height:28px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;color:transparent;padding:0}
+.qck svg{width:16px;height:16px}
+.qck.ok{background:var(--good);border-color:var(--good);color:#fff}
+.trow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mailrow{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.mailrow svg{width:16px;height:16px;flex:none}
+.mailrow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:7px 10px}
+table.deal{width:100%;min-width:0;border-collapse:collapse}
+table.deal th,table.deal td{padding:6px 8px;border-bottom:1px solid var(--line);font-size:13px;text-transform:none;letter-spacing:0;vertical-align:top}
+table.deal th{color:var(--muted);font-weight:600;width:130px}
+.framerow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface-2);border-radius:12px;padding:8px 10px;font-size:13px}
+.framerow svg{width:16px;height:16px;flex:none}
+.framerow .btn{margin-left:auto}
+.framerow.due{background:var(--warn-soft);color:var(--warn);font-weight:700}
+.framerow.ok{background:var(--good-soft);color:var(--good)}
+.frames{padding:0 8px 8px;display:flex;flex-direction:column;gap:4px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.frames .label{padding:4px 8px}
+.frameitem{background:var(--warn-soft)}
+.frameitem .av{background:var(--surface);color:var(--warn)}
+.frameitem .av svg{width:16px;height:16px}
+.donehead{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.acts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.acts li{display:flex;gap:10px;align-items:center;background:var(--good-soft);border-radius:12px;padding:10px 12px;animation:pop .4s ease both}
+.acts svg{width:18px;height:18px;color:var(--good);flex:none}
+.tcards{display:grid;gap:12px;max-width:820px}
+.tcard{display:flex;gap:16px;align-items:flex-start}
+.tdate{display:flex;flex-direction:column;align-items:center;min-width:64px;background:var(--accent-soft);border-radius:14px;padding:10px 8px;color:var(--accent-ink)}
+.tdate b{font-family:var(--f-display);font-size:28px;line-height:1}
+.tdate span{font-weight:700;text-transform:uppercase;font-size:12px}
+.tdate small{font-weight:700;margin-top:4px}
+.tmain{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.qchips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.qchips span:not(.note){font-size:12px;border-radius:99px;padding:2px 9px;background:var(--surface-2);color:var(--muted)}
+.qchips span.ok{background:var(--good-soft);color:var(--good);font-weight:700}
+.navbtn .count.good{background:var(--good)}
+.kpi.goal{border-color:var(--good)}
+@media (max-width:820px){ .trow{grid-template-columns:1fr 1fr} .qrow{grid-template-columns:auto minmax(0,1fr)} .qrow input{grid-column:2} }
+
 /* Modal + toast */
 .modal{position:fixed;inset:0;background:rgba(20,12,8,.45);display:grid;place-items:center;padding:16px;z-index:50}
 .sheet{background:var(--surface);border-radius:22px;width:min(720px,100%);max-height:calc(100% - 32px);overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
@@ -463,6 +514,7 @@ details.dfold .transcript{margin-top:10px}
       <div class="panel dialer" id="dialer"></div>
     </section>
     <section class="view" id="view-signale"></section>
+    <section class="view" id="view-termine"></section>
     <section class="view" id="view-leads"></section>
     <section class="view" id="view-tracking"></section>
     <section class="view" id="view-admin"></section>
@@ -493,6 +545,7 @@ const ICONS = {
   spark:'<path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/>',
   upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>',
   next:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
   bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
   lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   check:'<path d="M20 6 9 17l-5-5"/>'
@@ -609,7 +662,7 @@ const KREUTER_EINWAENDE=[
   {einwand:'Haben wir schon',technik:'bumerang',antwort:'Sehr gut, dann kennen Sie das Thema schon. Wenn Sie eine Sache daran ändern könnten – welche wäre das?'},
   {einwand:'Muss ich mit dem Chef besprechen',technik:'isolieren',antwort:'Klar. Angenommen, Ihr Chef sagt ja – wären Sie selbst dabei? Dann holen wir ihn gleich zur Demo dazu: Donnerstag oder Freitag?'},
   {einwand:'Woher haben Sie meine Nummer?',technik:'konter',antwort:'Aus öffentlichen Firmendaten – und ich halte es kurz, versprochen. Darf ich Ihnen in 30 Sekunden sagen, warum ich anrufe?'}];
-const PITCH = {methode:'kreuter',techniken:TECHNIKEN.map(t=>t[0]),ansprache:'sie',stil:'beratend',laenge:'kurz',dialekt:'1',ziel:'demo',dauer:15,slots:'Donnerstag um 10 oder lieber Freitag um 9',
+const PITCH = {frameTage:2,terminOwner:'self',methode:'kreuter',techniken:TECHNIKEN.map(t=>t[0]),ansprache:'sie',stil:'beratend',laenge:'kurz',dialekt:'1',ziel:'demo',dauer:15,slots:'Donnerstag um 10 oder lieber Freitag um 9',
   opener:'{gruss}, {meinname} von {meinefirma}. Ich hab gesehen, {anlass} – genau deshalb ruf ich an.',
   dos:'Anlass immer im ersten Satz nennen\nOffene Fragen stellen\nKurz bleiben, nach 30 Sekunden eine Frage',
   donts:'Keine Preise oder Rabatte am Telefon\nNicht schlecht über Mitbewerber reden\nKein Fachchinesisch',
@@ -640,12 +693,12 @@ const OUTCOMES = [
 const OUTLABEL = Object.fromEntries(OUTCOMES.concat([['offen','Offen']]));
 
 /* ---------------- state ---------------- */
-const KEY = 'griassdi-mvp-v3';
+const KEY = 'griassdi-mvp-v5';
 function freshState(){
   const cp = x => JSON.parse(JSON.stringify(x));
   return { view:'heute', atab:'zufuhr', sel:'l1', tab:'recherche', filter:'alle', gfilter:'alle', tone:'sie', plan:'test', callsUsed:0,
     leads: cp(LEADS), pitches:{}, log:[], products:cp(PRODUCTS), groups:cp(GROUPS), kb:cp(KB), pitch:cp(PITCH), leadCfg:cp(LEADCFG),
-    signals:seedSignals(), sigFilter:'neu', sigCfg:{typen:['post','firma','news','job','wechsel'],alert:true,teams:true,push:false},
+    termine:seedTermine(), signals:seedSignals(), sigFilter:'neu', sigCfg:{typen:['post','firma','news','job','wechsel'],alert:true,teams:true,push:false},
     calling:CALLDEF(), telefonie:'browser', team:cp(TEAM), me:'u1', perms:cp(PERMS),
     vorschlaege:[{id:'v1',von:'u2',einwand:'Wir haben einen Betriebsrat',antwort:'Sehr gut, dann ist das Thema bei Ihnen in guten Händen. Holen wir den Betriebsrat gleich zur Demo dazu – Donnerstag oder Freitag?',status:'offen'}],
     apps:{apollo:true,hubspot:true,lusha:false,pipedrive:false,salesforce:false,linkedin:true,teams:false,csv:true,news:true,jobs:true} };
@@ -760,27 +813,33 @@ const C = {status:'idle', leadId:null, start:0, ringStart:0, t:0, ev:[], shown:0
 function buildScript(l, p){
   const du = S.tone==='du', kre=kreuter(), tech=effPitch().techniken||[];
   const ob = p.einwaende.find(e=>/zeit/i.test(e.einwand)) || p.einwaende[0] || {antwort:''};
+  const qq = qualiQuestions(l,p), boss=/Geschäfts|Inhaber|CEO|Direktor|Partner/.test(l.rolle), pr=ctx(l).produkt.preis||'';
   return [
     {t:1, who:'kunde', text:`${l.firma}, ${l.nachname}, grüß Gott?`},
-    {t:3, who:'du', text:p.opener, cover:'anlass'},
-    {t:6, tip:['gut','Stark: Du nennst den Anlass gleich im ersten Satz.']},
+    {t:3, who:'du', text:p.opener},
+    {t:6, tip:['gut','Stark: Anlass im ersten Satz.']},
     {t:9, who:'kunde', text: du?'Aha, ja. Worum geht’s genau?':'Aha, ja. Worum geht’s denn genau?'},
     {t:11, who:'du', text:p.bruecke},
-    {t:14, tip:['tipp','Jetzt eine offene Frage stellen: „'+p.fragen[0]+'“']},
-    {t:17, who:'du', text:p.fragen[0], cover:'frage'},
-    {t:20, who:'kunde', text:l.schmerz},
-    {t:23, tip:['gut','Schmerzpunkt erkannt. Nachhaken und konkret werden.']},
-    {t:25, who:'du', text: du?'Versteh ich. Wie viel Zeit geht dafür pro Woche drauf?':'Verstehe. Wie viel Zeit geht dafür pro Woche drauf?'},
-    {t:28, who:'kunde', text: du?'Puh, schon ein paar Stunden. Aber ehrlich, wir haben grad keine Zeit für ein neues Tool.':'Puh, schon ein paar Stunden. Aber ehrlich gesagt haben wir gerade keine Zeit für ein neues Tool.'},
-    {t:30, tip:['achtung', (kre&&ob.technik ? techName(ob.technik)+': ' : 'Einwand „keine Zeit“. ') + '„'+ob.antwort+'“']},
-    {t:33, who:'du', text:ob.antwort, cover:'einwand'},
-    {t:37, who:'kunde', text:'Hm, okay. Und was kostet das?'},
-    {t:39, tip:['tipp', kre&&tech.includes('preis') ? 'Preis verteidigen: erst Nutzen, dann Preis, dann wieder Nutzen – und zurück zum Termin.' : 'Preis nicht am Telefon verhandeln. Termin vorschlagen.']},
-    ...(kre&&tech.includes('alternativ') ? [{t:43, tip:['gut','Alternativfrage gestellt – stark. Jetzt schweigen und die Antwort abwarten.']}] : []),
-    {t:41, who:'du', text:p.abschluss, cover:'termin'},
-    {t:45, who:'kunde', text:'Donnerstag Vormittag ginge.'},
-    {t:47, who:'du', text: du?`Super, ich schick dir gleich die Einladung. Danke dir, ${l.vorname}!`:`Perfekt, ich schicke Ihnen gleich die Einladung. Danke, ${l.anrede} ${l.nachname}!`},
-    {t:50, tip:['gut','Termin steht. Jetzt auflegen – Griaßdi macht die Nachbereitung.']}
+    {t:13, tip:['tipp','Jetzt qualifizieren – zuerst den Bedarf: „'+qq.bedarf+'“']},
+    {t:15, who:'du', text:qq.bedarf},
+    {t:18, who:'kunde', text:l.schmerz, cover:'bedarf'},
+    {t:20, tip:['gut','Bedarf bestätigt ✓ – jetzt: Wer entscheidet?']},
+    {t:22, who:'du', text:qq.entscheider},
+    {t:25, who:'kunde', text: boss?'Das entscheide ich.':'Das mache ich gemeinsam mit der Geschäftsführung.', cover:'entscheider'},
+    {t:27, who:'du', text:qq.zeitrahmen},
+    {t:30, who:'kunde', text: du?'Am besten noch vor dem Jahreswechsel. Aber ehrlich, grad haben wir keine Zeit für ein neues Tool.':'Am besten noch vor dem Jahreswechsel. Aber ehrlich gesagt haben wir gerade keine Zeit für ein neues Tool.', cover:'zeitrahmen'},
+    {t:32, tip:['achtung', (kre&&ob.technik ? techName(ob.technik)+': ' : 'Einwand „keine Zeit“: ') + '„'+ob.antwort+'“']},
+    {t:35, who:'du', text:ob.antwort, cover:'einwand'},
+    {t:39, who:'kunde', text:'Hm, okay. Und was kostet das?'},
+    {t:41, tip:['tipp', kre&&tech.includes('preis') ? 'Preis verteidigen: Nutzen – Preis – Nutzen. Dann Budget klären.' : 'Kurz den Preisrahmen nennen, dann Budget klären.']},
+    {t:43, who:'du', text:(pr?`Das hängt von der Teamgröße ab – ${pr}. `:'')+qq.budget},
+    {t:46, who:'kunde', text:'Wenn es passt, ist das Budget da.', cover:'budget'},
+    {t:48, tip:['gut','Qualifiziert ✓ – jetzt den Termin fixieren!']},
+    {t:50, who:'du', text:p.abschluss},
+    ...(kre&&tech.includes('alternativ') ? [{t:52, tip:['gut','Alternativfrage – jetzt schweigen und warten.']}] : []),
+    {t:54, who:'kunde', text:'Donnerstag um 10 passt.', cover:'termin'},
+    {t:56, who:'du', text: du?`Super, die Einladung kommt gleich. Danke dir, ${l.vorname}!`:`Perfekt, Sie bekommen gleich die Einladung. Danke, ${l.anrede} ${l.nachname}!`},
+    {t:58, tip:['gut','Termin steht! Auflegen – Griaßdi trägt alles ein.']}
   ];
 }
 function startCall(){
@@ -813,8 +872,8 @@ function ratio(){
   const tot=du+k; return tot? Math.round(du/tot*100) : 0;
 }
 function pitchScore(){
-  const n = Object.keys(C.covered).length; const r=ratio();
-  let s = 3 + n*1.5; if (r>S.pitch.redeanteil+10) s-=1; return Math.max(1,Math.min(10,Math.round(s)));
+  const n = ['bedarf','entscheider','zeitrahmen','budget','termin','einwand'].filter(k=>C.covered[k]).length; const r=ratio();
+  let s = 2 + n*1.4; if (r>S.pitch.redeanteil+10) s-=1; return Math.max(1,Math.min(10,Math.round(s)));
 }
 function hangup(){
   clearInterval(C.iv);
@@ -824,10 +883,10 @@ function hangup(){
 }
 
 /* ---------------- render: shell ---------------- */
-const VIEWS=[['heute','Heute','phone'],['signale','Signale','bell'],['leads','Leads','users'],['tracking','Tracking','chart'],['admin','Admin','gear']];
+const VIEWS=[['heute','Heute','phone'],['signale','Signale','bell'],['termine','Termine','calendar'],['leads','Leads','users'],['tracking','Tracking','chart'],['admin','Admin','gear']];
 function renderNav(){
-  const open = visibleLeads().filter(l=>l.status==='offen').length, nsig = visSignals().filter(x=>x.status==='neu').length;
-  $('#navlist').innerHTML = VIEWS.map(([id,n,ic])=>`<button class="navbtn" data-act="view" data-v="${id}" ${S.view===id?'aria-current="page"':''}>${icon(ic)}<span>${n}</span>${id==='heute'&&open?`<span class="count num">${open}</span>`:''}${id==='signale'&&nsig?`<span class="count num">${nsig}</span>`:''}</button>`).join('');
+  const open = visibleLeads().filter(l=>l.status==='offen').length + dueFrames().length, nsig = visSignals().filter(x=>x.status==='neu').length, nterm=(isLead()?S.termine:S.termine.filter(t=>t.owner===S.me||t.by===S.me)).length;
+  $('#navlist').innerHTML = VIEWS.map(([id,n,ic])=>`<button class="navbtn" data-act="view" data-v="${id}" ${S.view===id?'aria-current="page"':''}>${icon(ic)}<span>${n}</span>${id==='heute'&&open?`<span class="count num">${open}</span>`:''}${id==='signale'&&nsig?`<span class="count num">${nsig}</span>`:''}${id==='termine'&&nterm?`<span class="count num good">${nterm}</span>`:''}</button>`).join('');
   const lim = callLimit();
   const pl = {test:'Testversion',pro:'Pro',premium:'Premium'}[S.plan];
   $('#planbox').innerHTML = !isLead()
@@ -842,8 +901,8 @@ function renderNav(){
 }
 function renderTop(){
   const open = visibleLeads().filter(l=>l.status==='offen').length;
-  const titles = {heute:`Griaß di, ${esc(me().vorname)}!`, signale:'Signale', leads:'Leads', tracking:'Tracking', admin:'Admin'};
-  const subs = {heute: open?`${open} Anrufe für heute`:'Alles erledigt. Stark!', signale:'', leads:'', tracking:'', admin:''};
+  const titles = {heute:`Griaß di, ${esc(me().vorname)}!`, signale:'Signale', termine:'Termine', leads:'Leads', tracking:'Tracking', admin:'Admin'};
+  const subs = {heute: open?`${open} Anrufe für heute`:'Alles erledigt. Stark!', signale:'', termine:'', leads:'', tracking:'', admin:''};
   const ai = `<span class="aidot ${aiState}" title="${aiState==='on'?'KI aktiv':aiState==='pending'?'KI wird verbunden…':'Vorlagen-Modus: Diese Ansicht hat keinen Zugriff auf die KI'}"></span>`;
   $('#top').innerHTML = `<div class="hello">${S.view==='heute'?mascot(44):''}<div><h1>${titles[S.view]}</h1>${subs[S.view]?`<p>${subs[S.view]}</p>`:''}</div></div>
     <div class="right">${ai}<select class="whosel" id="who" aria-label="Angemeldet als (Demo)">${S.team.filter(m=>m.status==='aktiv').map(m=>`<option value="${m.id}" ${m.id===S.me?'selected':''}>${esc(m.vorname)} · ${m.rolle==='lead'?'Führungskraft':'Team'}</option>`).join('')}</select></div>`;
@@ -851,6 +910,7 @@ function renderTop(){
 function render(){ renderNav(); renderTop();
   if (S.view==='heute'){ renderQueue(); renderWork(); renderDialer(); }
   if (S.view==='signale') renderSignals();
+  if (S.view==='termine') renderTermine();
   if (S.view==='leads') renderLeads();
   if (S.view==='tracking') renderTracking();
   if (S.view==='admin') renderAdmin();
@@ -864,7 +924,7 @@ function renderQueue(){
   const list = V.slice().sort((a,b)=> ((a.status!=='offen')-(b.status!=='offen')) || ((b.hot||0)-(a.hot||0)));
   $('#queue').innerHTML = `<div class="panel-h"><h2>Anrufliste</h2><span class="note num" style="margin-left:auto">${done}/${V.length}</span></div>
    <div class="prog"><div class="bar"><i style="width:${done/all*100}%"></i></div></div>
-   <div class="scroll"><ul class="qlist">${list.map(l=>`<li><button class="qitem ${l.status!=='offen'?'done':''}" data-act="sel" data-v="${l.id}" aria-current="${l.id===S.sel}">
+   <div class="scroll">${(()=>{ const fr=dueFrames(); return fr.length?`<div class="frames"><span class="label">Frame-Calls heute</span>${fr.map(t=>`<button class="qitem frameitem" data-act="openframe" data-v="${t.id}"><span class="av">${icon('calendar')}</span><span class="n">${esc(t.person.replace(/^(Mag\.|Dr\.)\s*/,''))}</span><span class="trig">Frame</span><span class="c" style="grid-column:2/4">Termin ${esc(fmtDate(t.date,t.time))}</span></button>`).join('')}</div>`:''; })()}<ul class="qlist">${list.map(l=>`<li><button class="qitem ${l.status!=='offen'?'done':''}" data-act="sel" data-v="${l.id}" aria-current="${l.id===S.sel}">
      <span class="av">${esc(initials(l.person))}</span>
      <span class="n">${esc(l.person.replace(/^(Mag\.|Dr\.)\s*/,''))}${NS.has(l.id)?'<span class="hotdot" title="Neues Signal"></span>':''}</span>
      ${l.status==='offen'?`<span class="trig">${esc(l.trig)}</span>`:`<span class="pill st-${l.status}">${OUTLABEL[l.status]}</span>`}
@@ -884,8 +944,8 @@ function renderWork(){
       ${busy?'<div class="thinking"><span class="dots"><i></i><i></i><i></i></span>Griaßdi schreibt deinen Pitch…</div>':''}
       ${pitchErr?`<div class="note" style="color:var(--bad)">${esc(pitchErr)}</div>`:''}
       <div class="say big"><span class="label">Sag zuerst</span><p>${esc(p.opener)}</p></div>
-      <div class="say"><span class="label">Dann frag</span><p>${esc(p.fragen[0])}</p></div>
-      <div class="say"><span class="label">Ziel</span><p>${esc(p.abschluss)}</p></div>
+      <div class="say"><span class="label">Dann qualifizieren</span><ul class="qlist2">${(()=>{ const qq=qualiQuestions(l,p); return QUALI.map(([k,n])=>`<li><span class="qtag">${n}</span><span>${esc(qq[k])}</span></li>`).join(''); })()}</ul></div>
+      <div class="say goal"><span class="label">Ziel: Termin</span><p>${esc(p.abschluss)}</p></div>
       <div class="minibar"><button class="btn ghost sm" data-act="genpitch" ${busy?'disabled':''}>${icon('spark')}${p.ki?'Neu schreiben':'Mit KI anpassen'}</button><button class="btn ghost sm" data-act="copypitch">${icon('copy')}Kopieren</button></div>
       <details class="fold"><summary>Einwände <span class="note">${p.einwaende.length}</span></summary><div class="foldbody">${p.einwaende.map(o=>`<div class="obj">${o.technik?`<span class="tech">${esc(techName(o.technik))}</span>`:''}<b>„${esc(o.einwand)}“</b><span>${esc(o.antwort)}</span></div>`).join('')}</div></details>
       <details class="fold"><summary>Mehr zum Lead</summary><div class="foldbody">
@@ -899,7 +959,7 @@ function renderWork(){
       ${hist.length?`<details class="fold"><summary>Verlauf <span class="note">${hist.length}</span></summary><div class="foldbody">${hist.slice().reverse().map(h=>`<div><span class="pill st-${h.outcome}">${OUTLABEL[h.outcome]}</span> <span class="note">${new Date(h.ts).toLocaleString('de-AT',{dateStyle:'short',timeStyle:'short'})}</span>${h.summary?`<p style="margin:6px 0 0">${esc(h.summary)}</p>`:''}</div>`).join('')}</div></details>`:''}
     </div></div>`;
 }
-const CHECKS=[['anlass','Anlass'],['frage','Frage'],['einwand','Einwand'],['termin','Termin']];
+const CHECKS=[['bedarf','Bedarf'],['entscheider','Entscheider'],['zeitrahmen','Zeitrahmen'],['budget','Budget'],['termin','Termin']];
 function renderDialer(){
   const l = C.status==='idle' ? cur() : lead(C.leadId);
   const left = callLimit()-S.callsUsed;
@@ -962,26 +1022,65 @@ ${kreuter()?'Methodik: Techniken angelehnt an Dirk Kreuter ('+effPitch().technik
   }catch(e){ const m=aiErr(e); if(m){ const o=$('#helper-out'); if(o) o.innerHTML=`<div class="helper-out">${esc(localObjection(text))}</div>`; } }
 }
 
-/* ---------------- wrap-up ---------------- */
+/* ---------------- wrap-up: Qualifizierung & Termin ---------------- */
 let W = null;
+const QUALI=[['bedarf','Bedarf'],['entscheider','Entscheider'],['zeitrahmen','Zeitrahmen'],['budget','Budget']];
+const WRAP_OUT=[['termin','Termin'],['rueckruf','Rückruf'],['kein','Kein Interesse'],['nicht','Nicht erreicht']];
+function nextWeekday(dow){ const d=new Date(); d.setHours(0,0,0,0); do{ d.setDate(d.getDate()+1); }while(d.getDay()!==dow); return d; }
+function isoDate(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+const fmtDate = (iso,time) => { const d=new Date(iso+'T'+(time||'10:00')); return d.toLocaleDateString('de-AT',{weekday:'short',day:'numeric',month:'short'})+(time?' · '+time:''); };
+function qualiQuestions(l,p){
+  const du=S.tone==='du';
+  return {bedarf:p.fragen[0], entscheider: du?'Wer entscheidet bei euch über so etwas mit?':'Wer entscheidet bei Ihnen über so etwas mit?',
+    zeitrahmen:'Bis wann soll das gelöst sein?', budget: du?'Habt ihr dafür schon ein Budget eingeplant?':'Gibt es dafür schon ein Budget?'};
+}
 function openWrap(reached){
-  const l = lead(C.leadId);
-  const covered = Object.keys(C.covered).length;
-  W = {outcome: reached ? (C.covered.termin && C.t>=45 ? 'termin' : covered>=2 ? 'rueckruf':'nicht') : 'nicht',
-       notes:'', ai:null, busy:false, err:'', score: reached?pitchScore():null, ratio: reached?ratio():null};
+  const l = lead(C.leadId), c=C.covered;
+  const boss = /Geschäfts|Inhaber|CEO|Direktor|Partner/.test(l.rolle);
+  const q = {
+    bedarf:{v: c.bedarf ? l.schmerz.replace(/^(Ehrlich gesagt|Puh,?)\s*/,'') : '', ok:!!c.bedarf},
+    entscheider:{v: c.entscheider ? (boss?'Ja – '+l.rolle+' entscheidet selbst':'Entscheidet mit der Geschäftsführung') : '', ok:!!c.entscheider},
+    zeitrahmen:{v: c.zeitrahmen ? 'Vor dem Jahreswechsel' : '', ok:!!c.zeitrahmen},
+    budget:{v: c.budget ? 'Budget vorhanden, wenn es passt' : '', ok:!!c.budget}};
+  const thu = nextWeekday(4);
+  const ownerDef = S.pitch.terminOwner && S.pitch.terminOwner!=='self' && S.team.some(m=>m.id===S.pitch.terminOwner) ? S.pitch.terminOwner : S.me;
+  W = {outcome: !reached ? 'nicht' : c.termin ? 'termin' : Object.values(q).filter(x=>x.ok).length>=2 ? 'rueckruf' : 'kein',
+       quali:q, termin:{date:isoDate(thu), time:'10:00', art:'Online-Demo', owner:ownerDef, mail:l.mail}, rueckruf:{date:isoDate(nextWeekday(2)), time:'09:30'}, grund:'',
+       notes:'', ai:null, busy:false, err:'', score: reached?pitchScore():null, ratio: reached?ratio():null, step:'form', reached};
   renderWrap();
+}
+const qualiCount = q => Object.values(q).filter(x=>x.ok).length;
+function readWrapInputs(){
+  const g=id=>{ const el=$('#'+id); return el?el.value:null; };
+  if (g('wrap-notes')!=null) W.notes=g('wrap-notes');
+  QUALI.forEach(([k])=>{ const v=g('q-'+k); if(v!=null) W.quali[k].v=v; });
+  ['date','time','art','owner','mail'].forEach(k=>{ const v=g('t-'+k); if(v!=null) W.termin[k]=v; });
+  ['date','time'].forEach(k=>{ const v=g('r-'+k); if(v!=null) W.rueckruf[k]=v; });
 }
 function renderWrap(){
   const l = lead(C.leadId); const m=$('#modal');
+  if (W.step==='done'){ renderWrapDone(l); return; }
   const a = W.ai || tplWrap(l);
+  const qc = qualiCount(W.quali), o=W.outcome;
+  const cta = {termin:'Termin eintragen & Einladung senden', rueckruf:'Rückruf planen', kein:'Speichern', nicht:'Später nochmal versuchen'}[o];
   m.innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="wrap-h">
     <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="wrap-h">Wie lief's mit ${esc(l.vorname)}?</h2>${W.score?`<span class="note">Pitch-Score ${W.score}/10 · Redeanteil ${W.ratio} %</span>`:''}</div><button class="x" data-act="closewrap" aria-label="Schließen">✕</button></div>
-    <div class="outs big">${OUTCOMES.map(([k,n])=>`<button class="out" data-act="outcome" data-v="${k}" aria-pressed="${W.outcome===k}">${n}</button>`).join('')}</div>
+    <div class="outs big">${WRAP_OUT.map(([k,n])=>`<button class="out ${k==='termin'?'goal':''}" data-act="outcome" data-v="${k}" aria-pressed="${o===k}">${n}</button>`).join('')}</div>
+    ${o!=='nicht'?`<div class="qbox"><div class="qhead"><b>Qualifizierung</b><span class="pill ${qc>=3?'st-termin':qc>=2?'st-rueckruf':'st-offen'}">${qc}/4 ${qc>=3?'· qualifiziert':''}</span></div>
+      ${QUALI.map(([k,n])=>`<div class="qrow"><button class="qck ${W.quali[k].ok?'ok':''}" data-act="qtoggle" data-v="${k}" aria-pressed="${W.quali[k].ok}" aria-label="${n} geklärt">${icon('check')}</button><label for="q-${k}">${n}</label><input id="q-${k}" value="${esc(W.quali[k].v)}" placeholder="noch offen"></div>`).join('')}</div>`:''}
+    ${o==='termin'?`<div class="tbox"><b>Termin</b><div class="trow"><input type="date" id="t-date" value="${W.termin.date}" aria-label="Datum"><input type="time" id="t-time" value="${W.termin.time}" aria-label="Uhrzeit">
+        <select id="t-art" aria-label="Art">${['Online-Demo','Vor-Ort-Termin','Telefontermin'].map(x=>`<option ${W.termin.art===x?'selected':''}>${x}</option>`).join('')}</select>
+        <select id="t-owner" aria-label="Termin führt">${S.team.filter(x=>x.status==='aktiv').map(x=>`<option value="${x.id}" ${W.termin.owner===x.id?'selected':''}>${x.id===S.me?'Ich führe den Termin':'Übergabe an '+esc(x.vorname)}</option>`).join('')}</select></div>
+        <div class="mailrow">${icon('mail')}<span>Outlook-Einladung an</span><input type="email" id="t-mail" value="${esc(W.termin.mail)}" aria-label="E-Mail für die Einladung"></div>
+        <p class="note" style="margin:0">Frame-Call ${S.pitch.frameTage||2} Tage vorher: ${esc(fmtDate(frameDate(W.termin.date)))}</p></div>`:''}
+    ${o==='rueckruf'?`<div class="tbox"><b>Rückruf am</b><div class="trow"><input type="date" id="r-date" value="${W.rueckruf.date}" aria-label="Datum"><input type="time" id="r-time" value="${W.rueckruf.time}" aria-label="Uhrzeit"></div></div>`:''}
+    ${o==='kein'?`<div class="tbox"><b>Warum?</b><div class="outs">${['Kein Bedarf','Hat schon eine Lösung','Zu teuer','Falscher Zeitpunkt','Falsche Person'].map(x=>`<button class="out" data-act="grund" data-v="${x}" aria-pressed="${W.grund===x}">${x}</button>`).join('')}</div></div>`:''}
+    ${o==='nicht'?`<p class="note" style="margin:0">Griaßdi setzt ${esc(l.vorname)} morgen zur besten Zeit (${esc(l.best)}) wieder auf deine Liste.</p>`:''}
     <input id="wrap-notes" class="oneline" placeholder="Notiz (optional)" value="${esc(W.notes)}" aria-label="Notiz">
-    <button class="btn wide" data-act="savewrap">Speichern & nächster Anruf ${icon('next')}</button>
-    <details class="fold"><summary>Zusammenfassung & Follow-up-Mail</summary><div class="foldbody">
+    <button class="btn wide" data-act="savewrap">${o==='termin'?icon('check'):''}${cta}</button>
+    <details class="fold"><summary>${o==='termin'?'Einladung & Zusammenfassung':'Mail & Zusammenfassung'}</summary><div class="foldbody">
       <button class="btn ghost sm" data-act="aiwrap" ${W.busy?'disabled':''}>${icon('spark')}${W.ai?'Neu schreiben':'Mit KI schreiben'}</button>${W.busy?'<span class="thinking"><span class="dots"><i></i><i></i><i></i></span></span>':''}${W.err?`<span class="note" style="color:var(--bad)">${esc(W.err)}</span>`:''}
-      <p style="margin:0">${esc(a.zusammenfassung)}</p><p class="note" style="margin:0">Nächster Schritt: ${esc(a.naechster_schritt)}</p>
+      <p style="margin:0">${esc(a.zusammenfassung)}</p>
       <div style="display:flex;align-items:center"><span class="label">Mail</span><button class="copy" style="margin-left:auto" data-act="copymail">${icon('copy')}Kopieren</button></div>
       <div class="mail" id="mailtext"><b>Betreff: ${esc(a.mail_betreff)}</b>\n\n${esc(a.mail_text)}</div>
     </div></details>
@@ -991,49 +1090,156 @@ function renderWrap(){
 }
 function tplWrap(l){
   const s=ctx(l), du=S.tone==='du', o=W.outcome;
-  const sum = {termin:`${l.person} hat Interesse an ${s.angebot}. Schmerzpunkt: ${l.schmerz.replace(/^Ehrlich gesagt\s*/,'')} Demo-Termin vereinbart.`,
-    rueckruf:`Gespräch mit ${l.person} geführt, Thema grundsätzlich relevant. Rückruf vereinbart.`,
-    kein:`${l.person} hat aktuell kein Interesse.`, nicht:`${l.person} nicht erreicht.`, falsch:`${l.person} ist nicht zuständig – richtige Ansprechperson erfragen.`}[o];
-  const next = {termin:'Kalendereinladung für Donnerstag 10:00 schicken, Demo vorbereiten', rueckruf:'In 2 Tagen nochmal anrufen', kein:'In 6 Monaten erneut prüfen', nicht:'Morgen zur besten Anrufzeit nochmal versuchen ('+l.best+')', falsch:'Richtige Person recherchieren'}[o];
+  const when = fmtDate(W.termin.date, W.termin.time), art=W.termin.art;
+  const q=W.quali, qs=QUALI.filter(([k])=>q[k].ok).map(([k,n])=>n+': '+q[k].v).join('; ');
+  const sum = {termin:`${l.person} (${l.rolle}) – ${art} am ${when}. Qualifizierung ${qualiCount(q)}/4. ${qs}.`,
+    rueckruf:`Gespräch mit ${l.person}, Interesse grundsätzlich da. Rückruf am ${fmtDate(W.rueckruf.date,W.rueckruf.time)}. ${qs}.`,
+    kein:`${l.person} hat kein Interesse${W.grund?' – '+W.grund:''}.`, nicht:`${l.person} nicht erreicht.`}[o];
+  const next = {termin:`${art} am ${when}`, rueckruf:`Rückruf am ${fmtDate(W.rueckruf.date,W.rueckruf.time)}`, kein:'Sperrfrist, in 6 Monaten erneut prüfen', nicht:'Morgen zur besten Anrufzeit nochmal ('+l.best+')'}[o];
   const g = du?`Hallo ${l.vorname},`:`Sehr geehrte${l.anrede==='Herr'?'r Herr':' Frau'} ${l.nachname},`;
-  const body = {termin: du?`danke dir für das nette Gespräch! Wie besprochen zeig ich dir Donnerstag um 10 Uhr in 15 Minuten, wie ${s.angebot} bei euch funktionieren würde. Die Einladung kommt gleich.`:`vielen Dank für das angenehme Gespräch. Wie besprochen zeige ich Ihnen am Donnerstag um 10 Uhr in 15 Minuten, wie ${s.angebot} bei Ihnen funktionieren würde. Die Einladung folgt in Kürze.`,
-    rueckruf: du?`danke für deine Zeit vorhin. Wie besprochen meld ich mich in zwei Tagen nochmal. Bis dahin schick ich dir hier kurz das Wichtigste.`:`vielen Dank für Ihre Zeit. Wie besprochen melde ich mich in zwei Tagen wieder. Anbei finden Sie kurz das Wichtigste.`,
+  const body = {termin: du?`danke dir für das nette Gespräch! Wie besprochen sehen wir uns am ${when} zur ${art} (${S.pitch.dauer} Minuten). Die Einladung mit Link ist schon in deinem Postfach.`:`vielen Dank für das angenehme Gespräch. Wie besprochen sehen wir uns am ${when} zur ${art} (${S.pitch.dauer} Minuten). Die Einladung mit Link haben Sie bereits erhalten.`,
+    rueckruf: du?`danke für deine Zeit vorhin. Wie besprochen meld ich mich am ${fmtDate(W.rueckruf.date,W.rueckruf.time)} nochmal.`:`vielen Dank für Ihre Zeit. Wie besprochen melde ich mich am ${fmtDate(W.rueckruf.date,W.rueckruf.time)} wieder.`,
     kein: du?'danke dir trotzdem für deine Zeit. Falls sich bei euch was ändert, meld dich gern.':'vielen Dank trotzdem für Ihre Zeit. Falls sich bei Ihnen etwas ändert, melden Sie sich gern.',
-    nicht: du?`ich hab dich vorhin telefonisch nicht erreicht. Ich hab gesehen, ${duSatz(l)} – und hätte dazu eine kurze Idee. Passt dir ein kurzer Anruf diese Woche?`:`ich habe Sie vorhin telefonisch leider nicht erreicht. Ich habe gesehen, ${l.satzSie} – und hätte dazu eine kurze Idee. Passt Ihnen ein kurzer Anruf diese Woche?`,
-    falsch: du?'danke für die Info vorhin! Wer wäre bei euch die richtige Ansprechperson?':'danke für den Hinweis vorhin. Wer wäre bei Ihnen die richtige Ansprechperson?'}[o];
-  return {zusammenfassung:sum, naechster_schritt:next, mail_betreff: o==='termin'?'Unsere Demo am Donnerstag':o==='nicht'?`Kurze Idee für ${l.firma}`:`Unser Gespräch – ${s.firma}`, mail_text:`${g}\n\n${body}\n\n${du?'Liebe Grüße':'Beste Grüße'}\n${s.name}\n${s.firma}`};
+    nicht: du?`ich hab dich vorhin telefonisch nicht erreicht. Ich hab gesehen, ${duSatz(l)} – und hätte dazu eine kurze Idee. Passt dir ein kurzer Anruf diese Woche?`:`ich habe Sie vorhin telefonisch leider nicht erreicht. Ich habe gesehen, ${l.satzSie} – und hätte dazu eine kurze Idee. Passt Ihnen ein kurzer Anruf diese Woche?`}[o];
+  return {zusammenfassung:sum, naechster_schritt:next, mail_betreff: o==='termin'?`Unser Termin am ${when}`:o==='nicht'?`Kurze Idee für ${l.firma}`:`Unser Gespräch – ${s.firma}`, mail_text:`${g}\n\n${body}\n\n${du?'Liebe Grüße':'Beste Grüße'}\n${s.name}\n${s.firma}`};
 }
 async function aiWrap(){
-  W.notes = $('#wrap-notes').value;
+  readWrapInputs();
   if (!AI){ W.err='KI ist in dieser Ansicht nicht verfügbar – Griaßdi nutzt die Vorlage.'; renderWrap(); return; }
   W.busy=true; W.err=''; renderWrap();
   const l=lead(C.leadId), s=ctx(l);
   const transcript = C.lines.map(x=>(x.who==='du'?'Ich':'Kunde')+': '+x.text).join('\n') || '(nicht erreicht)';
   try{
-    const r = await AI.json(`Fasse ein Kaltakquise-Telefonat für das CRM zusammen und schreib eine Follow-up-Mail auf Deutsch, ${tone()}.
-Ich: ${s.name} von ${s.firma}, Produkt: ${s.produkt.name} – ${s.angebot}. Gesprächsziel: ${S.pitch.ziel}. Don'ts: ${S.pitch.donts.replace(/\n/g,'; ')}
+    const r = await AI.json(`Fasse ein Kaltakquise-Telefonat für das CRM zusammen und schreib die passende Mail auf Deutsch, ${tone()}. Ziel des Calls: Qualifizierung und Termin.
+Ich: ${s.name} von ${s.firma}, Produkt: ${s.produkt.name} – ${s.angebot}. Don'ts: ${S.pitch.donts.replace(/\n/g,'; ')}
 Lead: ${JSON.stringify(leadBrief(l))}
-Ergebnis: ${OUTLABEL[W.outcome]}
+Ergebnis: ${OUTLABEL[W.outcome]}${W.outcome==='termin'?' – '+W.termin.art+' am '+fmtDate(W.termin.date,W.termin.time)+', '+S.pitch.dauer+' Minuten':''}${W.outcome==='rueckruf'?' am '+fmtDate(W.rueckruf.date,W.rueckruf.time):''}${W.grund?' – Grund: '+W.grund:''}
+Qualifizierung: ${QUALI.map(([k,n])=>n+': '+(W.quali[k].ok?W.quali[k].v||'ja':'offen')).join('; ')}
 Meine Notiz: ${W.notes||'(keine)'}
 Gesprächsverlauf:
 ${transcript}
-Antworte nur mit JSON: {"zusammenfassung":"2-3 Sätze","naechster_schritt":"1 Satz","mail_betreff":"","mail_text":"Mail mit Anrede und Gruß, max. 90 Wörter, unterschrieben mit ${s.name}"}`, {cache:false});
+Antworte nur mit JSON: {"zusammenfassung":"2-3 Sätze inkl. Qualifizierung","naechster_schritt":"1 Satz","mail_betreff":"","mail_text":"Mail mit Anrede und Gruß, max. 90 Wörter, unterschrieben mit ${s.name}"}`, {cache:false});
     W.ai = {zusammenfassung:String(r.zusammenfassung||''), naechster_schritt:String(r.naechster_schritt||''), mail_betreff:String(r.mail_betreff||''), mail_text:String(r.mail_text||'')};
   }catch(e){ W.err = aiErr(e); }
   W.busy=false; renderWrap();
 }
 function saveWrap(){
-  W.notes = $('#wrap-notes').value;
-  const l=lead(C.leadId); const a = W.ai||tplWrap(l);
-  S.log.push({user:S.me, leadId:l.id, firma:l.firma, person:l.person, outcome:W.outcome, dur:C.dur||0, score:W.score, ratio:W.ratio, ts:Date.now(),
+  readWrapInputs();
+  const l=lead(C.leadId); const a = W.ai||tplWrap(l); const o=W.outcome;
+  const crm = S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi';
+  const qc=qualiCount(W.quali);
+  S.log.push({user:S.me, leadId:l.id, firma:l.firma, person:l.person, outcome:o, dur:C.dur||0, score:W.score, ratio:W.ratio, ts:Date.now(), quali:qc,
     summary:a.zusammenfassung, next:a.naechster_schritt, notes:W.notes, einwand: C.lines.some(x=>/keine Zeit/.test(x.text))?'Keine Zeit':null});
-  l.status = W.outcome;
+  l.status = o; l.quali = JSON.parse(JSON.stringify(W.quali));
+  const when=fmtDate(W.termin.date,W.termin.time), owner=S.team.find(x=>x.id===W.termin.owner)||me();
+  let acts=[];
+  if (o==='termin'){
+    const t={id:'t'+Date.now(), leadId:l.id, person:l.person, firma:l.firma, mail:W.termin.mail||l.mail, date:W.termin.date, time:W.termin.time, art:W.termin.art, owner:owner.id, by:S.me, status:'eingeladen', quali:JSON.parse(JSON.stringify(W.quali)), summary:a.zusammenfassung, persona:(ctx(l).gruppe||{}).ansprache||'', frame:{date:frameDate(W.termin.date),status:'offen'}};
+    S.termine.push(t); W.tid=t.id;
+    acts=[`Deal „${l.firma} – ${ctx(l).produkt.name}“ in ${crm} angelegt · Phase „Termin vereinbart“`, `Infos übergeben: Qualifizierung ${qc}/4, Notiz, Gesprächszusammenfassung`, `Outlook-Einladung an ${t.mail} gesendet – mit Teams-Link und Agenda`, `Frame-Call am ${fmtDate(t.frame.date)} in ${owner.id===S.me?'deiner':owner.vorname+'s'} Anrufliste`, owner.id===S.me?'Briefing für den Termin vorbereitet':`Übergabe-Briefing an ${owner.vorname} geschickt`];
+  } else if (o==='rueckruf'){
+    acts=[`Rückruf am ${fmtDate(W.rueckruf.date,W.rueckruf.time)} in deiner Anrufliste`, `Aufgabe in ${crm} angelegt`, `Qualifizierung ${qc}/4 gespeichert`];
+  } else if (o==='kein'){
+    acts=[`In ${crm} als „Kein Interesse${W.grund?' – '+W.grund:''}“ markiert`, `Sperrfrist ${S.leadCfg.sperrfrist} Tage – Griaßdi ruft nicht wieder an`];
+  } else {
+    acts=[`Neuer Versuch morgen, ${l.best}`, `Mail „Habe Sie nicht erreicht“ vorbereitet`];
+  }
+  W.step='done'; W.acts=acts; save(); renderWrap();
+}
+function renderWrapDone(l){
+  const m=$('#modal'); const o=W.outcome;
+  m.innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="done-h">
+    <div class="donehead">${mascot(56,true)}<h2 id="done-h">${o==='termin'?'Termin steht!':o==='rueckruf'?'Rückruf geplant':o==='kein'?'Abgehakt':'Kein Problem'}</h2>${o==='termin'?`<span class="note">${esc(l.person)} · ${esc(fmtDate(W.termin.date,W.termin.time))}</span>`:''}</div>
+    <p class="label" style="margin:0">Griaßdi hat erledigt</p>
+    <ul class="acts">${W.acts.map((x,i)=>`<li style="animation-delay:${i*0.25}s">${icon('check')}<span>${esc(x)}</span></li>`).join('')}</ul>
+    ${o==='termin'&&W.tid?(()=>{ const t=S.termine.find(x=>x.id===W.tid); const inv=inviteFor(t); return `
+      <details class="fold"><summary>Deal im CRM</summary><div class="foldbody"><table class="deal">${dealFor(t).map(([k,v])=>`<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table></div></details>
+      <details class="fold"><summary>Outlook-Einladung</summary><div class="foldbody"><table class="deal"><tr><th>An</th><td>${esc(inv.an)}</td></tr><tr><th>Betreff</th><td>${esc(inv.betreff)}</td></tr><tr><th>Ort</th><td>${esc(inv.ort)}</td></tr></table><div class="mail">${esc(inv.text)}</div></div></details>`; })():''}
+    <button class="btn wide" data-act="nextcall">Nächster Anruf ${icon('next')}</button>
+    <p class="note" style="margin:0;text-align:center">Demo: Kalender, Mail und CRM sind simuliert.</p></div>`;
+  m.hidden=false;
+}
+function nextAfterWrap(){
   const nxt = visibleLeads().find(x=>x.status==='offen');
   if (nxt) S.sel = nxt.id;
-  S.tab='recherche'; save();
-  $('#modal').hidden=true; C.status='idle'; C.covered={}; W=null;
-  toast(`Gespeichert und ins CRM übertragen (Demo)${nxt?' – weiter mit '+nxt.person:''}`);
-  render();
+  save(); $('#modal').hidden=true; C.status='idle'; C.covered={}; W=null; render();
+}
+
+/* ---------------- Deal, Einladung, Frame-Call ---------------- */
+function frameDate(iso,days){ if(days==null) days=+S.pitch.frameTage||2; const d=new Date(iso+'T12:00'); d.setDate(d.getDate()-days); if(d.getDay()===6) d.setDate(d.getDate()-1); if(d.getDay()===0) d.setDate(d.getDate()-2); return isoDate(d); }
+const todayIso = () => isoDate(new Date());
+function inviteFor(t){
+  const du=S.tone==='du', s=S.kb, l=lead(t.leadId)||{vorname:t.person.split(' ')[0],nachname:t.person.split(' ').slice(-1)[0],anrede:''};
+  const when=fmtDate(t.date,t.time);
+  const g = du?`Hallo ${l.vorname},`:(l.anrede?`Sehr geehrte${l.anrede==='Herr'?'r Herr':' Frau'} ${l.nachname},`:`Guten Tag ${t.person},`);
+  const body = du
+    ? `danke für das gute Gespräch! Hier die Einladung zu unserer ${t.art} am ${when} (${S.pitch.dauer} Minuten).\n\nAgenda:\n1. Kurz eure Situation – ${t.quali.bedarf&&t.quali.bedarf.ok?t.quali.bedarf.v:'wo es aktuell hakt'}\n2. Live-Demo, zugeschnitten auf euch\n3. Nächste Schritte\n\nWenn noch jemand dabei sein soll, leite die Einladung gern weiter.`
+    : `vielen Dank für das angenehme Gespräch. Anbei die Einladung zu unserer ${t.art} am ${when} (${S.pitch.dauer} Minuten).\n\nAgenda:\n1. Kurz Ihre Situation – ${t.quali.bedarf&&t.quali.bedarf.ok?t.quali.bedarf.v:'wo es aktuell hakt'}\n2. Live-Demo, zugeschnitten auf Sie\n3. Nächste Schritte\n\nWenn noch jemand dabei sein soll, leiten Sie die Einladung gern weiter.`;
+  const owner=S.team.find(x=>x.id===t.owner)||me();
+  return {an:t.mail, betreff:`${s.firma} × ${t.firma}: ${t.art} – ${when}`, ort: t.art==='Vor-Ort-Termin'?'Bei '+t.firma:t.art==='Telefontermin'?'Telefon':'Microsoft Teams (Link wird automatisch erzeugt)',
+    text:`${g}\n\n${body}\n\n${du?'Bis bald':'Beste Grüße'}\n${owner.vorname} ${owner.nachname}\n${s.firma}`};
+}
+function dealFor(t){
+  const l=lead(t.leadId); const p=l?ctx(l).produkt:S.products[0];
+  return [['Deal',`${t.firma} – ${p.name}`],['Phase','Termin vereinbart'],['Ansprechperson',`${t.person} · ${t.mail}`],['Termin',`${t.art}, ${fmtDate(t.date,t.time)}`],
+    ['Qualifizierung',QUALI.map(([k,n])=>n+(t.quali[k]&&t.quali[k].ok?' ✓':' –')).join(' · ')],
+    ...QUALI.filter(([k])=>t.quali[k]&&t.quali[k].ok&&t.quali[k].v).map(([k,n])=>[n,t.quali[k].v]),
+    ['Zusammenfassung',t.summary],['Frame-Call',fmtDate(t.frame.date)],['Quelle','Griaßdi Cold Call']];
+}
+const dueFrames = () => S.termine.filter(t=>t.frame && t.frame.status==='offen' && t.frame.date<=todayIso() && t.status!=='abgesagt' && (isLead()||t.owner===S.me||t.by===S.me));
+let F=null;
+function openFrame(id){
+  const t=S.termine.find(x=>x.id===id); if(!t) return;
+  const du=S.tone==='du', first=t.person.split(' ')[0];
+  F={id, result:'bestaetigt', date:t.date, time:t.time};
+  const when=fmtDate(t.date,t.time), wd=new Date(t.date+'T12:00').toLocaleDateString('de-AT',{weekday:'long'});
+  $('#modal').innerHTML = `<div class="sheet small" role="dialog" aria-modal="true" aria-labelledby="fr-h">
+    <div style="display:flex;align-items:center;gap:12px">${mascot(40)}<div><h2 id="fr-h">Frame-Call mit ${esc(first)}</h2><span class="note">${esc(t.firma)} · Termin ${esc(when)}</span></div><button class="x" data-act="closemodal" aria-label="Schließen">✕</button></div>
+    <div class="say big"><span class="label">Sag</span><p>${du?`Hallo ${esc(first)}, kurz wegen unserem Termin am ${esc(when)} – passt das bei dir noch?`:`Griaß Gott, ${esc(t.person)} – ich wollte kurz unseren Termin am ${esc(when)} bestätigen. Passt das bei Ihnen noch?`}</p></div>
+    <div class="say"><span class="label">Dann verbindlich machen</span><ul class="qlist2">
+      <li><span class="qtag">Dabei</span><span>${du?'Wer ist von euch noch dabei?':'Wer ist von Ihrer Seite noch dabei?'}</span></li>
+      <li><span class="qtag">Vorbereitung</span><span>${du?'Gibt es etwas, das ich mir vorher anschauen soll?':'Gibt es etwas, das ich vorbereiten soll – z. B. eure Zahlen oder Fragen?'}</span></li>
+      <li><span class="qtag">Zusage</span><span>${du?`Dann fix – ich freu mich, bis ${esc(wd)}!`:'Dann ist das fix – ich freue mich auf das Gespräch!'}</span></li></ul></div>
+    <div class="outs big">${[['bestaetigt','Bestätigt'],['verschoben','Verschoben'],['abgesagt','Abgesagt'],['nicht','Nicht erreicht']].map(([k,n])=>`<button class="out ${k==='bestaetigt'?'goal':''}" data-act="fres" data-v="${k}" aria-pressed="${F.result===k}">${n}</button>`).join('')}</div>
+    <div class="tbox" id="fr-new" hidden><b>Neuer Termin</b><div class="trow"><input type="date" id="fr-date" value="${t.date}" aria-label="Datum"><input type="time" id="fr-time" value="${t.time}" aria-label="Uhrzeit"></div></div>
+    <button class="btn wide" data-act="framesave">Speichern</button>
+    <p class="note" style="margin:0;text-align:center">${esc(t.mail)} · Demo: Es wird niemand angerufen.</p></div>`;
+  $('#modal').hidden=false;
+}
+function saveFrame(){
+  const t=S.termine.find(x=>x.id===F.id); if(!t) return;
+  const crm = S.apps.hubspot?'HubSpot':S.apps.pipedrive?'Pipedrive':S.apps.salesforce?'Salesforce':'Griaßdi';
+  let msg;
+  if (F.result==='bestaetigt'){ t.status='bestätigt'; t.frame.status='erledigt'; msg=`Termin bestätigt – Deal in ${crm} aktualisiert`; }
+  else if (F.result==='verschoben'){ t.date=$('#fr-date').value||t.date; t.time=$('#fr-time').value||t.time; t.status='eingeladen'; t.frame={date:frameDate(t.date),status:'offen'}; msg=`Verschoben auf ${fmtDate(t.date,t.time)} – neue Outlook-Einladung gesendet`; }
+  else if (F.result==='abgesagt'){ t.status='abgesagt'; t.frame.status='erledigt'; msg=`Abgesagt – Deal in ${crm} auf „Verloren“ gesetzt`; }
+  else { const d=new Date(); d.setDate(d.getDate()+1); t.frame.date=isoDate(d); msg='Nicht erreicht – Frame-Call morgen nochmal'; }
+  save(); $('#modal').hidden=true; F=null; toast(msg); render();
+}
+
+/* ---------------- Termine ---------------- */
+function seedTermine(){
+  const d1=nextWeekday(1), d2=nextWeekday(3);
+  return [
+    {id:'t1',leadId:null,person:'Martin Eder',firma:'Muster Druck GmbH',mail:'m.eder@muster-druck.at',date:isoDate(d1),time:'14:00',art:'Online-Demo',owner:'u1',by:'u2',status:'eingeladen',frame:{date:frameDate(isoDate(d1),2),status:'offen'},
+     quali:{bedarf:{v:'Stundenzettel aus 3 Schichten',ok:true},entscheider:{v:'Ja – Geschäftsführer',ok:true},zeitrahmen:{v:'Ab Jänner',ok:true},budget:{v:'',ok:false}},summary:'Interesse an Zeiterfassung für Schichtbetrieb. Will vorher wissen, ob BMD-Export geht.',persona:'Kurz und direkt, Anlass im ersten Satz.'},
+    {id:'t2',leadId:null,person:'Julia Brandner',firma:'Beispiel Reisen KG',mail:'j.brandner@beispiel-reisen.at',date:isoDate(d2),time:'09:30',art:'Online-Demo',owner:'u3',by:'u3',status:'eingeladen',frame:{date:frameDate(isoDate(d2),2),status:'offen'},
+     quali:{bedarf:{v:'Saisonkräfte im Sommer, Dienstplan per Excel',ok:true},entscheider:{v:'Entscheidet mit Inhaber',ok:true},zeitrahmen:{v:'Vor der Sommersaison',ok:true},budget:{v:'Budget vorhanden',ok:true}},summary:'Voll qualifiziert. Inhaber kommt zur Demo dazu.',persona:'Bodenständig, Beispiel aus der Branche nennen.'}
+  ];
+}
+function renderTermine(){
+  const list=(isLead()?S.termine:S.termine.filter(t=>t.owner===S.me||t.by===S.me)).slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  $('#view-termine').innerHTML = `<div class="page"><div class="tcards">${list.map(t=>{ const qc=qualiCount(t.quali); const ow=S.team.find(x=>x.id===t.owner)||{vorname:'?'}; const by=S.team.find(x=>x.id===t.by)||{vorname:'?'};
+    const d=new Date(t.date+'T'+t.time);
+    return `<div class="card tcard"><div class="tdate"><b class="num">${d.getDate()}</b><span>${d.toLocaleDateString('de-AT',{month:'short'})}</span><small class="num">${esc(t.time)}</small></div>
+      <div class="tmain"><div class="sig-h" style="gap:8px"><b style="flex:1;min-width:0">${esc(t.person)}</b><span class="pill ${t.status==='bestätigt'?'st-termin':t.status==='abgesagt'?'st-kein':'st-rueckruf'}">${t.status==='bestätigt'?'Bestätigt':t.status==='abgesagt'?'Abgesagt':'Eingeladen'}</span></div>
+        <div class="note">${esc(t.firma)} · ${esc(t.art)} · ${ow.id===S.me?'du führst':esc(ow.vorname)+' führt'}${t.by!==t.owner?' · gelegt von '+esc(by.vorname):''}</div>
+        <div class="qchips">${QUALI.map(([k,n])=>`<span class="${t.quali[k]&&t.quali[k].ok?'ok':''}">${n}</span>`).join('')}<span class="note">${qc}/4</span></div>
+        <details class="fold"><summary>Briefing</summary><div class="foldbody"><p style="margin:0">${esc(t.summary)}</p>
+          <ul class="list">${QUALI.map(([k,n])=>`<li><span class="bullet"></span><span><b>${n}:</b> ${esc(t.quali[k]&&t.quali[k].ok?t.quali[k].v||'ja':'noch offen – im Termin klären')}</span></li>`).join('')}</ul>
+          ${t.persona?`<div class="tipbox"><span class="label">So ansprechen</span><div>${esc(t.persona)}</div></div>`:''}</div></details>
+        ${t.frame?`<div class="framerow ${t.frame.status==='erledigt'?'ok':t.frame.date<=todayIso()?'due':''}">${icon(t.frame.status==='erledigt'?'check':'phone')}<span>Frame-Call ${t.frame.status==='erledigt'?'erledigt':(t.frame.date<=todayIso()?'heute fällig':'am '+esc(fmtDate(t.frame.date)))}</span>${t.frame.status!=='erledigt'&&t.status!=='abgesagt'?`<button class="btn sm ${t.frame.date<=todayIso()?'':'ghost'}" data-act="openframe" data-v="${t.id}">Frame-Call starten</button>`:''}</div>`:''}
+        <details class="fold"><summary>Outlook-Einladung</summary><div class="foldbody">${(()=>{ const inv=inviteFor(t); return `<table class="deal"><tr><th>An</th><td>${esc(inv.an)}</td></tr><tr><th>Betreff</th><td>${esc(inv.betreff)}</td></tr></table><div class="mail">${esc(inv.text)}</div>`; })()}</div></details></div></div>`; }).join('') || '<div class="card"><p class="note" style="margin:0">Noch keine Termine. Jeder Termin aus einem Anruf landet hier – mit Briefing.</p></div>'}</div></div>`;
 }
 
 /* ---------------- plans ---------------- */
@@ -1107,9 +1313,9 @@ function renderTracking(){
     <div class="kpis">
       <div class="kpi"><span class="label">Anrufe heute</span><b class="num">${today.length}</b><small>von ${S.leads.length} Leads</small></div>
       <div class="kpi"><span class="label">Erreicht</span><b class="num">${reached}</b><small>${today.length?Math.round(reached/today.length*100):0} % Erreichbarkeit</small></div>
-      <div class="kpi"><span class="label">Termine</span><b class="num" style="color:var(--good)">${termine}</b><small>${reached?Math.round(termine/reached*100):0} % der Gespräche</small></div>
+      <div class="kpi"><span class="label">Qualifiziert</span><b class="num">${today.filter(x=>(x.quali||0)>=3).length}</b><small>mind. 3 von 4 geklärt</small></div>
+      <div class="kpi goal"><span class="label">Termine</span><b class="num" style="color:var(--good)">${termine}</b><small>${reached?Math.round(termine/reached*100):0} % der Gespräche</small></div>
       <div class="kpi"><span class="label">Ø Pitch-Score</span><b class="num">${avg}</b><small>aus dem Live-Coaching</small></div>
-      <div class="kpi"><span class="label">Recherche gespart</span><b class="num">${Math.round(S.leads.length*6/60*10)/10} h</b><small>≈ 6 Min. pro Lead</small></div>
     </div>
     <div class="grid2">
       <div class="card"><h3>Anrufe, Gespräche, Termine</h3><div style="overflow-x:auto"><svg class="chart" viewBox="0 0 ${W_} ${H}" width="100%" style="min-width:420px" role="img" aria-label="Balkendiagramm der letzten fünf Arbeitstage">${grid}${bars}</svg></div>
@@ -1201,7 +1407,7 @@ function renderAdmin(){
     card.classList.toggle('closed', !open); h.tabIndex=0; h.setAttribute('role','button'); h.setAttribute('aria-expanded', open);
   });
 }
-const OPEN_CARDS=['Neue Leads pro Tag','So sieht deine nächste Lieferung aus','Verkaufsmethodik','Ansprache & Stil','Einstieg','Firmenprofil','Was euch besonders macht','Telefonie','Team','Mein Profil','Meine Leads','Mein Stil','Einwand vorschlagen','Meine Telefonie'];
+const OPEN_CARDS=['Gesprächsziel','Neue Leads pro Tag','So sieht deine nächste Lieferung aus','Verkaufsmethodik','Ansprache & Stil','Einstieg','Firmenprofil','Was euch besonders macht','Telefonie','Team','Mein Profil','Meine Leads','Mein Stil','Einwand vorschlagen','Meine Telefonie'];
 const CARD_OPEN={};
 
 /* Lead-Zufuhr */
@@ -1461,7 +1667,10 @@ function adminPitch(){
     </div></div>
     <div class="card"><h3>Gesprächsziel</h3><div class="rows">
       <div class="srow"><span>Ziel des Anrufs</span>${fSeg(P+'.ziel',[['demo','Demo'],['termin','Vor-Ort-Termin'],['rueckruf','Rückruf']])}</div>
-      <div class="form">${fText('Dauer des Termins (Minuten)',P+'.dauer',{type:'number',num:true,min:5,max:90})}${fText('Terminvorschläge',P+'.slots',{ph:'Donnerstag um 10 oder Freitag um 9'})}</div>
+      <div class="form">${fText('Dauer des Termins (Minuten)',P+'.dauer',{type:'number',num:true,min:5,max:90})}${fText('Terminvorschläge',P+'.slots',{ph:'Donnerstag um 10 oder Freitag um 9'})}
+        <div class="field full"><label>Termine führt</label><select data-bind="${P}.terminOwner" aria-label="Termine führt"><option value="self" ${(S.pitch.terminOwner||'self')==='self'?'selected':''}>Wer den Termin legt</option>${S.team.filter(m=>m.status==='aktiv').map(m=>`<option value="${m.id}" ${S.pitch.terminOwner===m.id?'selected':''}>Immer ${esc(m.vorname)} (Closer)</option>`).join('')}</select></div></div>
+      <div class="form">${fText('Frame-Call: Tage vor dem Termin',P+'.frameTage',{type:'number',num:true,min:1,max:7})}</div>
+      <div class="field"><label>Qualifizierung vor dem Termin</label><div class="icp">${QUALI.map(([k,n])=>`<span>${n}</span>`).join('')}</div></div>
     </div></div></div>
     <div class="card"><h3>Einstieg</h3>
       <div class="form">${fArea('Vorlage für den ersten Satz',P+'.opener',{rows:3})}</div>
@@ -1658,11 +1867,18 @@ document.addEventListener('click', e=>{
     case 'call': startCall(); break;
     case 'hangup': hangup(); break;
     case 'reopenwrap': if (W) renderWrap(); else openWrap(false); break;
-    case 'outcome': W.notes=$('#wrap-notes').value; W.outcome=v; if(W.ai) W.ai=null; renderWrap(); break;
+    case 'outcome': readWrapInputs(); W.outcome=v; if(W.ai) W.ai=null; renderWrap(); break;
+    case 'qtoggle': readWrapInputs(); W.quali[v].ok=!W.quali[v].ok; if(W.ai) W.ai=null; renderWrap(); break;
+    case 'grund': readWrapInputs(); W.grund=v; renderWrap(); break;
+    case 'nextcall': nextAfterWrap(); break;
+    case 'openframe': if (C.status!=='idle'){ toast('Erst das laufende Gespräch beenden'); break; } openFrame(v); break;
+    case 'fres': F.result=v; a.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b===a)); $('#fr-new').hidden = v!=='verschoben'; break;
+    case 'framesave': saveFrame(); break;
+    case 'tconfirm': { const t=S.termine.find(x=>x.id===v); if(t){ t.status='bestätigt'; save(); renderTermine(); toast('Termin bestätigt'); } break; }
     case 'aiwrap': W._open=true; aiWrap(); break;
     case 'copymail': copyText($('#mailtext').innerText); break;
     case 'savewrap': saveWrap(); break;
-    case 'closewrap': $('#modal').hidden=true; break;
+    case 'closewrap': if (W && W.step==='done') nextAfterWrap(); else $('#modal').hidden=true; break;
     case 'closemodal': $('#modal').hidden=true; break;
     case 'plans': openPlans(); break;
     case 'setplan': S.plan=v; save(); $('#modal').hidden=true; toast((v==='pro'?'Pro':'Premium')+' aktiviert (Demo)'); render(); break;
